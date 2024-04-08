@@ -1,0 +1,121 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", sans-serif;
+}
+
+.bg {
+  background-color: #183e85;
+}
+
+.logo {
+  width: 90px;
+  height: 90px;
+  background-image: url("logo2.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  /* margin:  ; top right bottom left */
+}
+
+.login-form {
+  margin-left: -15px;
+  padding: 30px;
+  width: 450px;
+  height: 695px;
+  overflow-y: hidden;
+  /* box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.5); */
+}
+
+.login-button {
+  width: 100%;
+  padding: 7px;
+  border: none;
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #00b4d8;
+  border-radius: 5px;
+}
+
+.login-button:hover {
+  background-color: #90edef;
+  transition: 0.3s;
+}
+
+.content {
+  overflow-y: auto;
+  flex-grow: 1;
+  height: 695px;
+}
+.subContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.undraw {
+  background-image: url("login.svg");
+  overflow-y: auto;
+  background-position: center;
+  background-size: 500px;
+  height: 500px;
+  width: 500px;
+  background-repeat: no-repeat;
+}
+.aboutUsContent {
+  width: 300px;
+  font-size: large;
+}
+.forgot-password {
+  color: #90edef;
+  text-decoration: none;
+}
+.registerContainer {
+  display: flex;
+  align-items: start;
+  justify-content: start;
+}
+.forgot-password:hover {
+  color: #71b4b5;
+}
+
+/* Media query for screens smaller than 600px (typical mobile screens) */
+@media screen and (max-width: 700px) {
+  .registerContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .login-form {
+    width: 100%;
+    margin: 20px;
+    box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.5);
+
+    border-radius: 5px;
+    height: 720px; /* Adjust width for smaller screens */
+  }
+
+  .login-button {
+    margin-top: 50px;
+  }
+
+  .undraw {
+    background-size: 400px;
+    height: 350px;
+    width: 400px;
+  }
+  .subContent {
+    margin-top: 50px;
+    display: block;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .aboutUsContent {
+    width: 100%;
+  }
+}
