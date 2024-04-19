@@ -5,73 +5,29 @@
   padding: 0;
   font-family: "Montserrat", sans-serif;
 }
-.searchInput {
-  border-radius: 5px;
-  padding: 4px;
-  width: 400px;
-}
-.searchIcon {
-  position: absolute;
-  top: 50px;
-  left: 320px;
-}
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
 .navBar {
   background-color: #008dda;
   border-radius: 10px;
 }
-.loading {
-  position: absolute;
-  float: left;
-  left: 40%;
-  width: 50px;
-  height: 50px;
-  top: 40%;
-}
-.registerBtn {
-  background-color: #41c9e2;
-  border-radius: 5px;
-  border: none;
-  padding: 7px;
-}
-.registerBtn:hover {
-  background-color: #ace2e1;
-  transition: 0.3s;
-}
 .book-list-container {
-  border-radius: 10px;
+  height: 580px;
   box-shadow: 2px 2px 5px 2px rgba(65, 64, 64, 0.5);
-}
-
-.book-list-container .table-div {
   border-radius: 10px;
   overflow-y: auto;
+  display: flex;
+  gap: 20px;
+}
+
+.book-list-container .div .table-div {
   border-radius: 10px;
+  overflow-y: auto;
 }
 .accounts-table thead tr th {
-  background-color: #41c9e2;
+  background-color: #001f41;
   color: #ffffff;
-}
-.full-width {
-  width: 100%;
-}
-.add-account {
-  color: #41c9e2;
-}
-.add-account:hover {
-  color: #008dda;
-  cursor: pointer;
-}
-.deactivate-account {
-  color: red;
-}
-.deactivate-account:hover {
-  color: rgb(185, 0, 0);
-  cursor: pointer;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: lighter;
 }
 
 .logo {

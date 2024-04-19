@@ -6,8 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule; // Import Rule class for validation
 use Illuminate\Support\Facades\Validator; // Import Validator class for validation
 use App\Models\User;
+use Illuminate\Http\Response;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use App\Models\PasswordReset;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -135,6 +139,32 @@ class UserController extends Controller
             'message' => 'User Deleted Successfully',
         ]);
     }
+    public function deactivate(Request $request, string $id)
+{
+    // Find the user by ID
+    $user = $this->user->findOrFail($id);
+
+    // Check if the user was found
+    if ($user) {
+        // Toggle the user's status
+        $user->status = $user->status === "Activate" ? "Deactivate" : "Activate";
+
+        // Save the updated user
+        $user->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'User ' . ($user->status === "Activate" ? 'Activated' : 'Deactivated') . ' Successfully!',
+            'data' => $user,
+        ]);
+    }
+
+    // If the user was not found, return a 404 response
+    return response()->json([
+        'success' => false,
+        'message' => 'User not found',
+    ], 404);
+}
 
     public function login(Request $request) {
         $credentials = $request->only('email', 'password');
@@ -175,5 +205,56 @@ class UserController extends Controller
         $response['message'] = 'Login Successfully';
         return response()->json($response);
     }
-    
+    public function sendResetLinkEmail(Request $request)
+    {
+        $request->validate(['email' => 'required|email']);
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return response()->json(['message' => 'Email not found'], 404);
+        }
+
+        $token = Str::random(60);
+
+        PasswordReset::updateOrCreate(
+            ['email' => $user->email],
+            ['token' => $token]
+        );
+
+        Mail::send('email.password_reset_tokens', ['token' => $token], function ($message) use ($user) {
+            $message->to($user->email)->subject('Reset Password');
+        });
+
+        return response()->json(['message' => 'Password reset link sent'], 200);
     }
+    public function resetPassword(Request $request, $token)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:8',
+            'token' => 'required'
+        ]);
+
+        $passwordReset = PasswordReset::where('email', $request->email)
+            ->where('token', $request->token)
+            ->first();
+
+        if (!$passwordReset) {
+            return response()->json(['message' => 'Invalid token'], 404);
+        }
+
+        $user = User::where('email', $passwordReset->email)->first();
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        $user->update(['password' => bcrypt($request->password)]);
+
+        $passwordReset->delete();
+
+        return response()->json(['message' => 'Password reset successfully'], 200);
+    }
+    }
+
