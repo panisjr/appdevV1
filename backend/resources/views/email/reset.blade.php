@@ -6,9 +6,11 @@
     <title>Password Reset</title>
 </head>
 <body>
-    <p>Hello,{{$name}}</p>
+    <p>Hello, {{$name}}</p>
     <p>You are receiving this email because we received a request to reset your password.</p>
     <p>Click the following link to reset your password:</p>
+    <a href="{{ route('password.reset', ['token' => $token]) }}">Reset Password</a>
+
     <p>If you did not request a password reset, no further action is required.</p>
     <p>Thank you!</p>
 </body>

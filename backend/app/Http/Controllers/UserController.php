@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Email;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule; // Import Rule class for validation
 use Illuminate\Support\Facades\Validator; // Import Validator class for validation
@@ -10,6 +11,7 @@ use Illuminate\Http\Response;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Models\PasswordReset;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
@@ -217,44 +219,34 @@ class UserController extends Controller
 
         $token = Str::random(60);
 
-        PasswordReset::updateOrCreate(
-            ['email' => $user->email],
-            ['token' => $token]
-        );
+        // Save the token to the user record
+        $user->reset_token = $token;
+        $user->save();
 
-        Mail::send('email.password_reset_tokens', ['token' => $token], function ($message) use ($user) {
-            $message->to($user->email)->subject('Reset Password');
-        });
+        // Send email with reset link and user's name
+    Mail::to($user->email)->send(new Email($user->name, $token));
 
         return response()->json(['message' => 'Password reset link sent'], 200);
     }
     public function resetPassword(Request $request, $token)
     {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|min:8',
-            'token' => 'required'
-        ]);
-
-        $passwordReset = PasswordReset::where('email', $request->email)
-            ->where('token', $request->token)
-            ->first();
-
-        if (!$passwordReset) {
-            return response()->json(['message' => 'Invalid token'], 404);
-        }
-
-        $user = User::where('email', $passwordReset->email)->first();
+        // Find the user by token (assuming you store the token in the database)
+        $user = User::where('remember_token', $token)->first();
 
         if (!$user) {
-            return response()->json(['message' => 'User not found'], 404);
+            return response()->json(['message' => 'Invalid or expired token'], 400);
         }
 
-        $user->update(['password' => bcrypt($request->password)]);
+        // Update the user's password
+        $user->password = Hash::make($request->input('newPassword'));
+        $user->save();
 
-        $passwordReset->delete();
+        // Clear the reset token
+        $user->reset_token = null;
+        $user->save();
 
         return response()->json(['message' => 'Password reset successfully'], 200);
     }
+   
     }
 

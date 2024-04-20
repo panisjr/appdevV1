@@ -114,6 +114,7 @@
           <div class="modal-body">
             <form (ngSubmit)="forgotPassword()">
             <div class="forgotIcon"></div>
+            
               <p class="text-center p-3">Enter a valid email to receive instruction on how to reset your password.</p>
               <div class="input-group mb-3">
 
@@ -127,6 +128,13 @@
                   required
                 />
               </div>
+              <div
+              *ngIf="loading"
+              class="spinner-border loading text-dark"
+              role="status"
+            >
+              <span class="visually-hidden">Loading...</span>
+            </div>
               <div class="modal-footer">
                 <button
                   type="button"

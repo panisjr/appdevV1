@@ -89,10 +89,10 @@ private backend: BackendService
   }
 
   forgotPassword() {
+    this.loading = true;
     const data = {
       email: this.forgotEmail
     }
-    this.loading = true;
     this.backend.sendPasswordResetLink(data).subscribe(
       () => {
         this.loading = false;

@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Mail\Email;
+use Illuminate\Support\Facades\Mail;
 /*
 |--------------------------------------------------------------------------
 | API Routes
