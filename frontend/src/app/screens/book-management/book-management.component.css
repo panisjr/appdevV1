@@ -11,7 +11,20 @@
     padding: 4px;
     width: 400px;
 }
-
+.book-list-container {
+    border-radius: 10px;
+    width: 1020px;
+  }
+  
+.book-list-container .table-div {
+    border-radius: 10px;
+    height: 490px;
+    overflow-y: auto;
+    border-radius: 10px;
+    }
+.modal-dialog-centered{
+    margin-left: 400px;
+  }
 .searchIcon {
     position: absolute;
     top: 50px;

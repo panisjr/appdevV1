@@ -16,7 +16,9 @@
   display: flex;
   gap: 20px;
 }
-
+.modal-dialog-centered{
+  margin-left: 400px;
+}
 .book-list-container .div .table-div {
   border-radius: 10px;
   overflow-y: auto;

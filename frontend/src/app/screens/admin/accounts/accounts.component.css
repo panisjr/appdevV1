@@ -5,6 +5,9 @@
   padding: 0;
   font-family: "Montserrat", sans-serif;
 }
+.modal-dialog-centered{
+  margin-left: 400px;
+}
 .searchInput {
   border-radius: 5px;
   padding: 4px;
@@ -33,13 +36,13 @@ input[type="number"]::-webkit-outer-spin-button {
   top: 50%;
 }
 .registerBtn {
-  background-color: #41c9e2;
+  background-color: #008dda;
   border-radius: 5px;
   border: none;
   padding: 7px;
 }
 .registerBtn:hover {
-  background-color: #ace2e1;
+  background-color: #41c9e2;
   transition: 0.3s;
 }
 .book-list-container {
@@ -61,16 +64,15 @@ input[type="number"]::-webkit-outer-spin-button {
   width: 100%;
 }
 .add-account {
-  background-color: #41c9e2;
+  background-color: #008dda;
   border-radius: 5px;
   padding: 5px;
   color: white;
 }
 .add-account:hover {
-  border: 1px solid #008dda ;
+  background-color:  #41c9e2 ;
   border-radius: 5px;
   padding: 5px;
-  color: #008dda;
   cursor: pointer;
 }
 .deactivate-account {

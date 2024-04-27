@@ -12,6 +12,9 @@ declare var $: any;
 })
 export class BookManagementComponent implements OnInit, OnDestroy {
   books: Book[] = [];
+  loading: boolean = false;
+  errorMessage: string | null = null;
+  successMessage: string | null = null;
   book: Book = {
     id: null,
     title: '',
@@ -52,6 +55,10 @@ export class BookManagementComponent implements OnInit, OnDestroy {
     });
   }
 
+  logout() {
+    localStorage.removeItem('jwt_token');
+    this.router.navigate(['/login']);
+  }
   createBook(): void {
     if (this.isEditMode) {
       this.serverService.updateBook(this.book.id!, this.book).subscribe(() => {

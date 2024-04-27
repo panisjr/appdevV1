@@ -77,7 +77,8 @@ export class AccountsComponent implements OnInit {
             render: function (data, type, row) {
               return `
               <div class="btn-group dropstart">
-  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+  <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
+  <i class="bi bi-three-dots-vertical"></i>
   </button>
   <ul class="dropdown-menu">
     <!-- Dropdown menu links -->
