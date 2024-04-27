@@ -1,0 +1,168 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Montserrat", sans-serif;
+}
+
+.searchInput {
+    border-radius: 5px;
+    padding: 4px;
+    width: 400px;
+}
+
+.searchIcon {
+    position: absolute;
+    top: 50px;
+    left: 320px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.navBar {
+    background-color: #008dda;
+    border-radius: 10px;
+}
+
+.loading {
+    position: absolute;
+    float: left;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    top: 50%;
+}
+
+.registerBtn {
+    background-color: #41c9e2;
+    border-radius: 5px;
+    border: none;
+    padding: 7px;
+}
+
+.registerBtn:hover {
+    background-color: #ace2e1;
+    transition: 0.3s;
+}
+
+.book-list-container {
+    border-radius: 10px;
+    width: 1020px;
+}
+
+.book-list-container .table-div {
+    border-radius: 10px;
+    height: 490px;
+    overflow-y: auto;
+    border-radius: 10px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.logo {
+    width: 60px;
+    height: 80px;
+    background-image: url("logo2.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.selection {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+}
+
+.navBtn {
+    color: white;
+}
+
+.navBtn:hover {
+    background-color: white;
+    border-radius: 5px;
+    color: #008dda;
+    font-weight: bold;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.navBtn.active {
+    background-color: white;
+    border-radius: 5px;
+    color: #008dda;
+    font-weight: bold;
+}
+
+/* Table Styles */
+.container {
+    margin: 20px auto;
+    width: 80%;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.table th {
+    background-color: #f2f2f2;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Form Styles */
+form {
+    margin: 20px auto;
+    width: 100%;
+    max-width: 400px;
+}
+
+form div {
+    margin-bottom: 10px;
+}
+
+form label {
+    display: inline-block;
+    width: 100px;
+}
+
+form input[type="text"],
+form input[type="date"],
+form input[type="number"] {
+    width: calc(100% - 120px);
+    padding: 5px;
+}
+
+form button[type="submit"] {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+form button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+form button[type="submit"]:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}

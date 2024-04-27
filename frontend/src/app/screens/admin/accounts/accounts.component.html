@@ -13,22 +13,19 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
-    <!-- Include DataTables CSS -->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"
-    />
-    <!-- Include DataTables JS -->
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <!-- Include DataTables CSS -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+  <!-- Include DataTables JS -->
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
   </head>
   <body>
     <div class="container-fluid">
-      <div class="row vh-100 p-3 full-width">
+      <div class="row vh-100 p-3 ">
         <div class="col-lg-2 col-md-4 col-sm-12 me-4 navBar">
           <div class="d-flex align-items-center justify-content-center p-3">
             <div class="logo"></div>
-            <h5 class="text-center text-white pt-3">ReadEase.</h5>
+            <h4 class="text-center text-white pt-3">ReadEase.</h4>
           </div>
 
           <nav class="selection mt-5 ms-4">
@@ -69,6 +66,7 @@
             <div
               class="navBtn mb-2 d-flex align-items-center justify-content-center"
               routerLinkActive="active"
+              routerLink="/books"
               [routerLinkActiveOptions]="{ exact: true }"
             >
               <span class="material-symbols-outlined"> inventory_2 </span>
@@ -86,42 +84,30 @@
           </div>
         </div>
         <div class="col-lg-9 col-md-8 col-sm-12 p-3 book-list-container">
+          <div
+                  *ngIf="loading"
+                  class="spinner-border loading text-dark"
+                  role="status"
+                >
+                  <span class="visually-hidden">Loading...</span>
+                </div>
           <div>
-            <div class="d-flex align-items-center justify-content-between">
-              <div class="searchInput m-2">
-                <span class="material-symbols-outlined searchIcon">
-                  search
-                </span>
-                <input
-                  type="text"
-                  class="search-input searchInput ps-5"
-                  name="search"
-                  placeholder="Search . . . "
-                />
-              </div>
-              <div class="d-flex align-items-center justify-content-center">
-                <h6
-                  class="add-account"
+            <div class="mb-4 d-flex align-items-center justify-content-between">
+
+                <h4>User Management</h4>
+                <button
+                  class="add-account btn ms-4"
                   data-bs-toggle="modal"
                   data-bs-target="#addAccount"
                 >
                   Add Account
-                </h6>
-                <p class="ms-3 me-3">|</p>
-                <h6
-                  class="deactivate-account"
-                  data-bs-toggle="modal"
-                  data-bs-target="#logoutStaticBackdrop"
-                >
-                  Deactivate Accounts
-                </h6>
-              </div>
+                </button>               
             </div>
           </div>
 
           <div class="table-div">
-            <table id="datatable" class="display" class="table">
-              <thead>
+              <table id="accounts" class="table table-striped">
+              <!-- <thead>
                 <tr>
                   <th>Name</th>
                   <th>Email</th>
@@ -129,13 +115,13 @@
                   <th>Role</th>
                   <th>Status</th>
                   <th></th>
-                  <!-- Add more table headers as needed -->
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let account of accounts">
                   <td>
-                    {{ account.firstname }} {{ account.middlename }}
+                    {{ account.firstname }}
+                    {{ account.middlename }}
                     {{ account.lastname }}
                   </td>
                   <td>{{ account.email }}</td>
@@ -163,13 +149,12 @@
         (click)="deactivate(account.id)" 
         [class.btn-success]="account.status === 'Deactivate'" 
         [class.btn-danger]="account.status === 'Activate'">
-  {{ account.status === 'Activate' ? 'Deactivate' : 'Activate' }}
+  {{ account.status === 'Deactivate' ? 'Activate' : 'Deactivate' }}
 </button>
 
                   </td>
-                  <!-- Add more table cells for additional account properties -->
                 </tr>
-              </tbody>
+              </tbody> -->
             </table>
           </div>
         </div>
@@ -186,7 +171,7 @@
       aria-labelledby="addAccount"
       aria-hidden="true"
     >
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="addAccount">Add Account</h1>
@@ -289,13 +274,7 @@
                 <button class="registerBtn text-white m-3" type="submit">
                   Register
                 </button>
-                <div
-                  *ngIf="loading"
-                  class="spinner-border loading text-dark"
-                  role="status"
-                >
-                  <span class="visually-hidden">Loading...</span>
-                </div>
+                
                 <button
                   type="button"
                   class="btn btn-secondary"
@@ -320,12 +299,20 @@
       aria-labelledby="editAccountModal"
       aria-hidden="true"
     >
-      <div class="modal-dialog">
+    <div class="modal-dialog modal-dialgo-centered">
+   
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="editAccountModal">Edit Account</h1>
           </div>
           <div class="modal-body">
+            <div
+            *ngIf="loading"
+                  class="spinner-border loading text-dark"
+                  role="status"
+                >
+                  <span class="visually-hidden">Loading...</span>
+                </div>
             <form (ngSubmit)="updateUser(id)" class="login-form">
               <div class="input-group">
                 <input
@@ -345,7 +332,7 @@
                   name="middlename"
                   [(ngModel)]="middlename"
                   id="middlename"
-                  placeholder="Middle Initial"
+                  placeholder="Middle Initial (Optional)"
                   required
                 />
               </div>
@@ -402,13 +389,7 @@
                 <button class="btn btn-success text-white m-3" type="submit">
                   Update
                 </button>
-                <div
-                  *ngIf="loading"
-                  class="spinner-border loading text-dark"
-                  role="status"
-                >
-                  <span class="visually-hidden">Loading...</span>
-                </div>
+              
                 <button
                   type="button"
                   class="btn btn-secondary"
@@ -432,7 +413,7 @@
       aria-modal="true"
       style="display: block; background: rgba(0, 0, 0, 0.5)"
     >
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5 text-danger" id="errorModalMessage">
@@ -452,14 +433,13 @@
     </div>
     <!-- Success Message -->
     <div
-      class="modal fade show"
+      class="modal fade"
       *ngIf="successMessage"
       tabindex="-1"
       aria-labelledby="successMessage"
       aria-modal="true"
-      style="display: block; background: rgba(0, 0, 0, 0.5)"
     >
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5 text-success" id="successMessage">
@@ -487,7 +467,7 @@
       aria-labelledby="logout"
       aria-hidden="true"
     >
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="logout">Logout Confirmation</h1>
@@ -524,7 +504,7 @@
       aria-labelledby="deleteAccountModal"
       aria-hidden="true"
     >
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="deleteAccountModal">

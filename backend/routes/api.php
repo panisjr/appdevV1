@@ -3,8 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BookController;
 use App\Mail\Email;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\BorrowerController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -30,3 +33,6 @@ Route::get('reset-password/{token}', [UserController::class, 'resetPassword'])->
 Route::get('/getUsers', [UserController::class, 'getUsers']);
 Route::delete('/deleteUser/{id}', [UserController::class, 'deleteUser']);
 Route::put('/updateUser/{id}', [UserController::class, 'updateUser']);
+Route::resource('books', BookController::class);
+Route::post('/borrow', [BorrowerController::class, 'borrowBook']);
+

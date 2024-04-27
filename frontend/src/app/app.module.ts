@@ -17,7 +17,8 @@ import { RegisterComponent } from './screens/register/register.component';
 import { AccountsComponent } from './screens/admin/accounts/accounts.component';
 import { BackendService } from './service/backend.service';
 import { ResetPasswordComponent } from './screens/login/reset-password/reset-password.component';
-
+import { DataTablesModule } from 'angular-datatables';
+import { BookManagementComponent } from './screens/book-management/book-management.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,12 +29,14 @@ import { ResetPasswordComponent } from './screens/login/reset-password/reset-pas
     RegisterComponent,
     AccountsComponent,
     ResetPasswordComponent,
+    BookManagementComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    DataTablesModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => localStorage.getItem('jwt_token'),
