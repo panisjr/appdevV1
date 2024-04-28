@@ -33,7 +33,7 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'firstname' => 'required|regex:/^[a-zA-Z\s\-\.]+$/|max:255',
-            'middlename' => 'required|regex:/^[a-zA-Z\s\-\.]+$/|max:255',
+            'middlename' => 'nullable|regex:/^[a-zA-Z\.]*$/|max:255',
             'lastname' => 'required|regex:/^[a-zA-Z\s\-\.]+$/|max:255',
             'email' => 'required|email|unique:users,email|max:255',
             'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/', 
@@ -85,7 +85,7 @@ class UserController extends Controller
 
         $validator = Validator::make($request->all(), [
             'firstname' => 'required|regex:/^[a-zA-Z\s\-\.]+$/|max:255',
-            'middlename' => 'required|regex:/^[a-zA-Z\s\-\.]+$/|max:255',
+            'middlename' => 'nullable|regex:/^[a-zA-Z\.]*$/|max:255',
             'lastname' => 'required|regex:/^[a-zA-Z\s\-\.]+$/|max:255',
             'email' => [
                 'required',
@@ -118,7 +118,7 @@ class UserController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'User updated successfully',
+            'message' => 'User Updated successfully',
             'data' => $user,
         ]);
     }

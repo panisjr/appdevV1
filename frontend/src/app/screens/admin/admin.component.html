@@ -7,115 +7,62 @@
             <h4 class="text-center text-white pt-3">ReadEase.</h4>
           </div>
 
-          <nav class="selection mt-5 ms-4">
+          <nav class="selection text-center mt-5">
             <div
-              class="navBtn mb-2 d-flex align-items-center justify-content-center"
+              class="navBtn mb-4 d-flex align-items-center justify-content-center"
               routerLinkActive="active"
               routerLink="/adminDashboard"
               [routerLinkActiveOptions]="{ exact: true }"
             >
             <h3 class="bi bi-house"></h3>
-              <p class="m-2">Dashboard</p>
+              <p class="ms-4 p-2">Dashboard</p>
             </div>
             <div
-              class="navBtn mb-2 d-flex align-items-center justify-content-center"
+              class="navBtn mb-4 d-flex align-items-center justify-content-center"
               routerLink="/accounts"
             >
             <h3 class="bi bi-person-gear"></h3>
-            
-              <p class="m-2">Accounts</p>
+              <p class="ms-4 p-2">Accounts</p>
             </div>
             <div
-              class="navBtn mb-2 d-flex align-items-center justify-content-center"
+              class="navBtn mb-4 d-flex align-items-center justify-content-center"
             >
             <h3 class="bi bi-book"></h3>
-              <p class="m-2">Logs</p>
+              <p class="ms-4 p-2">Logs</p>
             </div>
             <div
-              class="navBtn mb-2 d-flex align-items-center justify-content-center"
+              class="navBtn mb-4 d-flex align-items-center justify-content-center"
             >
             <h3 class="bi bi-receipt"></h3>
-              <p class="m-2">Transactions</p>
+              <p class="ms-4 p-2">Transactions</p>
             </div>
             <div
-              class="navBtn mb-2 d-flex align-items-center justify-content-center"
+              class="navBtn mb-4 d-flex align-items-center justify-content-center"
               routerLink="/books"
             >
             <h3 class="bi bi-bookshelf"></h3>
-              <p class="m-2">Inventory</p>
+              <p class="ms-4 p-2">Inventory</p>
+            </div>
+            <div
+            class="navBtn mb-4 d-flex align-items-center justify-content-center"
+            
+            >
+            <h3 class="bi bi-box-arrow-left"></h3>
+              <p
+                class="ms-4 p-2"
+                data-bs-toggle="modal"
+                data-bs-target="#logoutModal"
+              >
+                Logout
+              </p>
             </div>
           </nav>
 
-          <div class="d-flex align-items-center justify-content-center">
-            <button
-              class="btn p-2 btn-danger mt-5"
-              data-bs-toggle="modal"
-              data-bs-target="#logoutStaticBackdrop"
-            >
-              Logout
-            </button>
-          </div>
         </div>
-        <div class="col-lg-9 col-md-8 col-sm-12 book-list-container">
-          <div class="div transactions-div">
-            <label>Transactions</label>
-
-            <div class="table-div table-responsive">
-              <table class="accounts-table table table-striped">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Payment Status</th>
-                    <th>Date and Time</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Yami Sukehiro</td>
-                    <td>Paid</td>
-                    <td>January 1, 2024 9:00 AM</td>
-                  </tr>
-                  <tr>
-                    <td>Jules Barba</td>
-                    <td>Paid</td>
-                    <td>January 1, 2024 9:00 AM</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <a class="bot-link" href="#">View all >></a>
-          </div>
-
-          <div class="div logs-div">
-            <label>Logs</label>
-
-            <div class="table-div table-responsive">
-              <table class="accounts-table table table-striped">
-                <thead>
-                  <tr>
-                    <th>&nbsp;</th>
-                    <th>&nbsp;</th>
-                    <th>&nbsp;</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Yami Sukehiro</td>
-                    <td>Returned Book</td>
-                    <td>January 1, 2024 9:00 AM</td>
-                  </tr>
-                  <tr>
-                    <td>Admin</td>
-                    <td>Paid</td>
-                    <td>January 1, 2024 9:00 AM</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <a class="bot-link" href="#">View all >></a>
-          </div>
+        <div class="col-lg-9 col-md-8 col-sm-12 book-list-container p-3">
+       <div>
+        <h5>Welcome Back, Ramel</h5>
+       </div>
         </div>
       </div>
     </div>
@@ -123,7 +70,7 @@
     <!-- Logout Modal -->
     <div
       class="modal fade"
-      id="logoutStaticBackdrop"
+      id="logoutModal"
       data-bs-backdrop="static"
       data-bs-keyboard="false"
       tabindex="-1"
@@ -133,16 +80,16 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content p-3">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">
+            <h1 class="modal-title p-3 fs-5" id="staticBackdropLabel">
               Logout Confirmation
             </h1>
           </div>
           <div class="modal-body p-2">
-            <p class="text-black m-2">Are you sure you want to logout?</p>
-            <div class="modal-footer p-2">
+            <p class="text-black m-3">Are you sure you want to logout?</p>
+            <div class="modal-footer pt-3">
               <button
                 type="button"
-                class="btn me-2 p-2 btn-secondary"
+                class="btn p-2 me-3 btn-secondary"
                 data-bs-dismiss="modal"
               >
                 No

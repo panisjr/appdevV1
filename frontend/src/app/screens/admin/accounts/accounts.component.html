@@ -7,64 +7,58 @@
             <h4 class="text-center text-white pt-3">ReadEase.</h4>
           </div>
 
-          <nav class="selection mt-5 ms-4">
+          <nav class="selection text-center mt-5">
             <div
-              class="navBtn mb-2 d-flex align-items-center justify-content-center"
+              class="navBtn mb-4 d-flex align-items-center justify-content-center"
               routerLinkActive="active"
               routerLink="/adminDashboard"
               [routerLinkActiveOptions]="{ exact: true }"
             >
             <h3 class="bi bi-house"></h3>
-              <p class="m-2">Dashboard</p>
+              <p class="ms-4 p-2">Dashboard</p>
             </div>
             <div
-              class="navBtn mb-2 d-flex align-items-center justify-content-center"
-              routerLink="/accounts"
+              class="navBtn mb-4 d-flex align-items-center justify-content-center"
               routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
+              routerLink="/accounts"
             >
             <h3 class="bi bi-person-gear"></h3>
-
-              <p class="m-2">Accounts</p>
+            
+              <p class="ms-4 p-2">Accounts</p>
             </div>
             <div
-              class="navBtn mb-2 d-flex align-items-center justify-content-center"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
+              class="navBtn mb-4 d-flex align-items-center justify-content-center"
             >
             <h3 class="bi bi-book"></h3>
-
-              <p class="m-2">Logs</p>
+              <p class="ms-4 p-2">Logs</p>
             </div>
             <div
-              class="navBtn mb-2 d-flex align-items-center justify-content-center"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
+              class="navBtn mb-4 d-flex align-items-center justify-content-center"
             >
-            
             <h3 class="bi bi-receipt"></h3>
-              <p class="m-2">Transactions</p>
+              <p class="ms-4 p-2">Transactions</p>
             </div>
             <div
-              class="navBtn mb-2 d-flex align-items-center justify-content-center"
-              routerLinkActive="active"
+              class="navBtn mb-4 d-flex align-items-center justify-content-center"
               routerLink="/books"
-              [routerLinkActiveOptions]="{ exact: true }"
             >
             <h3 class="bi bi-bookshelf"></h3>
-
-              <p class="m-2">Inventory</p>
+              <p class="ms-4 p-2">Inventory</p>
+            </div>
+            <div
+            class="navBtn mb-4 d-flex align-items-center justify-content-center"
+            
+            >
+            <h3 class="bi bi-box-arrow-left"></h3>
+              <p
+                class="ms-4 p-2"
+                data-bs-toggle="modal"
+                data-bs-target="#logoutModal"
+              >
+                Logout
+              </p>
             </div>
           </nav>
-          <div class="d-flex align-items-center justify-content-center">
-            <button
-              class="btn p-2 btn-danger mt-5"
-              data-bs-toggle="modal"
-              data-bs-target="#logoutModal"
-            >
-              Logout
-            </button>
-          </div>
         </div>
         <div class="col-lg-9 col-md-8 col-sm-12 p-3 book-list-container">
           <div
@@ -76,7 +70,7 @@
                 </div>
           <div>
             <div class="mb-4 d-flex align-items-center justify-content-between">
-
+            
                 <h4>User Management</h4>
                 <button
                   class="add-account btn ms-4"
@@ -141,7 +135,9 @@
             </table>
           </div>
         </div>
+        
       </div>
+      
     </div>
 
     <!-- Add Account Modal -->
@@ -289,13 +285,6 @@
             <h1 class="modal-title fs-5" id="editAccountModal">Edit Account</h1>
           </div>
           <div class="modal-body">
-            <div
-            *ngIf="loading"
-                  class="spinner-border loading text-dark"
-                  role="status"
-                >
-                  <span class="visually-hidden">Loading...</span>
-                </div>
             <form (ngSubmit)="updateUser(id)" class="p-2 login-form">
               <div class="input-group">
                 <input
@@ -303,7 +292,6 @@
                   class="form-control p-2 mb-4"
                   name="firstname"
                   [(ngModel)]="firstname"
-                  id="firstname"
                   placeholder="First Name"
                   required
                 />
@@ -314,9 +302,7 @@
                   class="form-control p-2 mb-4"
                   name="middlename"
                   [(ngModel)]="middlename"
-                  id="middlename"
                   placeholder="Middle Initial (Optional)"
-                  required
                 />
               </div>
               <div class="input-group">
@@ -325,7 +311,6 @@
                   class="form-control p-2 mb-4"
                   name="lastname"
                   [(ngModel)]="lastname"
-                  id="lastname"
                   placeholder="Last Name"
                   required
                 />
@@ -336,7 +321,6 @@
                   class="form-control p-2 mb-4"
                   name="email"
                   [(ngModel)]="email"
-                  id="email"
                   placeholder="Email"
                   required
                 />
@@ -347,7 +331,6 @@
                   class="form-control p-2 mb-4"
                   name="contact"
                   [(ngModel)]="contact"
-                  id="contact"
                   placeholder="Contact"
                   pattern="[0-9]*"
                   required
@@ -358,7 +341,6 @@
                 <label for="role">Role:</label>
                 <select
                   class="form-control p-2"
-                  id="role"
                   [(ngModel)]="role"
                   name="role"
                   required
@@ -416,7 +398,7 @@
     </div>
     <!-- Success Message -->
     <div
-      class="modal fade"
+      class="modal fade show"
       *ngIf="successMessage"
       tabindex="-1"
       aria-labelledby="successMessage"
@@ -453,14 +435,14 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content p-3">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="logout">Logout Confirmation</h1>
+            <h1 class="modal-title fs-5 m-3" id="logout">Logout Confirmation</h1>
           </div>
           <div class="modal-body">
-            <p class="text-black m-2">Are you sure you want to logout?</p>
-            <div class="modal-footer">
+            <p class="text-black m-3">Are you sure you want to logout?</p>
+            <div class="modal-footer pt-3">
               <button
                 type="button"
-                class="btn p-2 me-2 btn-secondary"
+                class="btn p-2 me-3 btn-secondary"
                 data-bs-dismiss="modal"
               >
                 No
@@ -526,7 +508,7 @@
                 class="btn mt-2 p-2 me-2 btn-secondary"
                 data-bs-dismiss="modal"
               >
-                No
+                Cancel
               </button>
               <button
                 data-bs-dismiss="modal"

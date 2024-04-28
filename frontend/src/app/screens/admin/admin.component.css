@@ -6,15 +6,12 @@
   font-family: "Montserrat", sans-serif;
 }
 .navBar {
-  background-color: #008dda;
+  background-color: #183e85;
   border-radius: 10px;
 }
 .book-list-container {
-  box-shadow: 2px 2px 5px 2px rgba(65, 64, 64, 0.5);
-  border-radius: 10px;
   overflow-y: auto;
-  display: flex;
-  gap: 20px;
+  width: 1020px;
 }
 .modal-dialog-centered{
   margin-left: 400px;
@@ -44,19 +41,21 @@
 .selection {
   /* border: 1px solid red; */
   display: flex;
+  margin-left: 25px;
   align-items: start;
   flex-direction: column;
 }
 
 .navBtn {
   color: white;
+  padding: 2px 15px 2px 15px;
 }
 .navBtn:hover {
   background-color: white;
   border-radius: 5px;
   color: #008dda;
   font-weight: bold;
-  transition: 0.2s;
+  transition: 0.3s;
   cursor: pointer;
 }
 .navBtn.active {

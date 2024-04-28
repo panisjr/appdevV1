@@ -14,7 +14,7 @@ export class AccountsComponent implements OnInit {
   accounts: any[] = []; // This is for storing the accounts
   editData: any[] = []; // This is for user data for editing
   firstname: string = '';
-  middlename: string = '';
+  middlename: string = ' ';
   lastname: string = '';
   role: string = 'Borrower';
   status: boolean = true;
@@ -61,9 +61,16 @@ export class AccountsComponent implements OnInit {
         columns: [
           { title: 'Id', data: 'id' },
           {
-            title: 'Name', data: function (row) {
-              return row.firstname + ' ' + row.middlename + ' ' + row.lastname;
-            }
+            title: 'Name',
+            data: function(row) {
+              let fullName = row.firstname;
+              if (row.middlename && row.middlename.trim() !== 'null') {
+                  fullName += ' ' + row.middlename;
+              }
+              fullName += ' ' + row.lastname;
+              return fullName;
+          }
+            
           },
           { title: 'Email', data: 'email' },
           { title: 'Contact', data: 'contact' },
@@ -80,9 +87,9 @@ export class AccountsComponent implements OnInit {
   <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
   <i class="bi bi-three-dots-vertical"></i>
   </button>
-  <ul class="dropdown-menu">
+  <ul class="dropdown-menu p-2">
     <!-- Dropdown menu links -->
-    <button class="btn btn-success edit-btn" data-id="${row.id}" data-bs-toggle="modal" data-bs-target="#editAccountModal">Edit</button>
+    <button class="btn btn-warning edit-btn me-3 mb-2" data-id="${row.id}" data-bs-toggle="modal" data-bs-target="#editAccountModal">Edit</button>
     <button class="btn btn-danger delete-btn" data-id="${row.id}" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">Delete</button>
     <button class="btn deactivate-btn"
     [class.btn-success]="${row.status} === 'Deactivate'" 
@@ -215,10 +222,9 @@ export class AccountsComponent implements OnInit {
     this.backend.updateUser(accountId, bodyData).subscribe(
       (resultData: any) => {
         this.loading = false;
-        this.successMessage = 'Updated Successfully!';
+        this.successMessage = resultData.message;
         setTimeout(() => {
           this.successMessage = null;
-          this.resetForm();
           this.fetchAccounts();
         }, 1500);
       },

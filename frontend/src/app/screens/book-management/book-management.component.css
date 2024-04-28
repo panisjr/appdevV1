@@ -11,17 +11,33 @@
     padding: 4px;
     width: 400px;
 }
+.add-book {
+    background-color: #008dda;
+    border-radius: 5px;
+    padding: 5px;
+    color: white;
+  }
+  .add-book:hover {
+    background-color:  #41c9e2 ;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+  }
 .book-list-container {
     border-radius: 10px;
     width: 1020px;
   }
   
-.book-list-container .table-div {
+  .book-list-container .table-div {
     border-radius: 10px;
     height: 490px;
     overflow-y: auto;
     border-radius: 10px;
     }
+  .accounts-table thead tr th {
+    background-color: #41c9e2;
+    color: #ffffff;
+  }
 .modal-dialog-centered{
     margin-left: 400px;
   }
@@ -38,7 +54,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .navBar {
-    background-color: #008dda;
+    background-color: #183e85;
     border-radius: 10px;
 }
 
@@ -91,11 +107,14 @@ input[type="number"]::-webkit-outer-spin-button {
 .selection {
     display: flex;
     align-items: start;
+    margin-left: 25px;
     flex-direction: column;
 }
 
 .navBtn {
     color: white;
+  padding: 2px 15px 2px 15px;
+
 }
 
 .navBtn:hover {
@@ -103,7 +122,7 @@ input[type="number"]::-webkit-outer-spin-button {
     border-radius: 5px;
     color: #008dda;
     font-weight: bold;
-    transition: 0.2s;
+    transition: 0.3s;
     cursor: pointer;
 }
 

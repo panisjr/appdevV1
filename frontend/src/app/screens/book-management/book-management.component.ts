@@ -16,9 +16,10 @@ export class BookManagementComponent implements OnInit, OnDestroy {
   errorMessage: string | null = null;
   successMessage: string | null = null;
   book: Book = {
-    id: null,
+    id: 0,
     title: '',
     category: '',
+    genre: '',
     author: '',
     publisher: '',
     date: '',
@@ -101,28 +102,44 @@ export class BookManagementComponent implements OnInit, OnDestroy {
     $('#bookTable').DataTable({
       data: this.books,
       columns: [
-        { data: 'title' },
-        { data: 'category' },
-        { data: 'author' },
-        { data: 'publisher' },
-        { data: 'date' },
-        { data: 'quantity' },
+        { title:'Title',data: 'title' },
+        { title:'Category',data: 'category' },
+        { title:'Genre',data: 'genre' },
+        { title:'Author',data: 'author' },
+        { title:'Publisher',data: 'publisher' },
+        { title:'Date',data: 'date' },
+        { title:'Quantity',data: 'quantity' },
         {
+          title: '',
+            defaultContent: '',
+            orderable: false,
+            searchable: false,
           data: null,
           render: function (data: any, type: any, row: any, meta: any) {
-            return '<button class="btn btn-warning btn-sm" onclick="editBook(' + row.id + ')">Edit</button>' +
-              '<button class="btn btn-danger btn-sm" onclick="deleteBook(' + row.id + ')">Delete</button>';
+            return `
+            <div class="btn-group dropstart">
+<button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
+<i class="bi bi-three-dots-vertical"></i>
+</button>
+<ul class="dropdown-menu">
+  <!-- Dropdown menu links -->
+  <button class="btn btn-warning edit-btn" data-id="${row.id}" data-bs-toggle="modal" data-bs-target="#editBookModal">Edit</button>
+  <button class="btn btn-danger delete-btn" data-id="${row.id}" data-bs-toggle="modal" data-bs-target="#deleteBookModal">Delete</button>
+  </ul>
+</div>
+            `;
           }
         }
       ]
     });
   }
 
-  private resetForm(): void {
+   resetForm() {
     this.book = {
-      id: null,
+      id: 0,
       title: '',
       category: '',
+      genre: '',
       author: '',
       publisher: '',
       date: '',

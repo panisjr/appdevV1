@@ -24,7 +24,7 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0;
 }
 .navBar {
-  background-color: #008dda;
+  background-color: #183e85;
   border-radius: 10px;
 }
 .loading {
@@ -97,18 +97,21 @@ input[type="number"]::-webkit-outer-spin-button {
   /* border: 1px solid red; */
   display: flex;
   align-items: start;
+  margin-left: 25px;
   flex-direction: column;
 }
 
 .navBtn {
   color: white;
+  padding: 2px 15px 2px 15px;
+
 }
 .navBtn:hover {
   background-color: white;
   border-radius: 5px;
   color: #008dda;
   font-weight: bold;
-  transition: 0.2s;
+  transition: 0.3s;
   cursor: pointer;
 }
 .navBtn.active {
@@ -116,4 +119,10 @@ input[type="number"]::-webkit-outer-spin-button {
   border-radius: 5px;
   color: #008dda;
   font-weight: bold;
+}
+
+@media screen and (max-width: 800px){
+  .modal-dialog-centered{
+    margin-left: auto;
+  }
 }
