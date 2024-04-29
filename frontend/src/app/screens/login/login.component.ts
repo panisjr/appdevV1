@@ -53,7 +53,9 @@ private backend: BackendService
       (response) => {
         if (response && response.data && response.data.token) {
           this.loading = false;
-          localStorage.setItem('jwt_token', response.data.token);
+          sessionStorage.setItem('jwt_token', response.data.token);
+          // Save user info to session storage or state
+          sessionStorage.setItem('user_info', JSON.stringify(response.data.firstname)); // Assuming user info is returned as 'user'
           switch (response.data.role) {
             case 'Admin':
               this.router.navigate(['/adminDashboard']);
@@ -87,6 +89,7 @@ private backend: BackendService
       }
     );
   }
+
 
   forgotPassword() {
     this.loading = true;

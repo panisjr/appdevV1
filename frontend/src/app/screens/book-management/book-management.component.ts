@@ -57,7 +57,8 @@ export class BookManagementComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    localStorage.removeItem('jwt_token');
+    sessionStorage.removeItem('jwt_token');
+    sessionStorage.removeItem('user_info');
     this.router.navigate(['/login']);
   }
   createBook(): void {

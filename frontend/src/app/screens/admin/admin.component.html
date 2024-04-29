@@ -1,108 +1,116 @@
-
-    <div class="container-fluid">
-      <div class="row vh-100 p-3">
-        <div class="col-lg-2 col-md-4 col-sm-12 me-4 navBar">
-          <div class="d-flex align-items-center justify-content-center p-3">
-            <div class="logo"></div>
-            <h4 class="text-center text-white pt-3">ReadEase.</h4>
-          </div>
-
-          <nav class="selection text-center mt-5">
-            <div
-              class="navBtn mb-4 d-flex align-items-center justify-content-center"
-              routerLinkActive="active"
-              routerLink="/adminDashboard"
-              [routerLinkActiveOptions]="{ exact: true }"
-            >
-            <h3 class="bi bi-house"></h3>
-              <p class="ms-4 p-2">Dashboard</p>
-            </div>
-            <div
-              class="navBtn mb-4 d-flex align-items-center justify-content-center"
-              routerLink="/accounts"
-            >
-            <h3 class="bi bi-person-gear"></h3>
-              <p class="ms-4 p-2">Accounts</p>
-            </div>
-            <div
-              class="navBtn mb-4 d-flex align-items-center justify-content-center"
-            >
-            <h3 class="bi bi-book"></h3>
-              <p class="ms-4 p-2">Logs</p>
-            </div>
-            <div
-              class="navBtn mb-4 d-flex align-items-center justify-content-center"
-            >
-            <h3 class="bi bi-receipt"></h3>
-              <p class="ms-4 p-2">Transactions</p>
-            </div>
-            <div
-              class="navBtn mb-4 d-flex align-items-center justify-content-center"
-              routerLink="/books"
-            >
-            <h3 class="bi bi-bookshelf"></h3>
-              <p class="ms-4 p-2">Inventory</p>
-            </div>
-            <div
-            class="navBtn mb-4 d-flex align-items-center justify-content-center"
-            
-            >
-            <h3 class="bi bi-box-arrow-left"></h3>
-              <p
-                class="ms-4 p-2"
-                data-bs-toggle="modal"
-                data-bs-target="#logoutModal"
-              >
-                Logout
-              </p>
-            </div>
-          </nav>
-
-        </div>
-        <div class="col-lg-9 col-md-8 col-sm-12 book-list-container p-3">
-       <div>
-        <h5>Welcome Back, Ramel</h5>
-       </div>
-        </div>
+<div class="container-fluid">
+  <div class="row vh-100 p-3">
+    <div class="col-lg-2 col-md-4 col-sm-12 me-4 navBar">
+      <div class="logoContainer p-3">
+        <div class="logo"></div>
+        <h4 class="logoName text-center text-white pt-3">ReadEase.</h4>
       </div>
-    </div>
 
-    <!-- Logout Modal -->
-    <div
-      class="modal fade"
-      id="logoutModal"
-      data-bs-backdrop="static"
-      data-bs-keyboard="false"
-      tabindex="-1"
-      aria-labelledby="staticBackdropLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content p-3">
-          <div class="modal-header">
-            <h1 class="modal-title p-3 fs-5" id="staticBackdropLabel">
-              Logout Confirmation
-            </h1>
+      <nav class="selection text-center mt-5">
+        <div
+          class="navBtn mb-4"
+          routerLinkActive="active"
+          routerLink="/adminDashboard"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <h3 class="bi bi-house"></h3>
+          <p class="ms-4 p-2">Dashboard</p>
+        </div>
+        <div class="navBtn mb-4" routerLink="/accounts">
+          <h3 class="bi bi-person-gear"></h3>
+          <p class="ms-4 p-2">Accounts</p>
+        </div>
+        <div class="navBtn mb-4" routerLink="/books">
+          <h3 class="bi bi-bookshelf"></h3>
+          <p class="ms-4 p-2">Inventory</p>
+        </div>
+        <div class="navBtn mb-4">
+          <h3 class="bi bi-receipt"></h3>
+          <p class="ms-4 p-2">Transactions</p>
+        </div>
+        <div class="navBtn mb-4">
+          <h3 class="bi bi-clock-history"></h3>
+          <p class="ms-4 p-2">Logs</p>
+        </div>
+        <div
+          class="navBtn mb-4"
+          data-bs-toggle="modal"
+          data-bs-target="#logoutModal"
+        >
+          <h3 class="bi bi-box-arrow-left"></h3>
+          <p class="ms-4 p-2">Logout</p>
+        </div>
+      </nav>
+    </div>
+    <div class="col-lg-9 col-md-8 book-list-container p-3">
+      <div>
+        <h5>Welcome Back, {{ firstname }} !</h5>
+      </div>
+      <div class="col-md-7 rounded box-shadow m-3 p-3">
+        <h5>Today's Update</h5>
+        <div class="d-flex m-2">
+          <div class="totalBooks me-4 p-3">
+            <h5 class="bi bi-book"></h5>
+            <p>Total Books</p>
+            <h5 class="mt-5">+15</h5>
           </div>
-          <div class="modal-body p-2">
-            <p class="text-black m-3">Are you sure you want to logout?</p>
-            <div class="modal-footer pt-3">
-              <button
-                type="button"
-                class="btn p-2 me-3 btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                No
-              </button>
-              <button
-                data-bs-dismiss="modal"
-                (click)="logout()"
-                class="btn p-2 btn-danger"
-              >
-                Yes
-              </button>
-            </div>
+          <div class="totalTransactions me-4 p-3">
+            <h5 class="bi bi-receipt"></h5>
+            <p>Total Transaction</p>
+            <h5 class="mt-4">+15</h5>
+          </div>
+          <div class="totalBooksBorrowed me-4 p-3">
+            <h5 class="bi bi-journal-arrow-up"></h5>
+            <p>Total Books Borrowed</p>
+            <h5 class="mt-4">+15</h5>
+          </div>
+          <div class="newAccounts me-4 p-3">
+            <h5 class="bi bi-person-plus"></h5>
+            <p>New Accounts</p>
+            <h5 class="mt-5">+15</h5>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Logout Modal -->
+<div
+  class="modal fade"
+  id="logoutModal"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-3">
+      <div class="modal-header">
+        <h1 class="modal-title p-3 fs-5" id="staticBackdropLabel">
+          Logout Confirmation
+        </h1>
+      </div>
+      <div class="modal-body p-2">
+        <p class="text-black m-3">Are you sure you want to logout?</p>
+        <div class="modal-footer pt-3">
+          <button
+            type="button"
+            class="btn p-2 me-3 btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            No
+          </button>
+          <button
+            data-bs-dismiss="modal"
+            (click)="logout()"
+            class="btn p-2 btn-danger"
+          >
+            Yes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

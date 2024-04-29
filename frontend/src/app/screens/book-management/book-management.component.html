@@ -1,6 +1,5 @@
-
 <div class="container-fluid">
-  <div class="row vh-100 p-3 ">
+  <div class="row vh-100 p-3">
     <div class="col-lg-2 col-md-4 col-sm-12 me-4 navBar">
       <div class="d-flex align-items-center justify-content-center p-3">
         <div class="logo"></div>
@@ -14,43 +13,42 @@
           routerLink="/adminDashboard"
           [routerLinkActiveOptions]="{ exact: true }"
         >
-        <h3 class="bi bi-house"></h3>
+          <h3 class="bi bi-house"></h3>
           <p class="ms-4 p-2">Dashboard</p>
         </div>
         <div
           class="navBtn mb-4 d-flex align-items-center justify-content-center"
           routerLink="/accounts"
         >
-        <h3 class="bi bi-person-gear"></h3>
-        
+          <h3 class="bi bi-person-gear"></h3>
+
           <p class="ms-4 p-2">Accounts</p>
         </div>
         <div
           class="navBtn mb-4 d-flex align-items-center justify-content-center"
+          routerLinkActive="active"
+          routerLink="/books"
         >
-        <h3 class="bi bi-book"></h3>
+          <h3 class="bi bi-bookshelf"></h3>
+          <p class="ms-4 p-2">Inventory</p>
+        </div>
+
+        <div
+          class="navBtn mb-4 d-flex align-items-center justify-content-center"
+        >
+          <h3 class="bi bi-receipt"></h3>
+          <p class="ms-4 p-2">Transactions</p>
+        </div>
+        <div
+          class="navBtn mb-4 d-flex align-items-center justify-content-center"
+        >
+          <h3 class="bi bi-clock-history"></h3>
           <p class="ms-4 p-2">Logs</p>
         </div>
         <div
           class="navBtn mb-4 d-flex align-items-center justify-content-center"
         >
-        <h3 class="bi bi-receipt"></h3>
-          <p class="ms-4 p-2">Transactions</p>
-        </div>
-        <div
-          class="navBtn mb-4 d-flex align-items-center justify-content-center"
-          routerLinkActive="active"
-
-          routerLink="/books"
-        >
-        <h3 class="bi bi-bookshelf"></h3>
-          <p class="ms-4 p-2">Inventory</p>
-        </div>
-        <div
-        class="navBtn mb-4 d-flex align-items-center justify-content-center"
-        
-        >
-        <h3 class="bi bi-box-arrow-left"></h3>
+          <h3 class="bi bi-box-arrow-left"></h3>
           <p
             class="ms-4 p-2"
             data-bs-toggle="modal"
@@ -63,21 +61,20 @@
     </div>
     <div class="col-lg-9 col-md-8 col-sm-12 p-3 book-list-container">
       <div>
-        <div class="mb-4 d-flex align-items-center justify-content-between ">
-    
-            <h4>Book Management</h4>
-            <button
-              class="add-book btn ms-4"
-              data-bs-toggle="modal"
-              data-bs-target="#addBookModal"
-            >
-              Add Book
-            </button>               
+        <div class="mb-4 d-flex align-items-center justify-content-between">
+          <h4>Book Management</h4>
+          <button
+            class="add-book btn ms-4"
+            data-bs-toggle="modal"
+            data-bs-target="#addBookModal"
+          >
+            Add Book
+          </button>
         </div>
       </div>
-      <div  class="table-div">
+      <div class="table-div">
         <table id="bookTable" class="table table-striped">
-            <!-- <thead>
+          <!-- <thead>
                 <tr>
                     <th>Title</th>
                     <th>Category</th>
@@ -104,281 +101,319 @@
             </tbody> -->
         </table>
       </div>
-       <!-- Add Account Modal -->
-    <div
-    class="modal fade"
-    id="addBookModal"
-    data-bs-backdrop="static"
-    data-bs-keyboard="false"
+      <!-- Add Account Modal -->
+      <div
+        class="modal fade"
+        id="addBookModal"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="addBookModal"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content p-3">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="addBookModal">Add Book</h1>
+            </div>
+            <div class="modal-body">
+              <form (ngSubmit)="createBook()" #bookForm="ngForm">
+                <div>
+                  <label>Title:</label>
+                  <input
+                    type="text"
+                    name="title"
+                    [(ngModel)]="book.title"
+                    required
+                    pattern="[a-zA-Z0-9\s]+"
+                  />
+                </div>
+                <div>
+                  <label>Category:</label>
+                  <input
+                    type="text"
+                    name="category"
+                    [(ngModel)]="book.category"
+                    pattern="[a-zA-Z0-9\s]+"
+                  />
+                </div>
+                <div>
+                  <label>Genre:</label>
+                  <input
+                    type="text"
+                    name="genre"
+                    [(ngModel)]="book.genre"
+                    pattern="[a-zA-Z0-9\s]+"
+                  />
+                </div>
+                <div>
+                  <label>Author:</label>
+                  <input
+                    type="text"
+                    name="author"
+                    [(ngModel)]="book.author"
+                    required
+                    pattern="[a-zA-Z0-9\s]+"
+                  />
+                </div>
+                <div>
+                  <label>Publisher:</label>
+                  <input
+                    type="text"
+                    name="publisher"
+                    [(ngModel)]="book.publisher"
+                    pattern="[a-zA-Z0-9\s]+"
+                  />
+                </div>
+                <div>
+                  <label>Date:</label>
+                  <input type="date" name="date" [(ngModel)]="book.date" />
+                </div>
+                <div>
+                  <label>Quantity:</label>
+                  <input
+                    type="number"
+                    name="quantity"
+                    [(ngModel)]="book.quantity"
+                  />
+                </div>
+                <div class="modal-footer p-2">
+                  <button
+                    class="btn me-3"
+                    type="submit"
+                    [disabled]="!bookForm.form.valid || isFormEmpty()"
+                  >
+                    {{ isEditMode ? "Update Book" : "Add Book" }}
+                  </button>
+                  <button
+                    type="button"
+                    class="btn p-2 me-2 btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Edit Account Modal -->
+      <div
+        class="modal fade"
+        id="editBookModal"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="editBookModal"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content p-3">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="editBookModal">Edit Book</h1>
+            </div>
+            <div class="modal-body">
+              <div
+                *ngIf="loading"
+                class="spinner-border loading text-dark"
+                role="status"
+              >
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              <form (ngSubmit)="editBook(book.id)" class="p-2 login-form">
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control p-2 mb-4"
+                    name="title"
+                    [(ngModel)]="book.title"
+                    id="title"
+                    placeholder="Title"
+                    required
+                  />
+                </div>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control p-2 mb-4"
+                    name="category"
+                    [(ngModel)]="book.category"
+                    id="category"
+                    placeholder="Category"
+                    required
+                  />
+                </div>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control p-2 mb-4"
+                    name="genre"
+                    [(ngModel)]="book.genre"
+                    id="genre"
+                    placeholder="Genre"
+                    required
+                  />
+                </div>
+                <div class="input-group has-validation">
+                  <input
+                    type="author"
+                    class="form-control p-2 mb-4"
+                    name="author"
+                    [(ngModel)]="book.author"
+                    id="author"
+                    placeholder="Author"
+                    required
+                  />
+                </div>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control p-2 mb-4"
+                    name="publisher"
+                    [(ngModel)]="book.publisher"
+                    id="publisher"
+                    placeholder="Publisher"
+                    required
+                  />
+                </div>
+                <div class="input-group">
+                  <input
+                    type="date"
+                    class="form-control p-2 mb-4"
+                    name="date"
+                    [(ngModel)]="book.date"
+                    id="date"
+                    placeholder="Date"
+                    required
+                  />
+                </div>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control p-2 mb-4"
+                    name="quantity"
+                    [(ngModel)]="book.quantity"
+                    id="quantity"
+                    placeholder="Quantity"
+                    required
+                  />
+                </div>
+                <div class="modal-footer">
+                  <button
+                    class="p-2 btn btn-success text-white m-3"
+                    type="submit"
+                  >
+                    Update
+                  </button>
+
+                  <button
+                    type="button"
+                    class="btn p-2 btn-secondary"
+                    data-bs-dismiss="modal"
+                    (click)="resetForm()"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Logout Modal -->
+      <div
+        class="modal fade"
+        id="logoutModal"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="logout"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content p-3">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5 p-3" id="logout">
+                Logout Confirmation
+              </h1>
+            </div>
+            <div class="modal-body">
+              <p class="text-black m-3">Are you sure you want to logout?</p>
+              <div class="modal-footer pt-3">
+                <button
+                  type="button"
+                  class="btn p-2 me-3 btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  No
+                </button>
+                <button
+                  data-bs-dismiss="modal"
+                  (click)="logout()"
+                  class="btn p-2 btn-danger"
+                >
+                  Yes
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error Message -->
+  <div
+    class="modal fade show"
+    *ngIf="errorMessage"
     tabindex="-1"
-    aria-labelledby="addBookModal"
-    aria-hidden="true"
+    aria-labelledby="errorModalMessage"
+    aria-modal="true"
+    style="display: block; background: rgba(0, 0, 0, 0.5)"
   >
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content p-3">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="addBookModal">Add Book</h1>
+          <h1 class="modal-title fs-5 text-danger" id="errorModalMessage">
+            Error
+          </h1>
+          <button
+            type="button"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
         <div class="modal-body">
-          <form (ngSubmit)="createBook()" #bookForm="ngForm">
-            <div>
-                <label>Title:</label>
-                <input type="text" name="title" [(ngModel)]="book.title" required pattern="[a-zA-Z0-9\s]+">
-            </div>
-            <div>
-                <label>Category:</label>
-                <input type="text" name="category" [(ngModel)]="book.category" pattern="[a-zA-Z0-9\s]+">
-            </div>
-            <div>
-                <label>Genre:</label>
-                <input type="text" name="genre" [(ngModel)]="book.genre" pattern="[a-zA-Z0-9\s]+">
-            </div>
-            <div>
-                <label>Author:</label>
-                <input type="text" name="author" [(ngModel)]="book.author" required pattern="[a-zA-Z0-9\s]+">
-            </div>
-            <div>
-                <label>Publisher:</label>
-                <input type="text" name="publisher" [(ngModel)]="book.publisher" pattern="[a-zA-Z0-9\s]+">
-            </div>
-            <div>
-                <label>Date:</label>
-                <input type="date" name="date" [(ngModel)]="book.date">
-            </div>
-            <div>
-                <label>Quantity:</label>
-                <input type="number" name="quantity" [(ngModel)]="book.quantity">
-            </div>
-            <div class="modal-footer p-2">
-            <button class="me-3" type="submit" [disabled]="!bookForm.form.valid || isFormEmpty()">
-                {{ isEditMode ? 'Update Book' : 'Add Book' }}
-            </button>
-            <button
-                type="button"
-                class="btn p-2 me-2 btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Cancel
-              </button>
-              </div>
-        </form>
+          <p>{{ errorMessage }}</p>
         </div>
       </div>
     </div>
   </div>
-   <!-- Edit Account Modal -->
-   <div
-   class="modal fade"
-   id="editBookModal"
-   data-bs-backdrop="static"
-   data-bs-keyboard="false"
-   tabindex="-1"
-   aria-labelledby="editBookModal"
-   aria-hidden="true"
- >
- <div class="modal-dialog modal-dialog-centered">
-
-     <div class="modal-content p-3">
-       <div class="modal-header">
-         <h1 class="modal-title fs-5" id="editBookModal">Edit Book</h1>
-       </div>
-       <div class="modal-body">
-         <div
-         *ngIf="loading"
-               class="spinner-border loading text-dark"
-               role="status"
-             >
-               <span class="visually-hidden">Loading...</span>
-             </div>
-             <form (ngSubmit)="editBook(book.id)" class="p-2 login-form">
-              <div class="input-group">
-                <input
-                  type="text"
-                  class="form-control p-2 mb-4"
-                  name="title"
-                  [(ngModel)]="book.title"
-                  id="title"
-                  placeholder="Title"
-                  required
-                />
-              </div>
-              <div class="input-group">
-                <input
-                  type="text"
-                  class="form-control p-2 mb-4"
-                  name="category"
-                  [(ngModel)]="book.category"
-                  id="category"
-                  placeholder="Category"
-                  required
-                />
-              </div>
-              <div class="input-group">
-                <input
-                  type="text"
-                  class="form-control p-2 mb-4"
-                  name="genre"
-                  [(ngModel)]="book.genre"
-                  id="genre"
-                  placeholder="Genre"
-                  required
-                />
-              </div>
-              <div class="input-group has-validation">
-                <input
-                  type="author"
-                  class="form-control p-2 mb-4"
-                  name="author"
-                  [(ngModel)]="book.author"
-                  id="author"
-                  placeholder="Author"
-                  required
-                />
-              </div>
-              <div class="input-group">
-                <input
-                  type="text"
-                  class="form-control p-2 mb-4"
-                  name="publisher"
-                  [(ngModel)]="book.publisher"
-                  id="publisher"
-                  placeholder="Publisher"
-                  required
-                />
-              </div>
-              <div class="input-group">
-                <input
-                  type="date"
-                  class="form-control p-2 mb-4"
-                  name="date"
-                  [(ngModel)]="book.date"
-                  id="date"
-                  placeholder="Date"
-                  required
-                />
-              </div>
-              <div class="input-group">
-                <input
-                  type="text"
-                  class="form-control p-2 mb-4"
-                  name="quantity"
-                  [(ngModel)]="book.quantity"
-                  id="quantity"
-                  placeholder="Quantity"
-                  required
-                />
-              </div>
-              <div class="modal-footer">
-                <button class="p-2 btn btn-success text-white m-3" type="submit">
-                  Update
-                </button>
-              
-                <button
-                  type="button"
-                  class="btn p-2 btn-secondary"
-                  data-bs-dismiss="modal"
-                  (click)="resetForm()"
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
-       </div>
-     </div>
-   </div>
- </div>
-      <!-- Logout Modal -->
-      <div
-      class="modal fade"
-      id="logoutModal"
-      data-bs-backdrop="static"
-      data-bs-keyboard="false"
-      tabindex="-1"
-      aria-labelledby="logout"
-      aria-hidden="true"
-     >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content p-3">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5 p-3" id="logout">Logout Confirmation</h1>
-          </div>
-          <div class="modal-body">
-            <p class="text-black m-3">Are you sure you want to logout?</p>
-            <div class="modal-footer pt-3">
-              <button
-                type="button"
-                class="btn p-2 me-3 btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                No
-              </button>
-              <button
-                data-bs-dismiss="modal"
-                (click)="logout()"
-                class="btn p-2 btn-danger"
-              >
-                Yes
-              </button>
-            </div>
-          </div>
+  <!-- Success Message -->
+  <div
+    class="modal fade"
+    *ngIf="successMessage"
+    tabindex="-1"
+    aria-labelledby="successMessage"
+    aria-modal="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content p-3">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 text-success" id="successMessage">
+            Successfully
+          </h1>
+          <button
+            type="button"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <p>{{ successMessage }}</p>
         </div>
       </div>
-     </div>
-    </div>
-  </div>
-
-<!-- Error Message -->
-<div
-  class="modal fade show"
-  *ngIf="errorMessage"
-  tabindex="-1"
-  aria-labelledby="errorModalMessage"
-  aria-modal="true"
-  style="display: block; background: rgba(0, 0, 0, 0.5)"
->
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content p-3">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5 text-danger" id="errorModalMessage">
-          Error
-        </h1>
-        <button
-          type="button"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <p>{{ errorMessage }}</p>
-      </div>
     </div>
   </div>
 </div>
-<!-- Success Message -->
-<div
-  class="modal fade"
-  *ngIf="successMessage"
-  tabindex="-1"
-  aria-labelledby="successMessage"
-  aria-modal="true"
->
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content p-3">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5 text-success" id="successMessage">
-          Successfully
-        </h1>
-        <button
-          type="button"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <p>{{ successMessage }}</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-

@@ -200,7 +200,8 @@ class UserController extends Controller
     
         $response['data'] = [
             'token' => $token,
-            'role' => $user->role // Assuming the user model has a 'role' attribute
+            'role' => $user->role, // Assuming the user model has a 'role' attribute
+            'firstname' => $user->firstname // Assuming the user model has a 'role' attribute
         ];
         $response['status'] = 1;
         $response['code'] = 200;

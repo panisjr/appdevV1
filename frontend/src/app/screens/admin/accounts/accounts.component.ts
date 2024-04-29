@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -9,7 +9,7 @@ import 'datatables.net-dt';
   templateUrl: './accounts.component.html',
   styleUrls: ['./accounts.component.css'],
 })
-export class AccountsComponent implements OnInit {
+export class AccountsComponent implements OnInit,OnDestroy {
   id: number = 0; // This for the user id
   accounts: any[] = []; // This is for storing the accounts
   editData: any[] = []; // This is for user data for editing
@@ -37,9 +37,13 @@ export class AccountsComponent implements OnInit {
     this.titleService.setTitle('Accounts');
     this.fetchAccounts();
   }
-
+  ngOnDestroy(): void {
+    if ($.fn.DataTable.isDataTable('#accountTable')) {
+      $('#accountTable').DataTable().destroy();
+    }
+  }
   fetchAccounts() {
-    this.http.get('http://127.0.0.1:8000/api/getUsers').subscribe(
+    this.backend.get().subscribe(
       (response: any) => {
         this.accounts = response;
         if (this.dataTable) {
@@ -54,9 +58,8 @@ export class AccountsComponent implements OnInit {
   }
 
   initializeDataTables(): void {
-    const self = this;
     $(document).ready(() => {
-      this.dataTable = $('#accounts').DataTable({
+      this.dataTable = $('#accountTable').DataTable({
         data: this.accounts,
         columns: [
           { title: 'Id', data: 'id' },
@@ -104,22 +107,22 @@ export class AccountsComponent implements OnInit {
       });
 
       // Event listener for edit button
-      $('#accounts').on('click', '.edit-btn', function () {
+      $('#accountTable').on('click', '.edit-btn', function () {
         const accountId = $(this).data('id');
-        self.setEdit(accountId);
+        this.setEdit(accountId);
       });
 
       // Event listener for delete button
-      $('#accounts').on('click', '.delete-btn', function () {
+      $('#accountTable').on('click', '.delete-btn', function () {
         const accountId = $(this).data('id');
-        self.setDelete(accountId);
+        this.setDelete(accountId);
       });
 
       // Event listener for deactivate button
-      $('#accounts').on('click', '.deactivate-btn', function () {
+      $('#accountTable').on('click', '.deactivate-btn', function () {
         const accountId = $(this).data('id');
         const accountStatus = $(this).data('status');
-        self.deactivate(accountId, accountStatus);
+        this.deactivate(accountId, accountStatus);
       });
     });
   }
@@ -148,7 +151,8 @@ export class AccountsComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem('jwt_token');
+    sessionStorage.removeItem('jwt_token');
+    sessionStorage.removeItem('user_info');
     this.router.navigate(['/login']);
   }
 
