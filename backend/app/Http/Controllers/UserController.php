@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\Email;
+use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule; // Import Rule class for validation
 use Illuminate\Support\Facades\Validator; // Import Validator class for validation
@@ -28,7 +29,11 @@ class UserController extends Controller
     {
         return $this->user->all();
     }
-    
+    public function getTotalAccounts(){
+        $totalAccounts =  User::count();
+        $totalBooks = Book::count();
+        return response()->json(['totalAccounts'=>$totalAccounts, 'totalBooks'=>$totalBooks]);
+    }
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [

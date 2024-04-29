@@ -11,7 +11,7 @@ class BookController extends Controller
     {
         return Book::all();
     }
-
+    
     public function store(Request $request)
     {
         $book = Book::create($request->all());

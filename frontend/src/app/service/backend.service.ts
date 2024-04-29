@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +10,9 @@ export class BackendService {
 
   get(){
     return this.http.get('http://127.0.0.1:8000/api/getUsers');
+  }
+  getTotalAccounts(): Observable<{ totalAccounts: number,totalBooks: number }> {
+    return this.http.get<{ totalAccounts: number,totalBooks: number }>('http://127.0.0.1:8000/api/getTotalAccounts');
   }
   register(data: any) {
     return this.http.post('http://127.0.0.1:8000/api/register', data, {

@@ -31,6 +31,7 @@ Route::post('/sendPasswordResetLink', [UserController::class, 'sendResetLinkEmai
 Route::get('reset-password/{token}', [UserController::class, 'resetPassword'])->name('password.reset');
 
 Route::get('/getUsers', [UserController::class, 'getUsers']);
+Route::get('/getTotalAccounts', [UserController::class, 'getTotalAccounts']);
 Route::delete('/deleteUser/{id}', [UserController::class, 'deleteUser']);
 Route::put('/updateUser/{id}', [UserController::class, 'updateUser']);
 Route::resource('books', BookController::class);

@@ -58,6 +58,7 @@ export class AccountsComponent implements OnInit,OnDestroy {
   }
 
   initializeDataTables(): void {
+    const self = this;
     $(document).ready(() => {
       this.dataTable = $('#accountTable').DataTable({
         data: this.accounts,
@@ -105,24 +106,23 @@ export class AccountsComponent implements OnInit,OnDestroy {
           },
         ],
       });
-
       // Event listener for edit button
       $('#accountTable').on('click', '.edit-btn', function () {
         const accountId = $(this).data('id');
-        this.setEdit(accountId);
+        self.setEdit(accountId);
       });
 
       // Event listener for delete button
       $('#accountTable').on('click', '.delete-btn', function () {
         const accountId = $(this).data('id');
-        this.setDelete(accountId);
+        self.setDelete(accountId);
       });
 
       // Event listener for deactivate button
       $('#accountTable').on('click', '.deactivate-btn', function () {
         const accountId = $(this).data('id');
         const accountStatus = $(this).data('status');
-        this.deactivate(accountId, accountStatus);
+        self.deactivate(accountId, accountStatus);
       });
     });
   }

@@ -46,29 +46,35 @@
       <div>
         <h5>Welcome Back, {{ firstname }} !</h5>
       </div>
-      <div class="col-md-7 rounded box-shadow m-3 p-3">
-        <h5>Today's Update</h5>
-        <div class="d-flex m-2">
-          <div class="totalBooks me-4 p-3">
-            <h5 class="bi bi-book"></h5>
-            <p>Total Books</p>
-            <h5 class="mt-5">+15</h5>
+      <div class="row">
+        <div class="col-7 rounded box-shadow m-3 p-3">
+          <h5>Total Records!</h5>
+          <div class="d-flex align-items-center justify-content-center m-2">
+            <div class="totalBooks me-4 p-3">
+              <h5 class="bi bi-book"></h5>
+              <p>Books</p>
+              <h5 class="mt-5 text-primary">+{{totalBooks}}</h5>
+            </div>
+            <div class="totalBooksBorrowed me-4 p-3">
+              <h5 class="bi bi-journal-arrow-up"></h5>
+              <p>Books Borrowed</p>
+              <h5 class="mt-4">+15</h5>
+            </div>
+            <div class="totalBooksReturned me-4 p-3">
+              <h5 class="bi bi-journal-arrow-down"></h5>
+              <p>Books Returned</p>
+              <h5 class="mt-4">+15</h5>
+            </div>
+            
+            <div class="newAccounts me-4 p-3">
+              <h5 class="bi bi-person-plus"></h5>
+              <p>Users</p>
+              <h5 class="mt-5 text-primary">+{{totalAccounts}}</h5>
+            </div>
           </div>
-          <div class="totalTransactions me-4 p-3">
-            <h5 class="bi bi-receipt"></h5>
-            <p>Total Transaction</p>
-            <h5 class="mt-4">+15</h5>
-          </div>
-          <div class="totalBooksBorrowed me-4 p-3">
-            <h5 class="bi bi-journal-arrow-up"></h5>
-            <p>Total Books Borrowed</p>
-            <h5 class="mt-4">+15</h5>
-          </div>
-          <div class="newAccounts me-4 p-3">
-            <h5 class="bi bi-person-plus"></h5>
-            <p>New Accounts</p>
-            <h5 class="mt-5">+15</h5>
-          </div>
+        </div>
+        <div class="col-3">
+
         </div>
       </div>
     </div>
