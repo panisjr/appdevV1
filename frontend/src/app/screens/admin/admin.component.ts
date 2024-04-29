@@ -12,9 +12,17 @@ export class AdminComponent {
   firstname: string = '';
   totalAccounts: number = 0;
   totalBooks: number = 0;
+  todayRegisteredUsersCount: number = 0;
+  todayRegisteredBooksCount: number = 0;
   constructor(private router: Router, private titleService: Title, private backend: BackendService) {}
   ngOnInit(): void {
     this.fetchAccounts();
+    this.backend.getTodayRegisteredUsersCount().subscribe(response => {
+      this.todayRegisteredUsersCount = response.count;
+    });
+    this.backend.getTodayRegisteredBooksCount().subscribe(response => {
+      this.todayRegisteredBooksCount = response.count;
+    });
     this.titleService.setTitle('Library | Dashboard');
     const userInfo = sessionStorage.getItem('user_info');
     if(userInfo){

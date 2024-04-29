@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row vh-100 p-3">
-    <div class="col-lg-2 col-md-4 col-sm-12 me-4 navBar">
+    <div class="col-lg-2 col-md-4 col-sm-12 me-2 navBar">
       <div class="logoContainer p-3">
         <div class="logo"></div>
         <h4 class="logoName text-center text-white pt-3">ReadEase.</h4>
@@ -42,42 +42,105 @@
         </div>
       </nav>
     </div>
-    <div class="col-lg-9 col-md-8 book-list-container p-3">
-      <div>
+    <div class="col-lg-6 col-md-8 book-list-container me-2 p-3">
+      <div class="mb-2">
         <h5>Welcome Back, {{ firstname }} !</h5>
       </div>
       <div class="row">
-        <div class="col-7 rounded box-shadow m-3 p-3">
-          <h5>Total Records!</h5>
+        <div class="col-12 rounded box-shadow me-3 p-3">
+          <h5>Today's Update!</h5>
           <div class="d-flex align-items-center justify-content-center m-2">
-            <div class="totalBooks me-4 p-3">
+            <div class="newBooks me-4 p-3">
               <h5 class="bi bi-book"></h5>
-              <p>Books</p>
-              <h5 class="mt-5 text-primary">+{{totalBooks}}</h5>
+              <h3 class="text-primary">+{{ todayRegisteredBooksCount }}</h3>
+              <p>New Books</p>
             </div>
             <div class="totalBooksBorrowed me-4 p-3">
               <h5 class="bi bi-journal-arrow-up"></h5>
+              <h3 class="text-primary">+15</h3>
               <p>Books Borrowed</p>
-              <h5 class="mt-4">+15</h5>
             </div>
             <div class="totalBooksReturned me-4 p-3">
               <h5 class="bi bi-journal-arrow-down"></h5>
+              <h3 class="text-primary">+15</h3>
               <p>Books Returned</p>
-              <h5 class="mt-4">+15</h5>
             </div>
-            
+
             <div class="newAccounts me-4 p-3">
               <h5 class="bi bi-person-plus"></h5>
-              <p>Users</p>
-              <h5 class="mt-5 text-primary">+{{totalAccounts}}</h5>
+              <h3 class="text-primary">+{{ todayRegisteredUsersCount }}</h3>
+              <p>New Users!</p>
             </div>
           </div>
         </div>
-        <div class="col-3">
-
+      </div>
+      <div class="row">
+        <div class="col-5 me-3 ms-5 mt-3 rounded totalBooks p-4">
+          <h5 class="text-white">Books</h5>
+          <div class="d-flex align-items-center justify-content-center">
+            <div class="ms-5 bookIcon"></div>
+            <h5 class="mt-5 ms-3 text-white">+{{ totalBooks }}</h5>
+          </div>
+        </div>
+        <div class="col-5 mt-3 rounded totalUsers p-4">
+          <h5 class="text-white">Users</h5>
+          <div class="d-flex align-items-center justify-content-center">
+            <div class="ms-5 userIcon"></div>
+            <h5 class="mt-5 text-white">+{{ totalAccounts }}</h5>
+          </div>
+        </div>
+      </div>
+      <div class="row ">
+        <div class="col-12 mt-2 p-3 rounded box-shadow mostBorrowed">
+          <div>
+            <h5>Most Borrowed!</h5>
+            <div class="p-3">
+              <table class="table rounded">
+                <thead>
+                  <th>No.</th>
+                  <th>Title</th>
+                  <th>Category</th>
+                  <th>Genre</th>
+                  <th>Date</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>The Martian Chronicles</td>
+                    <td>Science Fiction</td>
+                    <td>Speculative Fiction</td>
+                    <td>2003</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>The Martian Chronicles</td>
+                    <td>Science Fiction</td>
+                    <td>Speculative Fiction</td>
+                    <td>2003</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>The Martian Chronicles</td>
+                    <td>Science Fiction</td>
+                    <td>Speculative Fiction</td>
+                    <td>2003</td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>The Martian Chronicles</td>
+                    <td>Science Fiction</td>
+                    <td>Speculative Fiction</td>
+                    <td>2003</td>
+                  </tr>
+                </tbody>
+              </table>
+             
+            </div>
+          </div>
         </div>
       </div>
     </div>
+    <div class="col-lg-3 col-md-2 box-shadow lastContainer"></div>
   </div>
 </div>
 

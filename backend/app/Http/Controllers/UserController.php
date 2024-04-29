@@ -12,6 +12,7 @@ use Illuminate\Http\Response;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Models\PasswordReset;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -33,6 +34,18 @@ class UserController extends Controller
         $totalAccounts =  User::count();
         $totalBooks = Book::count();
         return response()->json(['totalAccounts'=>$totalAccounts, 'totalBooks'=>$totalBooks]);
+    }
+    public function todayRegisteredUsersCount()
+    {
+        $today = Carbon::now()->toDateString();
+        $count = User::whereDate('created_at', $today)->count();
+        return response()->json(['count' => $count]);
+    }
+    public function todayRegisteredBooksCount()
+    {
+        $today = Carbon::now()->toDateString();
+        $count = Book::whereDate('created_at', $today)->count();
+        return response()->json(['count' => $count]);
     }
     public function store(Request $request)
     {

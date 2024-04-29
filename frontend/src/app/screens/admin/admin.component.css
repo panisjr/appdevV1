@@ -11,7 +11,10 @@
 }
 .book-list-container {
   overflow-y: auto;
-  width: 1020px;
+}
+.lastContainer{
+  width: 405px;
+  border-radius: 10px;
 }
 .modal-dialog-centered{
   margin-left: 400px;
@@ -74,30 +77,58 @@
 .box-shadow{
   box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
 }
-.totalBooks{
-  height: 120px;
+.mostBorrowed{
+  overflow-y: auto;
+  height: 200px;
+}
+.userIcon{
+  background-image: url('man.png');
+  height: 90px;
+  width: 90px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.bookIcon{
+  background-image: url('book.png');
+  height: 90px;
+  width: 90px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.newBooks{
+  height: 110px;
   width: 120px;
   border-radius: 5px;
   background-color: rgb(255, 223, 174);
 }
 .totalBooksReturned{
-  height: 120px;
+  height: 110px;
   width: 120px;
   border-radius: 5px;
   background-color: rgb(255, 174, 250);
 
 }
 .totalBooksBorrowed{
-  height: 120px;
+  height: 110px;
   width: 120px;
   border-radius: 5px;
   background-color: rgb(174, 255, 236);
 }
 .newAccounts{
-  height: 120px;
+  height: 110px;
   width: 120px;
   border-radius: 5px;
   background-color: rgb(251, 255, 174);
+}
+.totalBooks{
+  background-color: #3bd0fd;
+  height: 130px;
+}
+.totalUsers{
+  background-color: #36eaea;
+  height: 130px;
 }
 .bi-book, .bi-person-plus, .bi-journal-arrow-up, .bi-journal-arrow-down{
   display: flex;
@@ -120,6 +151,24 @@
 .totalBooksReturned .bi-journal-arrow-down{
   background-color: #d600da;
 }
+/* WebKit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 5px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Track color */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; /* Thumb color */
+  border-radius: 5px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Thumb color on hover */
+}
+
 @media screen and (max-width:700px) {
   .col-sm-12{
     width: 60px;
