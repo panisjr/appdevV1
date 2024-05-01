@@ -30,10 +30,11 @@ class UserController extends Controller
     {
         return $this->user->all();
     }
-    public function getTotalAccounts(){
+    public function getTotalAccounts()
+    {
         $totalAccounts =  User::count();
         $totalBooks = Book::count();
-        return response()->json(['totalAccounts'=>$totalAccounts, 'totalBooks'=>$totalBooks]);
+        return response()->json(['totalAccounts' => $totalAccounts, 'totalBooks' => $totalBooks]);
     }
     public function todayRegisteredUsersCount()
     {
@@ -47,7 +48,7 @@ class UserController extends Controller
         $count = Book::whereDate('created_at', $today)->count();
         return response()->json(['count' => $count]);
     }
-        public function store(Request $request)
+    public function store(Request $request)
     {
         // Check if an existing user with the provided email and deactivated status exists
         $existingDeactivatedUser = User::where('email', $request->email)->where('status', 'deactivated')->first();
@@ -66,7 +67,7 @@ class UserController extends Controller
         if ($existingDeactivatedUser) {
             // If a deactivated user with the provided email exists, create a new account using the same email
             $userData = $request->only(['firstname', 'middlename', 'lastname', 'email', 'contact', 'password', 'role']);
-            
+
             // Create new user without validation
             $user = User::create($userData);
 
@@ -113,7 +114,7 @@ class UserController extends Controller
     public function show(string $id)
     {
         $user = $this->user->find($id);
-        
+
         if (!$user) {
             return response()->json([
                 'success' => false,
@@ -140,7 +141,7 @@ class UserController extends Controller
                 'email',
                 'max:255',
                 Rule::unique('users')->ignore($user->id),
-                'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/', 
+                'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
             ],
             'contact' => ['string', 'regex:/^09\d{9}$/', 'max:11'], // Regular expression for Philippine number starting with 09
             'role' => ['required', Rule::in(['Admin', 'Borrower', 'Librarian'])],
@@ -174,7 +175,7 @@ class UserController extends Controller
     public function deleteUser(string $id)
     {
         $user = $this->user->find($id);
-        
+
         if (!$user) {
             return response()->json([
                 'success' => false,
@@ -189,55 +190,69 @@ class UserController extends Controller
             'message' => 'User Deleted Successfully',
         ]);
     }
- public function deactivate(Request $request, string $id)
-{
-    // Find the user by ID
-    $user = $this->user->findOrFail($id);
+    public function deactivate(Request $request, string $id)
+    {
+        // Find the user by ID
+        $user = $this->user->findOrFail($id);
 
-    // Check if the user was found
-    if ($user) {
-        // Check if the user is being deactivated and there is an active user with the same email
-        if ($user->status === "deactivated" && User::where('email', $user->email)->where('status', 'active')->exists()) {
+        // Check if the user was found
+        if ($user) {
+            // Check if the user is being deactivated and there is an active user with the same email
+            if ($user->status === "deactivated" && User::where('email', $user->email)->where('status', 'active')->exists()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'You must delete the existing email with status of active first before reactivating the user.',
+                ], 422);
+            }
+
+            // Toggle the user's status
+            $user->status = $user->status === "active" ? "deactivated" : "active";
+
+            // Save the updated user
+            $user->save();
+
             return response()->json([
-                'success' => false,
-                'message' => 'You must delete the existing email with status of active first before reactivating the user.',
-            ], 422);
+                'success' => true,
+                'message' => 'User ' . ($user->status === "active" ? 'active' : 'deactivated') . ' successfully!',
+                'data' => $user,
+            ]);
         }
 
-        // Toggle the user's status
-        $user->status = $user->status === "active" ? "deactivated" : "active";
-
-        // Save the updated user
-        $user->save();
-
+        // If the user was not found, return a 404 response
         return response()->json([
-            'success' => true,
-            'message' => 'User ' . ($user->status === "active" ? 'active' : 'deactivated') . ' successfully!',
-            'data' => $user,
-        ]);
+            'success' => false,
+            'message' => 'User not found',
+        ], 404);
     }
 
-    // If the user was not found, return a 404 response
-    return response()->json([
-        'success' => false,
-        'message' => 'User not found',
-    ], 404);
-}
 
-
-    public function login(Request $request) {
+    public function login(Request $request)
+    {
         $credentials = $request->only('email', 'password');
     
-        // Check if the email exists in the users table
-        $user = User::where('email', $credentials['email'])->first();
+        // Fetch all users with the provided email
+        $users = User::where('email', $credentials['email'])->get();
     
-        if (!$user) {
+        // Check if any user with the email exists
+        if ($users->isEmpty()) {
             $response['status'] = 0;
             $response['code'] = 404;
             $response['message'] = 'Email not found';
             return response()->json($response);
         }
     
+        // Check if there's an active user
+        $activeUser = $users->firstWhere('status', 'active');
+    
+        if (!$activeUser) {
+            // If no active user found
+            $response['status'] = 0;
+            $response['code'] = 403; // Forbidden status code
+            $response['message'] = 'Account has been deactivated!';
+            return response()->json($response);
+        }
+    
+        // Attempt login with the credentials
         try {
             if (!JWTAuth::attempt($credentials)) {
                 $response['status'] = 0;
@@ -257,14 +272,18 @@ class UserController extends Controller
     
         $response['data'] = [
             'token' => $token,
-            'role' => $user->role, // Assuming the user model has a 'role' attribute
-            'firstname' => $user->firstname // Assuming the user model has a 'role' attribute
+            'role' => $user->role,
+            'firstname' => $user->firstname,
+            'status' => $user->status
         ];
         $response['status'] = 1;
         $response['code'] = 200;
         $response['message'] = 'Login Successfully';
         return response()->json($response);
     }
+    
+    
+
     public function sendResetLinkEmail(Request $request)
     {
         $request->validate(['email' => 'required|email']);
@@ -282,7 +301,7 @@ class UserController extends Controller
         $user->save();
 
         // Send email with reset link and user's name
-    Mail::to($user->email)->send(new Email($user->name, $token));
+        Mail::to($user->email)->send(new Email($user->name, $token));
 
         return response()->json(['message' => 'Password reset link sent'], 200);
     }
@@ -305,6 +324,4 @@ class UserController extends Controller
 
         return response()->json(['message' => 'Password reset successfully'], 200);
     }
-   
-    }
-
+}

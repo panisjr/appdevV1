@@ -17,7 +17,7 @@ export class LoginComponent {
   confirm_password: string = '';
 
   loading: boolean = false; // Add a boolean variable to track loading state
-  errorMessage: string | null = null;
+  errorMessage: boolean | null = null;
   successMessage: string | null = null;
 
   @ViewChild('exampleModal') modal: any; // Reference to the modal
@@ -26,7 +26,7 @@ export class LoginComponent {
     private http: HttpClient,
     private router: Router,
     private jwtHelper: JwtHelperService,
-private backend: BackendService
+    private backend: BackendService
   ) {} // Inject Router
 
   closeModal() {
@@ -53,49 +53,50 @@ private backend: BackendService
       (response) => {
         if (response && response.data && response.data.token) {
           this.loading = false;
-          sessionStorage.setItem('jwt_token', response.data.token);
-          // Save user info to session storage or state
-          sessionStorage.setItem('user_info', JSON.stringify(response.data.firstname)); // Assuming user info is returned as 'user'
-          switch (response.data.role) {
-            case 'Admin':
-              this.router.navigate(['/adminDashboard']);
-              break;
-            case 'Librarian':
-              this.router.navigate(['/librarianDashboard']);
-              break;
-            case 'Borrower':
-              this.router.navigate(['/borrowerDashboard']);
-              break;
-            default:
-              this.router.navigate(['/']);
-              break;
-          }
+            sessionStorage.setItem('jwt_token', response.data.token);
+            // Save user info to session storage or state
+            sessionStorage.setItem(
+              'user_info',
+              JSON.stringify(response.data.firstname)
+            ); // Assuming user info is returned as 'user'
+            switch (response.data.role) {
+              case 'Admin':
+                this.router.navigate(['/adminDashboard']);
+                break;
+              case 'Librarian':
+                this.router.navigate(['/librarianDashboard']);
+                break;
+              case 'Borrower':
+                this.router.navigate(['/borrowerDashboard']);
+                break;
+              default:
+                this.router.navigate(['/']);
+                break;
+            }
         } else {
           this.loading = false;
-          this.errorMessage = 'Please make sure you already have an account.';
+          this.errorMessage = response.message;
+          setTimeout(() => {
+            this.errorMessage = false;
+          }, 2000);
           // Handle error (e.g., display error message to user)
         }
       },
       (error) => {
         this.loading = false;
-        if (error.status === 404) {
-          this.errorMessage = 'Email not found';
-        } else if (error.status === 401) {
-          this.errorMessage = 'Email or Password is Incorrect';
-        } else {
-          this.errorMessage = 'An error occurred';
-        }
-        this.errorMessage = 'Failed to login';
+       this.errorMessage = error.error.message;
+       setTimeout(() => {
+        this.errorMessage = false;
+       }, 1500);
       }
     );
   }
 
-
   forgotPassword() {
     this.loading = true;
     const data = {
-      email: this.forgotEmail
-    }
+      email: this.forgotEmail,
+    };
     this.backend.sendPasswordResetLink(data).subscribe(
       () => {
         this.loading = false;
