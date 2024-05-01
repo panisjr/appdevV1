@@ -8,7 +8,7 @@ export class AuthGuard implements CanActivate {
   constructor(private router: Router) {}
 
   canActivate(): boolean {
-    const jwtToken = localStorage.getItem('jwt_token');
+    const jwtToken = sessionStorage.getItem('jwt_token');
     if (jwtToken) {
       return true; // Allow access to the route if the JWT token is present
     } else {

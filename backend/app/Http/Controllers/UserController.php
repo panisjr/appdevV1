@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\Email;
+use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule; // Import Rule class for validation
 use Illuminate\Support\Facades\Validator; // Import Validator class for validation
@@ -11,6 +12,7 @@ use Illuminate\Http\Response;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Models\PasswordReset;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -28,12 +30,28 @@ class UserController extends Controller
     {
         return $this->user->all();
     }
-    
+    public function getTotalAccounts(){
+        $totalAccounts =  User::count();
+        $totalBooks = Book::count();
+        return response()->json(['totalAccounts'=>$totalAccounts, 'totalBooks'=>$totalBooks]);
+    }
+    public function todayRegisteredUsersCount()
+    {
+        $today = Carbon::now()->toDateString();
+        $count = User::whereDate('created_at', $today)->count();
+        return response()->json(['count' => $count]);
+    }
+    public function todayRegisteredBooksCount()
+    {
+        $today = Carbon::now()->toDateString();
+        $count = Book::whereDate('created_at', $today)->count();
+        return response()->json(['count' => $count]);
+    }
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'firstname' => 'required|regex:/^[a-zA-Z\s\-\.]+$/|max:255',
-            'middlename' => 'required|regex:/^[a-zA-Z\s\-\.]+$/|max:255',
+            'middlename' => 'nullable|regex:/^[a-zA-Z\.]*$/|max:255',
             'lastname' => 'required|regex:/^[a-zA-Z\s\-\.]+$/|max:255',
             'email' => 'required|email|unique:users,email|max:255',
             'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/', 
@@ -85,7 +103,7 @@ class UserController extends Controller
 
         $validator = Validator::make($request->all(), [
             'firstname' => 'required|regex:/^[a-zA-Z\s\-\.]+$/|max:255',
-            'middlename' => 'required|regex:/^[a-zA-Z\s\-\.]+$/|max:255',
+            'middlename' => 'nullable|regex:/^[a-zA-Z\.]*$/|max:255',
             'lastname' => 'required|regex:/^[a-zA-Z\s\-\.]+$/|max:255',
             'email' => [
                 'required',
@@ -118,7 +136,7 @@ class UserController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'User updated successfully',
+            'message' => 'User Updated successfully',
             'data' => $user,
         ]);
     }
@@ -200,7 +218,8 @@ class UserController extends Controller
     
         $response['data'] = [
             'token' => $token,
-            'role' => $user->role // Assuming the user model has a 'role' attribute
+            'role' => $user->role, // Assuming the user model has a 'role' attribute
+            'firstname' => $user->firstname // Assuming the user model has a 'role' attribute
         ];
         $response['status'] = 1;
         $response['code'] = 200;

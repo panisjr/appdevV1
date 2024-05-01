@@ -3,19 +3,18 @@ import { HttpClient } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { BackendService } from '../../../service/backend.service';
-import { subscribeOn } from 'rxjs';
-declare var $: any;
+import 'datatables.net-dt';
 @Component({
   selector: 'app-accounts',
   templateUrl: './accounts.component.html',
   styleUrls: ['./accounts.component.css'],
 })
-export class AccountsComponent implements OnInit, OnDestroy {
+export class AccountsComponent implements OnInit,OnDestroy {
   id: number = 0; // This for the user id
   accounts: any[] = []; // This is for storing the accounts
   editData: any[] = []; // This is for user data for editing
   firstname: string = '';
-  middlename: string = '';
+  middlename: string = ' ';
   lastname: string = '';
   role: string = 'Borrower';
   status: boolean = true;
@@ -28,80 +27,132 @@ export class AccountsComponent implements OnInit, OnDestroy {
   loading: boolean = false;
   edit: boolean = false;
   dataTable: any;
-  apiData: any;
-
   constructor(
     private router: Router,
     private http: HttpClient,
     private titleService: Title,
     private backend: BackendService
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.titleService.setTitle('Accounts');
     this.fetchAccounts();
-    // Data Table
-    this.http
-      .get('http://jsonplaceholder.typicode.com/posts')
-      .subscribe((data: any) => {
-        this.apiData = data;
-        this.initializeDataTable();
-      });
+  }
+  ngOnDestroy(): void {
+    if ($.fn.DataTable.isDataTable('#accountTable')) {
+      $('#accountTable').DataTable().destroy();
+    }
+  }
+  fetchAccounts() {
+    this.backend.get().subscribe(
+      (response: any) => {
+        this.accounts = response;
+        if (this.dataTable) {
+          this.dataTable.destroy();
+        }
+        this.initializeDataTables();
+      },
+      (error) => {
+        console.error('Error fetching accounts:', error);
+      }
+    );
   }
 
-  initializeDataTable(): void {
-    this.dataTable = $('#datatable').DataTable({
-      data: this.apiData,
-      columns: [
-        { title: 'Name', data: 'firstname' },
-        { title: 'Email', data: 'email' },
-        { title: 'Contact', data: 'contact' },
-        { title: 'Role', data: 'role' },
-      ],
+  initializeDataTables(): void {
+    const self = this;
+    $(document).ready(() => {
+      this.dataTable = $('#accountTable').DataTable({
+        data: this.accounts,
+        columns: [
+          { title: 'Id', data: 'id' },
+          {
+            title: 'Name',
+            data: function(row) {
+              let fullName = row.firstname;
+              if (row.middlename && row.middlename.trim() !== 'null') {
+                  fullName += ' ' + row.middlename;
+              }
+              fullName += ' ' + row.lastname;
+              return fullName;
+          }
+            
+          },
+          { title: 'Email', data: 'email' },
+          { title: 'Contact', data: 'contact' },
+          { title: 'Role', data: 'role' },
+          { title: 'Status', data: 'status' },
+          {
+            title: '',
+            defaultContent: '',
+            orderable: false,
+            searchable: false,
+            render: function (data, type, row) {
+              return `
+              <div class="btn-group dropstart">
+  <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
+  <i class="bi bi-three-dots-vertical"></i>
+  </button>
+  <ul class="dropdown-menu p-2">
+    <!-- Dropdown menu links -->
+    <button class="btn btn-warning edit-btn me-3 mb-2" data-id="${row.id}" data-bs-toggle="modal" data-bs-target="#editAccountModal">Edit</button>
+    <button class="btn btn-danger delete-btn" data-id="${row.id}" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">Delete</button>
+    <button class="btn deactivate-btn"
+    [class.btn-success]="${row.status} === 'Deactivate'" 
+    [class.btn-danger]="${row.status} === 'Activate'"
+    data-id="${row.id}" data-status="${row.status}">${row.status === 'Deactivate' ? 'Activate' : 'Deactivate'}</button>
+    </ul>
+  </div>
+              `;
+            },
+          },
+        ],
+      });
+      // Event listener for edit button
+      $('#accountTable').on('click', '.edit-btn', function () {
+        const accountId = $(this).data('id');
+        self.setEdit(accountId);
+      });
+
+      // Event listener for delete button
+      $('#accountTable').on('click', '.delete-btn', function () {
+        const accountId = $(this).data('id');
+        self.setDelete(accountId);
+      });
+
+      // Event listener for deactivate button
+      $('#accountTable').on('click', '.deactivate-btn', function () {
+        const accountId = $(this).data('id');
+        const accountStatus = $(this).data('status');
+        self.deactivate(accountId, accountStatus);
+      });
     });
   }
 
-  ngOnDestroy(): void {
-    if (this.dataTable) {
-      this.dataTable.destroy();
-    }
-  }
-  // Define the deactivate function
-  deactivate(userId: number){
-    this.loading = true;
-    let data = {
-      status: this.status
 
-    }
-    this.backend.deactivate(userId,data).subscribe(
+  // Define the deactivate function
+  deactivate(accountId: number, accountStatus: any) {
+    this.loading = true;
+
+    this.backend.deactivate(accountId, accountStatus).subscribe(
       (response: any) => {
         this.loading = false;
-    this.successMessage = response.message;
-    this.status = false;
-    this.fetchAccounts();
-    setTimeout(() => {
-      this.successMessage = null;
-    }, 1500);
-    },(error)=>{
-      this.errorMessage = error.error.message;
-    });
+        this.successMessage = response.message;
+        this.status = false;
+        this.fetchAccounts();
+        setTimeout(() => {
+          this.successMessage = null;
+        }, 1500);
+      }, (error) => {
+        this.errorMessage = error.error.message;
+      });
   }
   closeModal() {
     this.errorMessage = null;
     this.successMessage = null;
   }
 
-  fetchAccounts() {
-    this.http
-      .get('http://127.0.0.1:8000/api/getUsers')
-
-      .subscribe((response: any) => {
-        console.log(response);
-        this.accounts = response;
-      });
-  }
-
   logout() {
-    localStorage.removeItem('jwt_token');
+    sessionStorage.removeItem('jwt_token');
+    sessionStorage.removeItem('user_info');
     this.router.navigate(['/login']);
   }
 
@@ -148,17 +199,20 @@ export class AccountsComponent implements OnInit, OnDestroy {
       this.errorMessage = 'Failed to register account.';
     }
   }
-  setEdit(data: any) {
-    this.firstname = data.firstname;
-    this.middlename = data.middlename;
-    this.lastname = data.lastname;
-    this.email = data.email;
-    this.contact = data.contact;
-    this.role = data.role;
-    this.id = data.id;
+  setEdit(accountId: number) {
+    const account = this.accounts.find(a => a.id === accountId);
+    if (account) {
+      this.firstname = account.firstname;
+      this.middlename = account.middlename;
+      this.lastname = account.lastname;
+      this.email = account.email;
+      this.contact = account.contact;
+      this.role = account.role;
+      this.id = account.id;
+    }
   }
   // To update user Credentials
-  updateUser(userId: number) {
+  updateUser(accountId: number) {
     this.loading = true;
     let bodyData = {
       firstname: this.firstname,
@@ -169,13 +223,12 @@ export class AccountsComponent implements OnInit, OnDestroy {
       role: this.role,
     };
 
-    this.backend.updateUser(userId, bodyData).subscribe(
+    this.backend.updateUser(accountId, bodyData).subscribe(
       (resultData: any) => {
         this.loading = false;
-        this.successMessage = 'Updated Successfully!';
+        this.successMessage = resultData.message;
         setTimeout(() => {
           this.successMessage = null;
-          this.resetForm();
           this.fetchAccounts();
         }, 1500);
       },
@@ -188,19 +241,22 @@ export class AccountsComponent implements OnInit, OnDestroy {
       }
     );
   }
-  // To Delete User Account
-  setDelete(data: any) {
-    this.firstname = data.firstname;
-    this.middlename = data.middlename;
-    this.lastname = data.lastname;
-    this.email = data.email;
-    this.contact = data.contact;
-    this.role = data.role;
-    this.id = data.id;
+  // To delete the user account
+  setDelete(accountId: number) {
+    const account = this.accounts.find(a => a.id === accountId);
+    if (account) {
+      this.firstname = account.firstname;
+      this.middlename = account.middlename;
+      this.lastname = account.lastname;
+      this.email = account.email;
+      this.contact = account.contact;
+      this.role = account.role;
+      this.id = account.id;
+    }
   }
-  deleteUser(userId: number) {
+  deleteUser(accountId: number) {
     this.loading = true;
-    this.backend.deleteUser(userId).subscribe(
+    this.backend.deleteUser(accountId).subscribe(
       (resultData: any) => {
         this.loading = false;
         this.successMessage = resultData.message;

@@ -6,18 +6,23 @@
   font-family: "Montserrat", sans-serif;
 }
 .navBar {
-  background-color: #008dda;
+  background-color: #183e85;
   border-radius: 10px;
 }
 .book-list-container {
-  height: 580px;
-  box-shadow: 2px 2px 5px 2px rgba(65, 64, 64, 0.5);
+  overflow-y: auto;
+}
+.lastContainer{
+  width: 405px;
   border-radius: 10px;
   overflow-y: auto;
-  display: flex;
-  gap: 20px;
-}
+  box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
 
+  height: 560px;
+}
+.modal-dialog-centered{
+  margin-left: 400px;
+}
 .book-list-container .div .table-div {
   border-radius: 10px;
   overflow-y: auto;
@@ -29,7 +34,11 @@
   vertical-align: middle;
   font-weight: lighter;
 }
-
+.logoContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .logo {
   width: 80px;
   height: 80px;
@@ -43,19 +52,24 @@
 .selection {
   /* border: 1px solid red; */
   display: flex;
+  margin-left: 25px;
   align-items: start;
   flex-direction: column;
 }
 
 .navBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: white;
+  padding: 2px 15px 2px 15px;
 }
 .navBtn:hover {
   background-color: white;
   border-radius: 5px;
   color: #008dda;
   font-weight: bold;
-  transition: 0.2s;
+  transition: 0.3s;
   cursor: pointer;
 }
 .navBtn.active {
@@ -63,4 +77,127 @@
   border-radius: 5px;
   color: #008dda;
   font-weight: bold;
+}
+.box-shadow{
+  box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
+}
+.mostBorrowed{
+  overflow-y: auto;
+  height: 200px;
+}
+.userIcon{
+  background-image: url('man.png');
+  height: 90px;
+  width: 90px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.bookIcon{
+  background-image: url('book.png');
+  height: 90px;
+  width: 90px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.newBooks{
+  height: 110px;
+  width: 120px;
+  border-radius: 5px;
+  background-color: rgb(255, 223, 174);
+}
+.totalBooksReturned{
+  height: 110px;
+  width: 120px;
+  border-radius: 5px;
+  background-color: rgb(255, 174, 250);
+
+}
+.totalBooksBorrowed{
+  height: 110px;
+  width: 120px;
+  border-radius: 5px;
+  background-color: rgb(174, 255, 236);
+}
+.newAccounts{
+  height: 110px;
+  width: 120px;
+  border-radius: 5px;
+  background-color: rgb(251, 255, 174);
+}
+.totalBooks{
+  background-color: #3bd0fd;
+  height: 130px;
+}
+.totalUsers{
+  background-color: #36eaea;
+  height: 130px;
+}
+.bi-book, .bi-person-plus, .bi-journal-arrow-up, .bi-journal-arrow-down{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: white;
+  width: 30px ;
+  height: 30px ;
+}
+.bi-book{
+  background-color: #da6d00;
+}
+.bi-person-plus{
+  background-color: #dad600;
+}
+.bi-journal-arrow-up{
+  background-color: #08d9d9;
+}
+.totalBooksReturned .bi-journal-arrow-down{
+  background-color: #d600da;
+}
+/* WebKit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 5px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Track color */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; /* Thumb color */
+  border-radius: 5px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Thumb color on hover */
+}
+
+@media screen and (max-width:700px) {
+  .col-sm-12{
+    width: 60px;
+    height: 100%;
+  }
+  .book-list-container{
+    width: 430px;
+  }
+  .selection{
+    margin-left: 15px;
+  }
+  .navBtn{
+    width: 10px;
+  }
+  .navBtn p{
+    display: none;
+  }
+.logoName{
+  display: none;
+}  
+.logo{
+  width: 45px;
+  height: 45px;
+}
+.modal-dialog-centered{
+  margin-left: 20px;
+}
 }
