@@ -82,7 +82,7 @@ class UserController extends Controller
 
         $validator = Validator::make($request->all(), [
             'firstname' => 'required|regex:/^[a-zA-Z\s\-\.]+$/|max:255',
-            'middlename' => 'nullable|regex:/^[a-zA-Z\.]*$/|max:255',
+            'middlename' => 'nullable|regex:/^[A-Z]\.$/|max:2',
             'lastname' => 'required|regex:/^[a-zA-Z\s\-\.]+$/|max:255',
             'email' => 'required|email|max:255|unique:users',
             'contact' => ['string', 'regex:/^09\d{9}$/', 'max:11'], // Regular expression for Philippine number starting with 09
@@ -90,11 +90,12 @@ class UserController extends Controller
             'confirm_password' => 'required|string|same:password',
             'role' => ['required', Rule::in(['Admin', 'Borrower', 'Librarian'])],
         ]);
+        
 
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Validation failed',
+                'message' => 'Validation failed. Make sure to fill the fields properly.',
                 'errors' => $validator->errors(),
             ], 422);
         }

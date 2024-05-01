@@ -190,16 +190,11 @@ export class AccountsComponent implements OnInit {
         },
         (error) => {
           this.loading = false;
-          if (error.error.errors && error.error.errors.email) {
-            // Email is not available, handle accordingly
-            this.errorMessage = 'Email is already in use.';
-          } else {
-            this.errorMessage =
-              error.error.message || 'Failed to register account.';
-          }
+          this.errorMessage = error.message;
+
           setTimeout(() => {
             this.errorMessage = null;
-          }, 1500);
+          }, 2000);
         }
       );
     } catch (error) {
