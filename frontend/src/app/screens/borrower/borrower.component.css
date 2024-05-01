@@ -12,7 +12,7 @@
 .book-list-container {
   overflow-y: auto;
   height: 560px ;
-  width: 1030px;
+  width: 1020px;
 }
 .modal-dialog-centered{
   margin-left: 400px;
@@ -123,6 +123,7 @@
   }
   .book-list-container{
     width: 430px;
+
   }
   .selection{
     margin-left: 15px;

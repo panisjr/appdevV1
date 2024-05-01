@@ -9,7 +9,7 @@ import 'datatables.net-dt';
   templateUrl: './accounts.component.html',
   styleUrls: ['./accounts.component.css'],
 })
-export class AccountsComponent implements OnInit,OnDestroy {
+export class AccountsComponent implements OnInit {
   id: number = 0; // This for the user id
   accounts: any[] = []; // This is for storing the accounts
   editData: any[] = []; // This is for user data for editing
@@ -32,15 +32,10 @@ export class AccountsComponent implements OnInit,OnDestroy {
     private http: HttpClient,
     private titleService: Title,
     private backend: BackendService
-  ) { }
+  ) {}
   ngOnInit(): void {
     this.titleService.setTitle('Accounts');
     this.fetchAccounts();
-  }
-  ngOnDestroy(): void {
-    if ($.fn.DataTable.isDataTable('#accountTable')) {
-      $('#accountTable').DataTable().destroy();
-    }
   }
   fetchAccounts() {
     this.backend.get().subscribe(
@@ -66,15 +61,14 @@ export class AccountsComponent implements OnInit,OnDestroy {
           { title: 'Id', data: 'id' },
           {
             title: 'Name',
-            data: function(row) {
+            data: function (row) {
               let fullName = row.firstname;
               if (row.middlename && row.middlename.trim() !== 'null') {
-                  fullName += ' ' + row.middlename;
+                fullName += ' ' + row.middlename;
               }
               fullName += ' ' + row.lastname;
               return fullName;
-          }
-            
+            },
           },
           { title: 'Email', data: 'email' },
           { title: 'Contact', data: 'contact' },
@@ -93,12 +87,18 @@ export class AccountsComponent implements OnInit,OnDestroy {
   </button>
   <ul class="dropdown-menu p-2">
     <!-- Dropdown menu links -->
-    <button class="btn btn-warning edit-btn me-3 mb-2" data-id="${row.id}" data-bs-toggle="modal" data-bs-target="#editAccountModal">Edit</button>
-    <button class="btn btn-danger delete-btn" data-id="${row.id}" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">Delete</button>
+    <button class="btn btn-warning edit-btn me-3 mb-2" data-id="${
+      row.id
+    }" data-bs-toggle="modal" data-bs-target="#editAccountModal">Edit</button>
+    <button class="btn btn-danger delete-btn" data-id="${
+      row.id
+    }" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">Delete</button>
     <button class="btn deactivate-btn"
-    [class.btn-success]="${row.status} === 'Deactivate'" 
-    [class.btn-danger]="${row.status} === 'Activate'"
-    data-id="${row.id}" data-status="${row.status}">${row.status === 'Deactivate' ? 'Activate' : 'Deactivate'}</button>
+    [class.btn-success]="${row.status} === 'deactivated'" 
+    [class.btn-danger]="${row.status} === 'active'"
+    data-id="${row.id}" data-status="${row.status}">${
+                row.status === 'deactivated' ? 'active' : 'deactivated'
+              }</button>
     </ul>
   </div>
               `;
@@ -127,7 +127,6 @@ export class AccountsComponent implements OnInit,OnDestroy {
     });
   }
 
-
   // Define the deactivate function
   deactivate(accountId: number, accountStatus: any) {
     this.loading = true;
@@ -141,9 +140,11 @@ export class AccountsComponent implements OnInit,OnDestroy {
         setTimeout(() => {
           this.successMessage = null;
         }, 1500);
-      }, (error) => {
+      },
+      (error) => {
         this.errorMessage = error.error.message;
-      });
+      }
+    );
   }
   closeModal() {
     this.errorMessage = null;
@@ -175,6 +176,7 @@ export class AccountsComponent implements OnInit,OnDestroy {
         setTimeout(() => {
           this.errorMessage = null;
         }, 1500);
+        return; // Return early if passwords don't match
       }
       this.backend.register(bodyData).subscribe(
         (resultData: any) => {
@@ -188,7 +190,13 @@ export class AccountsComponent implements OnInit,OnDestroy {
         },
         (error) => {
           this.loading = false;
-          this.errorMessage = error.error.message;
+          if (error.error.errors && error.error.errors.email) {
+            // Email is not available, handle accordingly
+            this.errorMessage = 'Email is already in use.';
+          } else {
+            this.errorMessage =
+              error.error.message || 'Failed to register account.';
+          }
           setTimeout(() => {
             this.errorMessage = null;
           }, 1500);
@@ -200,7 +208,7 @@ export class AccountsComponent implements OnInit,OnDestroy {
     }
   }
   setEdit(accountId: number) {
-    const account = this.accounts.find(a => a.id === accountId);
+    const account = this.accounts.find((a) => a.id === accountId);
     if (account) {
       this.firstname = account.firstname;
       this.middlename = account.middlename;
@@ -243,7 +251,7 @@ export class AccountsComponent implements OnInit,OnDestroy {
   }
   // To delete the user account
   setDelete(accountId: number) {
-    const account = this.accounts.find(a => a.id === accountId);
+    const account = this.accounts.find((a) => a.id === accountId);
     if (account) {
       this.firstname = account.firstname;
       this.middlename = account.middlename;
