@@ -81,12 +81,12 @@ class UserController extends Controller
         // If no deactivated user with the provided email exists and there's no active user, perform the regular validation
 
         $validator = Validator::make($request->all(), [
-            'firstname' => 'required|regex:/^[a-zA-Z\s\-\.]+$/|max:255',
-            'middlename' => 'nullable|regex:/^[A-Z]\.$/|max:2',
+            'firstname' => 'required|regex:/^[a-zA-Z\s\-\.]+$/|not_regex:/[^\x00-\x7F]+/|max:255',
+            'middlename' => 'nullable|regex:/^[A-Z]\.$/|not_regex:/[^\x00-\x7F]+/|max:2',
             'lastname' => 'required|regex:/^[a-zA-Z\s\-\.]+$/|max:255',
             'email' => 'required|email|max:255|unique:users',
             'contact' => ['string', 'regex:/^09\d{9}$/', 'max:11'], // Regular expression for Philippine number starting with 09
-            'password' => 'required|string|min:8',
+            'password' => 'required|string|min:8|max:20|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]*$/|not_regex:/[^\x00-\x7F]+/',
             'confirm_password' => 'required|string|same:password',
             'role' => ['required', Rule::in(['Admin', 'Borrower', 'Librarian'])],
         ]);
@@ -95,7 +95,7 @@ class UserController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Validation failed. Make sure to fill the fields properly.',
+                'message' => 'Validation failed! Make sure to fill the fields properly.',
                 'errors' => $validator->errors(),
             ], 422);
         }
@@ -134,9 +134,9 @@ class UserController extends Controller
         $user = $this->user->findOrFail($id);
 
         $validator = Validator::make($request->all(), [
-            'firstname' => 'required|regex:/^[a-zA-Z\s\-\.]+$/|max:255',
-            'middlename' => 'nullable|regex:/^[a-zA-Z\.]*$/|max:255',
-            'lastname' => 'required|regex:/^[a-zA-Z\s\-\.]+$/|max:255',
+            'firstname' => 'required|regex:/^[a-zA-Z\s\-\.]+$/|not_regex:/[^\x00-\x7F]+/|max:255',
+            'middlename' => 'nullable|regex:/^[A-Z]\.$/|not_regex:/[^\x00-\x7F]+/|max:2',
+            'lastname' => 'required|regex:/^[a-zA-Z\s\-\.]+$/|not_regex:/[^\x00-\x7F]+/|max:255',
             'email' => [
                 'required',
                 'email',
@@ -157,7 +157,7 @@ class UserController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Validation failed!',
+                'message' => 'Validation failed! Make sure to fill the fields properly.',
                 'errors' => $validator->errors(),
             ], 422);
         }

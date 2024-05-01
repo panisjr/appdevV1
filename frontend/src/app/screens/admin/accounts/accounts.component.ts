@@ -181,7 +181,7 @@ export class AccountsComponent implements OnInit {
       this.backend.register(bodyData).subscribe(
         (resultData: any) => {
           this.loading = false;
-          this.successMessage = 'Registered Successfully!';
+          this.successMessage = "Registered Successfully!";
           setTimeout(() => {
             this.successMessage = null;
             this.fetchAccounts();
@@ -189,12 +189,14 @@ export class AccountsComponent implements OnInit {
           }, 1500);
         },
         (error) => {
-          this.loading = false;
-          this.errorMessage = error.message;
-
-          setTimeout(() => {
-            this.errorMessage = null;
-          }, 2000);
+          if(error.status === 422){
+            this.loading = false;
+            this.errorMessage = "Validation Failed! Make sure to fill all the fields correctly.";
+  
+            setTimeout(() => {
+              this.errorMessage = null;
+            }, 2000);
+          }
         }
       );
     } catch (error) {
