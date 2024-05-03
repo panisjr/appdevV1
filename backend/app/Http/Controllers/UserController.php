@@ -186,46 +186,49 @@ class UserController extends Controller
     ], 404);
 }
 
-    public function login(Request $request) {
-        $credentials = $request->only('email', 'password');
-    
-        // Check if the email exists in the users table
-        $user = User::where('email', $credentials['email'])->first();
-    
-        if (!$user) {
-            $response['status'] = 0;
-            $response['code'] = 404;
-            $response['message'] = 'Email not found';
-            return response()->json($response);
-        }
-    
-        try {
-            if (!JWTAuth::attempt($credentials)) {
-                $response['status'] = 0;
-                $response['code'] = 401;
-                $response['message'] = 'Email or Password is Incorrect';
-                return response()->json($response);
-            }
-        } catch (JWTException $e) {
-            $response['status'] = 0;
-            $response['code'] = 500;
-            $response['message'] = 'Could not create token';
-            return response()->json($response);
-        }
-    
-        $user = auth()->user();
-        $token = JWTAuth::fromUser($user);
-    
-        $response['data'] = [
-            'token' => $token,
-            'role' => $user->role, // Assuming the user model has a 'role' attribute
-            'firstname' => $user->firstname // Assuming the user model has a 'role' attribute
-        ];
-        $response['status'] = 1;
-        $response['code'] = 200;
-        $response['message'] = 'Login Successfully';
+public function login(Request $request) {
+    $credentials = $request->only('email', 'password');
+
+    // Check if the email exists in the users table
+    $user = User::where('email', $credentials['email'])->first();
+
+    if (!$user) {
+        $response['status'] = 0;
+        $response['code'] = 404;
+        $response['message'] = 'Email not found';
         return response()->json($response);
     }
+
+    try {
+        if (!JWTAuth::attempt($credentials)) {
+            $response['status'] = 0;
+            $response['code'] = 401;
+            $response['message'] = 'Email or Password is Incorrect';
+            return response()->json($response);
+        }
+    } catch (JWTException $e) {
+        $response['status'] = 0;
+        $response['code'] = 500;
+        $response['message'] = 'Could not create token';
+        return response()->json($response);
+    }
+
+    $user = auth()->user();
+    $token = JWTAuth::fromUser($user);
+
+    $response['data'] = [
+        'id' => $user->id,
+        'token' => $token,
+        'role' => $user->role,
+        'firstname' => $user->firstname
+    ];
+    $response['status'] = 1;
+    $response['code'] = 200;
+    $response['message'] = 'Login Successfully';
+    return response()->json($response);
+}
+
+    
     public function sendResetLinkEmail(Request $request)
     {
         $request->validate(['email' => 'required|email']);

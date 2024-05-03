@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { BackendService } from '../../service/backend.service';
 import { ServerService } from '../../service/server.service';
 import { Book } from '../../model/book.model';
+import { MatDialog } from '@angular/material/dialog';
+import { BookdetailsComponent } from './bookdetails/bookdetails.component';
 
 @Component({
   selector: 'app-borrower',
@@ -16,9 +18,9 @@ export class BorrowerComponent implements OnInit {
   totalBooks: number = 0;
   todayRegisteredUsersCount: number = 0;
   todayRegisteredBooksCount: number = 0;
-  books: Book[] = []; // Use the Book interface to type the books array
+  books: Book[] = []; 
 
-  constructor(private router: Router, private titleService: Title, private backend: BackendService, private serverService: ServerService) {}
+  constructor(private router: Router, private titleService: Title, private backend: BackendService, private serverService: ServerService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.fetchAccounts();
@@ -74,5 +76,16 @@ export class BorrowerComponent implements OnInit {
   getBooksByCategory(category: string): Book[] {
     // Filter books based on the selected category
     return this.books.filter(book => book.category === category);
+  }
+
+  showBookDetails(book: Book): void {
+    const dialogRef = this.dialog.open(BookdetailsComponent, {
+      width: '400px',
+      data: book // Pass book data to the dialog
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 }

@@ -45,8 +45,8 @@ private backend: BackendService
 
   login() {
     let bodyData = {
-      email: this.email, // Get email from input field
-      password: this.password, // Get password from input field
+      email: this.email, 
+      password: this.password, 
     };
     this.loading = true;
     this.http.post<any>('http://127.0.0.1:8000/api/login', bodyData).subscribe(
@@ -56,6 +56,7 @@ private backend: BackendService
           sessionStorage.setItem('jwt_token', response.data.token);
           // Save user info to session storage or state
           sessionStorage.setItem('user_info', JSON.stringify(response.data.firstname)); // Assuming user info is returned as 'user'
+          sessionStorage.setItem('user_id', response.data.id); // Store user ID in session storage
           switch (response.data.role) {
             case 'Admin':
               this.router.navigate(['/adminDashboard']);
@@ -73,7 +74,6 @@ private backend: BackendService
         } else {
           this.loading = false;
           this.errorMessage = 'Please make sure you already have an account.';
-          // Handle error (e.g., display error message to user)
         }
       },
       (error) => {
@@ -88,7 +88,7 @@ private backend: BackendService
         this.errorMessage = 'Failed to login';
       }
     );
-  }
+  }    
 
 
   forgotPassword() {
