@@ -9,7 +9,11 @@ import 'datatables.net-dt';
   templateUrl: './accounts.component.html',
   styleUrls: ['./accounts.component.css'],
 })
+<<<<<<< HEAD
 export class AccountsComponent implements OnInit {
+=======
+export class AccountsComponent implements OnInit,OnDestroy {
+>>>>>>> update
   id: number = 0; // This for the user id
   accounts: any[] = []; // This is for storing the accounts
   editData: any[] = []; // This is for user data for editing
@@ -32,11 +36,19 @@ export class AccountsComponent implements OnInit {
     private http: HttpClient,
     private titleService: Title,
     private backend: BackendService
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.titleService.setTitle('Accounts');
     this.fetchAccounts();
   }
+<<<<<<< HEAD
+=======
+  ngOnDestroy(): void {
+    if ($.fn.DataTable.isDataTable('#accountTable')) {
+      $('#accountTable').DataTable().destroy();
+    }
+  }
+>>>>>>> update
   fetchAccounts() {
     this.backend.get().subscribe(
       (response: any) => {
@@ -61,6 +73,7 @@ export class AccountsComponent implements OnInit {
           { title: 'Id', data: 'id' },
           {
             title: 'Name',
+<<<<<<< HEAD
             data: function (row) {
               let fullName = row.firstname;
               if (row.middlename && row.middlename.trim() !== 'null') {
@@ -69,6 +82,17 @@ export class AccountsComponent implements OnInit {
               fullName += ' ' + row.lastname;
               return fullName;
             },
+=======
+            data: function(row) {
+              let fullName = row.firstname;
+              if (row.middlename && row.middlename.trim() !== 'null') {
+                  fullName += ' ' + row.middlename;
+              }
+              fullName += ' ' + row.lastname;
+              return fullName;
+          }
+            
+>>>>>>> update
           },
           { title: 'Email', data: 'email' },
           { title: 'Contact', data: 'contact' },
@@ -87,6 +111,7 @@ export class AccountsComponent implements OnInit {
   </button>
   <ul class="dropdown-menu p-2">
     <!-- Dropdown menu links -->
+<<<<<<< HEAD
     <button class="btn btn-warning edit-btn me-3 mb-2" data-id="${
       row.id
     }" data-bs-toggle="modal" data-bs-target="#editAccountModal">Edit</button>
@@ -99,6 +124,14 @@ export class AccountsComponent implements OnInit {
     data-id="${row.id}" data-status="${row.status}">${
                 row.status === 'deactivated' ? 'active' : 'deactivated'
               }</button>
+=======
+    <button class="btn btn-warning edit-btn me-3 mb-2" data-id="${row.id}" data-bs-toggle="modal" data-bs-target="#editAccountModal">Edit</button>
+    <button class="btn btn-danger delete-btn" data-id="${row.id}" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">Delete</button>
+    <button class="btn deactivate-btn"
+    [class.btn-success]="${row.status} === 'Deactivate'" 
+    [class.btn-danger]="${row.status} === 'Activate'"
+    data-id="${row.id}" data-status="${row.status}">${row.status === 'Deactivate' ? 'Activate' : 'Deactivate'}</button>
+>>>>>>> update
     </ul>
   </div>
               `;
@@ -127,10 +160,18 @@ export class AccountsComponent implements OnInit {
     });
   }
 
+<<<<<<< HEAD
   // Define the deactivate function
   deactivate(accountId: number, accountStatus: any) {
     this.loading = true;
 
+=======
+
+  // Define the deactivate function
+  deactivate(accountId: number, accountStatus: any) {
+    this.loading = true;
+
+>>>>>>> update
     this.backend.deactivate(accountId, accountStatus).subscribe(
       (response: any) => {
         this.loading = false;
@@ -140,11 +181,17 @@ export class AccountsComponent implements OnInit {
         setTimeout(() => {
           this.successMessage = null;
         }, 1500);
+<<<<<<< HEAD
       },
       (error) => {
         this.errorMessage = error.error.message;
       }
     );
+=======
+      }, (error) => {
+        this.errorMessage = error.error.message;
+      });
+>>>>>>> update
   }
   closeModal() {
     this.errorMessage = null;
@@ -205,7 +252,11 @@ export class AccountsComponent implements OnInit {
     }
   }
   setEdit(accountId: number) {
+<<<<<<< HEAD
     const account = this.accounts.find((a) => a.id === accountId);
+=======
+    const account = this.accounts.find(a => a.id === accountId);
+>>>>>>> update
     if (account) {
       this.firstname = account.firstname;
       this.middlename = account.middlename;
@@ -248,7 +299,11 @@ export class AccountsComponent implements OnInit {
   }
   // To delete the user account
   setDelete(accountId: number) {
+<<<<<<< HEAD
     const account = this.accounts.find((a) => a.id === accountId);
+=======
+    const account = this.accounts.find(a => a.id === accountId);
+>>>>>>> update
     if (account) {
       this.firstname = account.firstname;
       this.middlename = account.middlename;
