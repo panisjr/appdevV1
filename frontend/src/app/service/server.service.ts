@@ -37,7 +37,7 @@ export class ServerService {
 
   // Borrowings API
 
-  borrowBook(borrowing: Borrowing): Observable<Borrowing> {
+  borrowBook(borrowing: Borrowing, userId: number): Observable<Borrowing> {
     return this.http.post<Borrowing>(this.borrowingApiUrl, borrowing);
   }
 

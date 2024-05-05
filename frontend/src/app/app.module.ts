@@ -16,11 +16,11 @@ import {
 } from '@auth0/angular-jwt';
 import { RegisterComponent } from './screens/register/register.component';
 import { AccountsComponent } from './screens/admin/accounts/accounts.component';
-import { BackendService } from './service/backend.service';
 import { ResetPasswordComponent } from './screens/login/reset-password/reset-password.component';
 import { DataTablesModule } from 'angular-datatables';
 import { BookManagementComponent } from './screens/book-management/book-management.component';
 import { BookdetailsComponent } from './screens/borrower/bookdetails/bookdetails.component';
+import { ServerService } from './service/server.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +50,7 @@ import { BookdetailsComponent } from './screens/borrower/bookdetails/bookdetails
     }),
   ],
   providers: [
-    BackendService,
+    ServerService,
     JwtHelperService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],

@@ -1,10 +1,6 @@
 <div class="container-fluid">
   <div class="row vh-100 p-3">
-<<<<<<< HEAD
     <div class="col-lg-2 col-md-4 col-sm-12 me-3 navBar">
-=======
-    <div class="col-lg-2 col-md-4 col-sm-12 me-4 navBar">
->>>>>>> update
       <div class="d-flex align-items-center justify-content-center p-3">
         <div class="logo"></div>
         <h4 class="text-center text-white pt-3">ReadEase.</h4>
@@ -77,31 +73,6 @@
       </div>
       <div class="table-div">
         <table id="bookTable" class="table table-striped">
-          <!-- <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Category</th>
-                    <th>Author</th>
-                    <th>Publisher</th>
-                    <th>Date</th>
-                    <th>Quantity</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let book of books">
-                    <td>{{ book.title }}</td>
-                    <td>{{ book.category }}</td>
-                    <td>{{ book.author }}</td>
-                    <td>{{ book.publisher }}</td>
-                    <td>{{ book.date }}</td>
-                    <td>{{ book.quantity }}</td>
-                    <td>
-                        <button (click)="editBook(book.id!)" class="btn btn-warning btn-sm">Edit</button>
-                        <button (click)="deleteBook(book.id!)" class="btn btn-danger btn-sm">Delete</button>
-                    </td>
-                </tr>
-            </tbody> -->
         </table>
       </div>
       <!-- Add Account Modal -->
@@ -124,10 +95,7 @@
                 <div>
                   <label>Title:</label>
                   <input
-<<<<<<< HEAD
                     class="form-control"
-=======
->>>>>>> update
                     type="text"
                     name="title"
                     [(ngModel)]="book.title"
@@ -137,7 +105,6 @@
                 </div>
                 <div>
                   <label>Category:</label>
-<<<<<<< HEAD
                   <select
                     class="form-control p-2"
                     name="category"
@@ -156,22 +123,11 @@
                     <option value="Sci-Fi">Sci-Fi</option>
                     <option value="Thrillers">Thrillers</option>
                   </select>
-=======
-                  <input
-                    type="text"
-                    name="category"
-                    [(ngModel)]="book.category"
-                    pattern="[a-zA-Z0-9\s]+"
-                  />
->>>>>>> update
                 </div>
                 <div>
                   <label>Genre:</label>
                   <input
-<<<<<<< HEAD
                     class="form-control"
-=======
->>>>>>> update
                     type="text"
                     name="genre"
                     [(ngModel)]="book.genre"
@@ -181,10 +137,7 @@
                 <div>
                   <label>Author:</label>
                   <input
-<<<<<<< HEAD
                     class="form-control"
-=======
->>>>>>> update
                     type="text"
                     name="author"
                     [(ngModel)]="book.author"
@@ -196,10 +149,7 @@
                   <label>Publisher:</label>
                   <input
                     type="text"
-<<<<<<< HEAD
                     class="form-control"
-=======
->>>>>>> update
                     name="publisher"
                     [(ngModel)]="book.publisher"
                     pattern="[a-zA-Z0-9\s]+"
@@ -212,10 +162,7 @@
                 <div>
                   <label>Quantity:</label>
                   <input
-<<<<<<< HEAD
                     class="form-control"
-=======
->>>>>>> update
                     type="number"
                     name="quantity"
                     [(ngModel)]="book.quantity"
