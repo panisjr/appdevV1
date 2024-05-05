@@ -1,10 +1,15 @@
 <div class="container-fluid">
   <div class="row vh-100 p-3">
+<<<<<<< HEAD
     <div class="col-lg-2 col-md-4 col-sm-12 me-3 navBar">
+=======
+    <div class="col-lg-2 col-md-4 col-sm-12 me-4 navBar">
+>>>>>>> update
       <div class="d-flex align-items-center justify-content-center p-3">
         <div class="logo"></div>
         <h4 class="logoName text-center text-white pt-3">ReadEase.</h4>
       </div>
+<<<<<<< HEAD
 
       <nav class="selection text-center mt-5">
         <div
@@ -238,10 +243,134 @@
             </button>
           </div>
         </form>
+=======
+
+      <nav class="selection text-center mt-5">
+        <div
+          class="navBtn mb-4 d-flex align-items-center justify-content-center"
+          routerLinkActive="active"
+          routerLink="/adminDashboard"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <h3 class="bi bi-house"></h3>
+          <p class="ms-4 p-2">Dashboard</p>
+        </div>
+        <div
+          class="navBtn mb-4 d-flex align-items-center justify-content-center"
+          routerLinkActive="active"
+          routerLink="/accounts"
+        >
+          <h3 class="bi bi-person-gear"></h3>
+
+          <p class="ms-4 p-2">Accounts</p>
+        </div>
+        <div
+          class="navBtn mb-4 d-flex align-items-center justify-content-center"
+          routerLink="/books"
+        >
+          <h3 class="bi bi-bookshelf"></h3>
+          <p class="ms-4 p-2">Inventory</p>
+        </div>
+        <div
+        class="navBtn mb-4 d-flex align-items-center justify-content-center"
+        >
+        <h3 class="bi bi-receipt"></h3>
+        <p class="ms-4 p-2">Transactions</p>
+      </div>
+      <div
+        class="navBtn mb-4 d-flex align-items-center justify-content-center"
+      >
+        <h3 class="bi bi-clock-history"></h3>
+        <p class="ms-4 p-2">Logs</p>
+      </div>
+        <div
+          class="navBtn mb-4 d-flex align-items-center justify-content-center"
+          data-bs-toggle="modal"
+          data-bs-target="#logoutModal"
+        >
+          <h3 class="bi bi-box-arrow-left"></h3>
+          <p class="ms-4 p-2">Logout</p>
+        </div>
+      </nav>
+    </div>
+    <div class="col-lg-9 col-md-8 col-sm-12 p-3 book-list-container">
+      <div
+        *ngIf="loading"
+        class="spinner-border loading text-dark"
+        role="status"
+      >
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <div>
+        <div class="mb-4 d-flex align-items-center justify-content-between">
+          <h4>User Management</h4>
+          <button
+            class="add-account btn ms-4"
+            data-bs-toggle="modal"
+            data-bs-target="#addAccount"
+          >
+            Add Account
+          </button>
+        </div>
+      </div>
+
+      <div class="table-div">
+        <table id="accountTable" class="table table-striped">
+          <!-- <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Contact</th>
+                  <th>Role</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let account of accounts">
+                  <td>
+                    {{ account.firstname }}
+                    {{ account.middlename }}
+                    {{ account.lastname }}
+                  </td>
+                  <td>{{ account.email }}</td>
+                  <td>{{ account.contact }}</td>
+                  <td>{{ account.role }}</td>
+                  <td >{{account.status}}</td>
+                  <td>
+                    <button
+                      class="btn btn-success"
+                      (click)="setEdit(account)"
+                      data-bs-toggle="modal"
+                      data-bs-target="#editAccountModal"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      class="btn btn-danger ms-2"
+                      (click)="setDelete(account)"
+                      data-bs-toggle="modal"
+                      data-bs-target="#deleteAccountModal"
+                    >
+                      Delete
+                    </button>
+                    <button class="btn ms-2" 
+        (click)="deactivate(account.id)" 
+        [class.btn-success]="account.status === 'Deactivate'" 
+        [class.btn-danger]="account.status === 'Activate'">
+  {{ account.status === 'Deactivate' ? 'Activate' : 'Deactivate' }}
+</button>
+
+                  </td>
+                </tr>
+              </tbody> -->
+        </table>
+>>>>>>> update
       </div>
     </div>
   </div>
 </div>
+<<<<<<< HEAD
 <!-- Edit Account Modal -->
 <div
   class="modal fade"
@@ -250,11 +379,302 @@
   data-bs-keyboard="false"
   tabindex="-1"
   aria-labelledby="editAccountModal"
+=======
+
+<!-- Add Account Modal -->
+<div
+  class="modal fade"
+  id="addAccount"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="addAccount"
+>>>>>>> update
   aria-hidden="true"
 >
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content p-3">
       <div class="modal-header">
+<<<<<<< HEAD
+        <h1 class="modal-title fs-5" id="editAccountModal">Edit Account</h1>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="updateUser(id)" class="p-2 login-form">
+=======
+        <h1 class="modal-title fs-5" id="addAccount">Add Account</h1>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="register()" class="m-2 login-form">
+>>>>>>> update
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control p-2 mb-4"
+              name="firstname"
+              [(ngModel)]="firstname"
+<<<<<<< HEAD
+              placeholder="First Name"
+              required
+            />
+          </div>
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control p-2 mb-4"
+              name="middlename"
+              [(ngModel)]="middlename"
+              placeholder="Middle Initial (Optional)"
+            />
+          </div>
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control p-2 mb-4"
+              name="lastname"
+              [(ngModel)]="lastname"
+              placeholder="Last Name"
+              required
+            />
+          </div>
+          <div class="input-group has-validation">
+            <input
+              type="email"
+              class="form-control p-2 mb-4"
+              name="email"
+              [(ngModel)]="email"
+              placeholder="Email"
+              required
+            />
+          </div>
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control p-2 mb-4"
+              name="contact"
+              [(ngModel)]="contact"
+              placeholder="Contact"
+              pattern="[0-9]*"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="role">Role:</label>
+            <select
+              class="form-control p-2"
+              [(ngModel)]="role"
+              name="role"
+              required
+            >
+              <option value="Borrower" selected>Borrower</option>
+              <option value="Librarian">Librarian</option>
+              <option value="Admin">Admin</option>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button class="p-2 btn btn-success text-white m-3" type="submit">
+              Update
+            </button>
+
+=======
+              id="firstname"
+              placeholder="First Name"
+              required
+            />
+          </div>
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control p-2 mb-4"
+              name="middlename"
+              [(ngModel)]="middlename"
+              id="middlename"
+              placeholder="Middle Initial"
+              required
+            />
+          </div>
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control p-2 mb-4"
+              name="lastname"
+              [(ngModel)]="lastname"
+              id="lastname"
+              placeholder="Last Name"
+              required
+            />
+          </div>
+          <div class="input-group has-validation">
+            <input
+              type="email"
+              class="form-control p-2 mb-4"
+              name="email"
+              [(ngModel)]="email"
+              id="email"
+              placeholder="Email"
+              required
+            />
+          </div>
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control p-2 mb-4"
+              name="contact"
+              [(ngModel)]="contact"
+              id="contact"
+              placeholder="Contact"
+              pattern="[0-9]*"
+              required
+            />
+          </div>
+          <div class="input-group">
+            <input
+              type="password"
+              class="form-control p-2 mb-4"
+              name="password"
+              [(ngModel)]="password"
+              id="password"
+              placeholder="Password"
+              required
+            />
+          </div>
+          <div class="input-group">
+            <input
+              type="password"
+              class="form-control p-2 mb-2"
+              name="confirm_password"
+              [(ngModel)]="confirm_password"
+              id="confirm_password"
+              placeholder="Confirm Password"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="email">Role:</label>
+            <select
+              class="form-control p-2"
+              id="role"
+              [(ngModel)]="role"
+              name="role"
+              required
+            >
+              <option value="Borrower" selected>Borrower</option>
+              <option value="Librarian">Librarian</option>
+              <option value="Admin">Admin</option>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button class="registerBtn text-white m-3" type="submit">
+              Add Account
+            </button>
+
+>>>>>>> update
+            <button
+              type="button"
+              class="btn p-2 btn-secondary"
+              data-bs-dismiss="modal"
+              (click)="resetForm()"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+<<<<<<< HEAD
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Error Message -->
+<div
+  class="modal fade show"
+  *ngIf="errorMessage"
+  tabindex="-1"
+  aria-labelledby="errorModalMessage"
+  aria-modal="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-3">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 text-danger" id="errorModalMessage">
+          Error
+        </h1>
+      </div>
+      <div class="modal-body">
+        <!-- Display the error message -->
+        <p>{{ errorMessage }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Logout Modal -->
+<div
+  class="modal fade"
+  id="logoutModal"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="logout"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-3">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 m-3" id="logout">Logout Confirmation</h1>
+      </div>
+      <div class="modal-body">
+        <p class="text-black m-3">Are you sure you want to logout?</p>
+        <div class="modal-footer pt-3">
+          <button
+            type="button"
+            class="btn p-2 me-3 btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            No
+          </button>
+          <button
+            data-bs-dismiss="modal"
+            (click)="logout()"
+            class="btn p-2 btn-danger"
+          >
+            Yes
+          </button>
+        </div>
+=======
+>>>>>>> update
+      </div>
+    </div>
+  </div>
+</div>
+<<<<<<< HEAD
+<!-- Delete Modal -->
+<div
+  class="modal fade"
+  id="deleteAccountModal"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="deleteAccountModal"
+=======
+<!-- Edit Account Modal -->
+<div
+  class="modal fade"
+  id="editAccountModal"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="editAccountModal"
+>>>>>>> update
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-3">
+      <div class="modal-header">
+<<<<<<< HEAD
+        <h1 class="modal-title fs-5" id="deleteAccountModal">
+          Delete Confirmation
+        </h1>
+      </div>
+=======
         <h1 class="modal-title fs-5" id="editAccountModal">Edit Account</h1>
       </div>
       <div class="modal-body">
@@ -349,6 +769,7 @@
   tabindex="-1"
   aria-labelledby="errorModalMessage"
   aria-modal="true"
+  style="display: block; background: rgba(0, 0, 0, 0.5)"
 >
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content p-3">
@@ -356,14 +777,84 @@
         <h1 class="modal-title fs-5 text-danger" id="errorModalMessage">
           Error
         </h1>
+        <button
+          type="button"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body">
-        <!-- Display the error message -->
         <p>{{ errorMessage }}</p>
       </div>
     </div>
   </div>
 </div>
+<<<<<<< HEAD
+=======
+<!-- Success Message -->
+<div
+  class="modal fade show"
+  *ngIf="successMessage"
+  tabindex="-1"
+  aria-labelledby="successMessage"
+  aria-modal="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-3">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 text-success" id="successMessage">
+          Successfully
+        </h1>
+        <button
+          type="button"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>{{ successMessage }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Logout Modal -->
+<div
+  class="modal fade"
+  id="logoutModal"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="logout"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-3">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 m-3" id="logout">Logout Confirmation</h1>
+      </div>
+      <div class="modal-body">
+        <p class="text-black m-3">Are you sure you want to logout?</p>
+        <div class="modal-footer pt-3">
+          <button
+            type="button"
+            class="btn p-2 me-3 btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            No
+          </button>
+          <button
+            data-bs-dismiss="modal"
+            (click)="logout()"
+            class="btn p-2 btn-danger"
+          >
+            Yes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+>>>>>>> c0faaec83c1a7b59f25d26fe9405219229e17833
 <!-- Delete Modal -->
 <div
   class="modal fade"
@@ -381,6 +872,7 @@
           Delete Confirmation
         </h1>
       </div>
+>>>>>>> update
       <div class="modal-body p-2">
         <p class="text-black m-2">
           Are you sure you want to delete this account?

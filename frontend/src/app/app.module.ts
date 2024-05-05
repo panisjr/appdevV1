@@ -8,6 +8,7 @@ import { BorrowerComponent } from './screens/borrower/borrower.component';
 import { LibrarianComponent } from './screens/librarian/librarian.component';
 import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { MatDialogModule } from '@angular/material/dialog';
 import {
   JwtHelperService,
   JwtInterceptor,
@@ -19,6 +20,10 @@ import { BackendService } from './service/backend.service';
 import { ResetPasswordComponent } from './screens/login/reset-password/reset-password.component';
 import { DataTablesModule } from 'angular-datatables';
 import { BookManagementComponent } from './screens/book-management/book-management.component';
+<<<<<<< HEAD
+=======
+import { BookdetailsComponent } from './screens/borrower/bookdetails/bookdetails.component';
+>>>>>>> update
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +35,10 @@ import { BookManagementComponent } from './screens/book-management/book-manageme
     AccountsComponent,
     ResetPasswordComponent,
     BookManagementComponent,
+<<<<<<< HEAD
+=======
+    BookdetailsComponent,
+>>>>>>> update
   ],
   imports: [
     BrowserModule,
@@ -37,6 +46,10 @@ import { BookManagementComponent } from './screens/book-management/book-manageme
     FormsModule,
     HttpClientModule,
     DataTablesModule,
+<<<<<<< HEAD
+=======
+    MatDialogModule,
+>>>>>>> update
     JwtModule.forRoot({
       config: {
         tokenGetter: () => localStorage.getItem('jwt_token'),

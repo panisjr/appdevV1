@@ -30,11 +30,18 @@ class UserController extends Controller
     {
         return $this->user->all();
     }
+<<<<<<< HEAD
     public function getTotalAccounts()
     {
         $totalAccounts =  User::count();
         $totalBooks = Book::count();
         return response()->json(['totalAccounts' => $totalAccounts, 'totalBooks' => $totalBooks]);
+=======
+    public function getTotalAccounts(){
+        $totalAccounts =  User::count();
+        $totalBooks = Book::count();
+        return response()->json(['totalAccounts'=>$totalAccounts, 'totalBooks'=>$totalBooks]);
+>>>>>>> update
     }
     public function todayRegisteredUsersCount()
     {
@@ -81,8 +88,13 @@ class UserController extends Controller
         // If no deactivated user with the provided email exists and there's no active user, perform the regular validation
 
         $validator = Validator::make($request->all(), [
+<<<<<<< HEAD
             'firstname' => 'required|regex:/^[a-zA-Z\s\-\.]+$/|not_regex:/[^\x00-\x7F]+/|max:255',
             'middlename' => 'nullable|regex:/^[A-Z]\.$/|not_regex:/[^\x00-\x7F]+/|max:2',
+=======
+            'firstname' => 'required|regex:/^[a-zA-Z\s\-\.]+$/|max:255',
+            'middlename' => 'nullable|regex:/^[a-zA-Z\.]*$/|max:255',
+>>>>>>> update
             'lastname' => 'required|regex:/^[a-zA-Z\s\-\.]+$/|max:255',
             'email' => 'required|email|max:255|unique:users',
             'contact' => ['string', 'regex:/^09\d{9}$/', 'max:11'], // Regular expression for Philippine number starting with 09
@@ -134,9 +146,15 @@ class UserController extends Controller
         $user = $this->user->findOrFail($id);
 
         $validator = Validator::make($request->all(), [
+<<<<<<< HEAD
             'firstname' => 'required|regex:/^[a-zA-Z\s\-\.]+$/|not_regex:/[^\x00-\x7F]+/|max:255',
             'middlename' => 'nullable|regex:/^[A-Z]\.$/|not_regex:/[^\x00-\x7F]+/|max:2',
             'lastname' => 'required|regex:/^[a-zA-Z\s\-\.]+$/|not_regex:/[^\x00-\x7F]+/|max:255',
+=======
+            'firstname' => 'required|regex:/^[a-zA-Z\s\-\.]+$/|max:255',
+            'middlename' => 'nullable|regex:/^[a-zA-Z\.]*$/|max:255',
+            'lastname' => 'required|regex:/^[a-zA-Z\s\-\.]+$/|max:255',
+>>>>>>> update
             'email' => [
                 'required',
                 'email',
@@ -227,6 +245,7 @@ class UserController extends Controller
     }
 
 
+<<<<<<< HEAD
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
@@ -285,6 +304,51 @@ class UserController extends Controller
     
     
 
+=======
+public function login(Request $request) {
+    $credentials = $request->only('email', 'password');
+
+    // Check if the email exists in the users table
+    $user = User::where('email', $credentials['email'])->first();
+
+    if (!$user) {
+        $response['status'] = 0;
+        $response['code'] = 404;
+        $response['message'] = 'Email not found';
+        return response()->json($response);
+    }
+
+    try {
+        if (!JWTAuth::attempt($credentials)) {
+            $response['status'] = 0;
+            $response['code'] = 401;
+            $response['message'] = 'Email or Password is Incorrect';
+            return response()->json($response);
+        }
+    } catch (JWTException $e) {
+        $response['status'] = 0;
+        $response['code'] = 500;
+        $response['message'] = 'Could not create token';
+        return response()->json($response);
+    }
+
+    $user = auth()->user();
+    $token = JWTAuth::fromUser($user);
+
+    $response['data'] = [
+        'id' => $user->id,
+        'token' => $token,
+        'role' => $user->role,
+        'firstname' => $user->firstname
+    ];
+    $response['status'] = 1;
+    $response['code'] = 200;
+    $response['message'] = 'Login Successfully';
+    return response()->json($response);
+}
+
+    
+>>>>>>> update
     public function sendResetLinkEmail(Request $request)
     {
         $request->validate(['email' => 'required|email']);
