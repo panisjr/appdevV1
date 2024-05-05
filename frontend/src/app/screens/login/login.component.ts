@@ -74,6 +74,9 @@ export class LoginComponent {
         } else {
           this.loading = false;
           this.errorMessage = 'Please make sure you already have an account.';
+          setTimeout(() => {
+            this.errorMessage = null;
+          }, 2000);
         }
       },
       (error) => {
@@ -81,7 +84,7 @@ export class LoginComponent {
        this.errorMessage = error.error.message;
        setTimeout(() => {
         this.errorMessage = null;
-       }, 1500);
+       }, 2000);
       }
     );
   }    

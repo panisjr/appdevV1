@@ -223,20 +223,32 @@ class UserController extends Controller
             'message' => 'User not found',
         ], 404);
     }
+
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
 
-        // Check if the email exists in the users table
-        $user = User::where('email', $credentials['email'])->first();
+        // Fetch all users with the provided email
+        $users = User::where('email', $credentials['email'])->get();
 
-        if (!$user) {
+        // Check if any user with the email exists
+        if ($users->isEmpty()) {
             $response['status'] = 0;
             $response['code'] = 404;
             $response['message'] = 'Email not found';
             return response()->json($response);
         }
+        // Check if there's an active user
+        $activeUser = $users->firstWhere('status', 'active');
 
+        if (!$activeUser) {
+            // If no active user found
+            $response['status'] = 0;
+            $response['code'] = 403; // Forbidden status code
+            $response['message'] = 'No active user found with this email';
+            return response()->json($response);
+        }
+        // Attempt login with the credentials
         try {
             if (!JWTAuth::attempt($credentials)) {
                 $response['status'] = 0;
@@ -258,7 +270,8 @@ class UserController extends Controller
             'id' => $user->id,
             'token' => $token,
             'role' => $user->role,
-            'firstname' => $user->firstname
+            'firstname' => $user->firstname,
+            'status' => $user->status
         ];
         $response['status'] = 1;
         $response['code'] = 200;
