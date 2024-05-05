@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { BackendService } from '../../service/backend.service';
 import { ServerService } from '../../service/server.service'; // Added import
 import { Book } from '../../model/book.model';
 import { MatDialog } from '@angular/material/dialog';
@@ -22,16 +21,15 @@ export class BorrowerComponent implements OnInit {
   constructor(
     private router: Router,
     private titleService: Title,
-    private backend: BackendService,
     private serverService: ServerService,
     public dialog: MatDialog
   ) {}
   ngOnInit(): void {
     this.fetchAccounts();
-    this.backend.getTodayRegisteredUsersCount().subscribe((response) => {
+    this.serverService.getTodayRegisteredUsersCount().subscribe((response) => {
       this.todayRegisteredUsersCount = response.count;
     });
-    this.backend.getTodayRegisteredBooksCount().subscribe((response) => {
+    this.serverService.getTodayRegisteredBooksCount().subscribe((response) => {
       this.todayRegisteredBooksCount = response.count;
     });
     this.titleService.setTitle('Library | Dashboard');
@@ -53,7 +51,7 @@ export class BorrowerComponent implements OnInit {
   }
 
   fetchAccounts() {
-    this.backend.getTotalAccounts().subscribe(
+    this.serverService.getTotalAccounts().subscribe(
       (response: any) => {
         this.totalAccounts = response.totalAccounts;
         this.totalBooks = response.totalBooks;
