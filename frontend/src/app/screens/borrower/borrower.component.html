@@ -30,8 +30,7 @@
         </div>
         <div
           class="navBtn mb-4"
-          data-bs-toggle="modal"
-          data-bs-target="#logoutModal"
+          (click)="logout()"
         >
           <h3 class="bi bi-box-arrow-left"></h3>
           <p class="ms-4 p-2">Logout</p>
@@ -211,42 +210,4 @@
   </div>
 </div>
 
-<!-- Logout Modal -->
-<div
-  class="modal fade"
-  id="logoutModal"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="staticBackdropLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content p-3">
-      <div class="modal-header">
-        <h1 class="modal-title p-3 fs-5" id="staticBackdropLabel">
-          Logout Confirmation
-        </h1>
-      </div>
-      <div class="modal-body p-2">
-        <p class="text-black m-3">Are you sure you want to logout?</p>
-        <div class="modal-footer pt-3">
-          <button
-            type="button"
-            class="btn p-2 me-3 btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            No
-          </button>
-          <button
-            data-bs-dismiss="modal"
-            (click)="logout()"
-            class="btn p-2 btn-danger"
-          >
-            Yes
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+
