@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { BackendService } from '../../service/backend.service';
+import { ServerService } from '../../service/server.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +17,7 @@ export class LoginComponent {
   confirm_password: string = '';
 
   loading: boolean = false; // Add a boolean variable to track loading state
-  errorMessage: boolean | null = null;
+  errorMessage: string | null = null;
   successMessage: string | null = null;
 
   @ViewChild('exampleModal') modal: any; // Reference to the modal
@@ -26,7 +26,7 @@ export class LoginComponent {
     private http: HttpClient,
     private router: Router,
     private jwtHelper: JwtHelperService,
-    private backend: BackendService
+    private serverService: ServerService
   ) {} // Inject Router
 
   closeModal() {
@@ -53,35 +53,6 @@ export class LoginComponent {
       (response) => {
         if (response && response.data && response.data.token) {
           this.loading = false;
-<<<<<<< HEAD
-            sessionStorage.setItem('jwt_token', response.data.token);
-            // Save user info to session storage or state
-            sessionStorage.setItem(
-              'user_info',
-              JSON.stringify(response.data.firstname)
-            ); // Assuming user info is returned as 'user'
-            switch (response.data.role) {
-              case 'Admin':
-                this.router.navigate(['/adminDashboard']);
-                break;
-              case 'Librarian':
-                this.router.navigate(['/librarianDashboard']);
-                break;
-              case 'Borrower':
-                this.router.navigate(['/borrowerDashboard']);
-                break;
-              default:
-                this.router.navigate(['/']);
-                break;
-            }
-        } else {
-          this.loading = false;
-          this.errorMessage = response.message;
-          setTimeout(() => {
-            this.errorMessage = false;
-          }, 2000);
-          // Handle error (e.g., display error message to user)
-=======
           sessionStorage.setItem('jwt_token', response.data.token);
           // Save user info to session storage or state
           sessionStorage.setItem('user_info', JSON.stringify(response.data.firstname)); // Assuming user info is returned as 'user'
@@ -103,14 +74,13 @@ export class LoginComponent {
         } else {
           this.loading = false;
           this.errorMessage = 'Please make sure you already have an account.';
->>>>>>> update
         }
       },
       (error) => {
         this.loading = false;
        this.errorMessage = error.error.message;
        setTimeout(() => {
-        this.errorMessage = false;
+        this.errorMessage = null;
        }, 1500);
       }
     );
@@ -122,7 +92,7 @@ export class LoginComponent {
     const data = {
       email: this.forgotEmail,
     };
-    this.backend.sendPasswordResetLink(data).subscribe(
+    this.serverService.sendPasswordResetLink(data).subscribe(
       () => {
         this.loading = false;
         this.successMessage = 'Password reset link sent successfully';

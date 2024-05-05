@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { BackendService } from '../../service/backend.service';
+import { ServerService } from '../../service/server.service';
 
 @Component({
   selector: 'app-admin',
@@ -14,13 +14,13 @@ export class AdminComponent {
   totalBooks: number = 0;
   todayRegisteredUsersCount: number = 0;
   todayRegisteredBooksCount: number = 0;
-  constructor(private router: Router, private titleService: Title, private backend: BackendService) {}
+  constructor(private router: Router, private titleService: Title, private serverService: ServerService) {}
   ngOnInit(): void {
     this.fetchAccounts();
-    this.backend.getTodayRegisteredUsersCount().subscribe(response => {
+    this.serverService.getTodayRegisteredUsersCount().subscribe(response => {
       this.todayRegisteredUsersCount = response.count;
     });
-    this.backend.getTodayRegisteredBooksCount().subscribe(response => {
+    this.serverService.getTodayRegisteredBooksCount().subscribe(response => {
       this.todayRegisteredBooksCount = response.count;
     });
     this.titleService.setTitle('Library | Dashboard');
@@ -32,7 +32,7 @@ this.firstname = user;
   }
 
   fetchAccounts() {
-    this.backend.getTotalAccounts().subscribe(
+    this.serverService.getTotalAccounts().subscribe(
       (response: any) => {
         this.totalAccounts = response.totalAccounts;
         this.totalBooks = response.totalBooks;

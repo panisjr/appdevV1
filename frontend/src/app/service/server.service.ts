@@ -1,10 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-<<<<<<< HEAD
-import { Observable } from 'rxjs';
-=======
 import { Observable, from } from 'rxjs';
->>>>>>> update
 import { Book } from '../model/book.model';
 import { Borrowing } from '../model/borrowing.model';
 
@@ -13,12 +9,8 @@ import { Borrowing } from '../model/borrowing.model';
 })
 export class ServerService {
   private bookApiUrl = 'http://localhost:8000/api/books';
-<<<<<<< HEAD
-  private borrowingApiUrl = 'http://localhost:8000/api/borrowings';
-=======
   private borrowingApiUrl = 'http://localhost:8000/api/borrow';
->>>>>>> update
-
+  private accountUrl = 'http://127.0.0.1:8000/api';
   constructor(private http: HttpClient) { }
 
   // Books API
@@ -43,7 +35,6 @@ export class ServerService {
     return this.http.delete<void>(`${this.bookApiUrl}/${id}`);
   }
 
-<<<<<<< HEAD
   // Borrowings API
 
   borrowBook(borrowing: Borrowing): Observable<Borrowing> {
@@ -53,11 +44,38 @@ export class ServerService {
   returnBook(id: number): Observable<void> {
     return this.http.delete<void>(`${this.borrowingApiUrl}/${id}`);
   }
-=======
-  borrowBook(bookId: number, userId: number): Observable<any> {
-    const borrowData = { book_id: bookId, user_id: userId };
-    return this.http.post<any>(this.borrowingApiUrl, borrowData);
-  }
 
->>>>>>> update
+  // Accounts API
+  get(){
+    return this.http.get(`${this.accountUrl}/getUsers`);
+  }
+  getTotalAccounts(): Observable<{ totalAccounts: number,totalBooks: number }> {
+    return this.http.get<{ totalAccounts: number,totalBooks: number }>(`${this.accountUrl}/getTotalAccounts`);
+  }
+  getTodayRegisteredUsersCount() {
+    return this.http.get<{ count: number }>(`${this.accountUrl}/users/todayRegisteredUsersCount`);
+  }
+  getTodayRegisteredBooksCount() {
+    return this.http.get<{ count: number }>(`${this.accountUrl}/users/todayRegisteredBooksCount`);
+  }
+  register(data: any) {
+    return this.http.post(`${this.accountUrl}/register`, data, {
+      responseType: 'text',
+    });
+  }
+  updateUser(userId: number, data: any) {
+    return this.http.put(
+      `${this.accountUrl}/updateUser/${userId}`,
+      data
+    );
+  }
+  deleteUser(userId: number) {
+    return this.http.delete(`${this.accountUrl}/deleteUser/${userId}`);
+  }
+  deactivate(userId: number, data:any){
+    return this.http.post(`${this.accountUrl}/deactivate/${userId}`,data);
+  }
+  sendPasswordResetLink(data: any) {
+    return this.http.post(`${this.accountUrl}/sendPasswordResetLink`, data);
+  }
 }

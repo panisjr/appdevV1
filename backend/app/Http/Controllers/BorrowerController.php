@@ -2,20 +2,15 @@
 
 namespace App\Http\Controllers;
 
-<<<<<<< HEAD
 use App\Models\User;
 use App\Models\Book;
 use Illuminate\Http\Request;
-=======
-use Illuminate\Http\Request;
 use App\Models\Borrower;
->>>>>>> update
 
 class BorrowerController extends Controller
 {
     public function borrowBook(Request $request)
     {
-<<<<<<< HEAD
         // Validate the request
         $request->validate([
             'user_id' => 'required|exists:users,id',
@@ -40,7 +35,6 @@ class BorrowerController extends Controller
         // Replace the example with your actual implementation
 
         // Return success response
-=======
         $request->validate([
             'user_id' => 'required|integer',
             'book_id' => 'required|integer',
@@ -53,7 +47,6 @@ class BorrowerController extends Controller
             'status' => 'borrowed',
         ]);
 
->>>>>>> update
         return response()->json(['message' => 'Book borrowed successfully'], 200);
     }
 }

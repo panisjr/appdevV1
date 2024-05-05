@@ -20,10 +20,7 @@ import { BackendService } from './service/backend.service';
 import { ResetPasswordComponent } from './screens/login/reset-password/reset-password.component';
 import { DataTablesModule } from 'angular-datatables';
 import { BookManagementComponent } from './screens/book-management/book-management.component';
-<<<<<<< HEAD
-=======
 import { BookdetailsComponent } from './screens/borrower/bookdetails/bookdetails.component';
->>>>>>> update
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,10 +32,7 @@ import { BookdetailsComponent } from './screens/borrower/bookdetails/bookdetails
     AccountsComponent,
     ResetPasswordComponent,
     BookManagementComponent,
-<<<<<<< HEAD
-=======
     BookdetailsComponent,
->>>>>>> update
   ],
   imports: [
     BrowserModule,
@@ -46,10 +40,7 @@ import { BookdetailsComponent } from './screens/borrower/bookdetails/bookdetails
     FormsModule,
     HttpClientModule,
     DataTablesModule,
-<<<<<<< HEAD
-=======
     MatDialogModule,
->>>>>>> update
     JwtModule.forRoot({
       config: {
         tokenGetter: () => localStorage.getItem('jwt_token'),
