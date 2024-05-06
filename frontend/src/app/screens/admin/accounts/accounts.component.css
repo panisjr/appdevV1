@@ -25,7 +25,6 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 .navBar {
   background-color: #183e85;
-  border-radius: 10px;
 }
 .loading {
   position: absolute;
@@ -46,13 +45,12 @@ input[type="number"]::-webkit-outer-spin-button {
   transition: 0.3s;
 }
 .book-list-container {
-  border-radius: 10px;
-  width: 1020px;
+  overflow-y: auto;
 }
 
 .book-list-container .table-div {
   border-radius: 10px;
-  height: 490px;
+  height: 510px;
   overflow-y: auto;
   border-radius: 10px;
   }

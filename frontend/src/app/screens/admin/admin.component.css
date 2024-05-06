@@ -1,16 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
-* {
+*{
   margin: 0;
   padding: 0;
   font-family: "Montserrat", sans-serif;
 }
 .navBar {
   background-color: #183e85;
-  border-radius: 10px;
 }
 .book-list-container {
   overflow-y: auto;
+  
 }
 .lastContainer{
   width: 390px;
@@ -102,37 +102,37 @@
   background-repeat: no-repeat;
 }
 .newBooks{
-  height: 110px;
-  width: 120px;
+  height: 150px;
+  width: 170px;
   border-radius: 5px;
   background-color: rgb(255, 223, 174);
 }
 .totalBooksReturned{
-  height: 110px;
-  width: 120px;
+  height: 150px;
+  width: 170px;
   border-radius: 5px;
   background-color: rgb(255, 174, 250);
 
 }
 .totalBooksBorrowed{
-  height: 110px;
-  width: 120px;
+  height: 150px;
+  width: 170px;
   border-radius: 5px;
   background-color: rgb(174, 255, 236);
 }
 .newAccounts{
-  height: 110px;
-  width: 120px;
+  height: 150px;
+  width: 170px;
   border-radius: 5px;
   background-color: rgb(251, 255, 174);
 }
 .totalBooks{
   background-color: #3bd0fd;
-  height: 130px;
+  height: 170px;
 }
 .totalUsers{
   background-color: #36eaea;
-  height: 130px;
+  height: 170px;
 }
 .bi-book, .bi-person-plus, .bi-journal-arrow-up, .bi-journal-arrow-down{
   display: flex;
@@ -140,8 +140,8 @@
   justify-content: center;
   border-radius: 50%;
   color: white;
-  width: 30px ;
-  height: 30px ;
+  width: 40px ;
+  height: 40px ;
 }
 .bi-book{
   background-color: #da6d00;

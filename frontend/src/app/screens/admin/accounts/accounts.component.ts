@@ -135,7 +135,6 @@ export class AccountsComponent implements OnInit,OnDestroy {
   // Define the deactivate function
   deactivate(accountId: number, accountStatus: any) {
     this.loading = true;
-
     this.serverService.deactivate(accountId, accountStatus).subscribe(
       (response: any) => {
         this.loading = false;

@@ -1,14 +1,14 @@
 <div class="container-fluid">
-  <div class="row vh-100 p-3">
-    <div class="col-lg-2 col-md-4 col-sm-12 me-3 navBar">
-      <div class="d-flex align-items-center justify-content-center p-3">
+  <div class="row vh-100">
+    <div class="col-sm-6 col-md-5 col-lg-2 navBar">
+      <div class="d-flex align-items-center justify-content-center p-3 mt-3">
         <div class="logo"></div>
-        <h4 class="text-center text-white pt-3">ReadEase.</h4>
+        <h4 class="logoName text-center text-white pt-3">ReadEase.</h4>
       </div>
 
       <nav class="selection text-center mt-5">
         <div
-          class="navBtn mb-4 d-flex align-items-center justify-content-center"
+          class="navBtn mb-5 d-flex align-items-center justify-content-center"
           routerLinkActive="active"
           routerLink="/adminDashboard"
           [routerLinkActiveOptions]="{ exact: true }"
@@ -17,7 +17,8 @@
           <p class="ms-4 p-2">Dashboard</p>
         </div>
         <div
-          class="navBtn mb-4 d-flex align-items-center justify-content-center"
+          class="navBtn mb-5 d-flex align-items-center justify-content-center"
+          routerLinkActive="active"
           routerLink="/accounts"
         >
           <h3 class="bi bi-person-gear"></h3>
@@ -25,40 +26,36 @@
           <p class="ms-4 p-2">Accounts</p>
         </div>
         <div
-          class="navBtn mb-4 d-flex align-items-center justify-content-center"
+          class="navBtn mb-5 d-flex align-items-center justify-content-center"
           routerLinkActive="active"
           routerLink="/books"
         >
           <h3 class="bi bi-bookshelf"></h3>
-          <p class="ms-4 p-2">Inventory</p>
-        </div>
 
+          <p class="ms-4 p-2">Books</p>
+        </div>
         <div
-          class="navBtn mb-4 d-flex align-items-center justify-content-center"
+          class="navBtn mb-5 d-flex align-items-center justify-content-center"
         >
           <h3 class="bi bi-receipt"></h3>
           <p class="ms-4 p-2">Transactions</p>
         </div>
         <div
-          class="navBtn mb-4 d-flex align-items-center justify-content-center"
+          class="navBtn mb-5 d-flex align-items-center justify-content-center"
         >
           <h3 class="bi bi-clock-history"></h3>
           <p class="ms-4 p-2">Logs</p>
         </div>
         <div
-          class="navBtn mb-4 d-flex align-items-center justify-content-center"
+          class="navBtn mb-5 d-flex align-items-center justify-content-center"
+          (click)="logout()"
         >
           <h3 class="bi bi-box-arrow-left"></h3>
-          <p
-            class="ms-4 p-2"
-            (click)="logout()"
-          >
-            Logout
-          </p>
+          <p class="ms-4 p-2">Logout</p>
         </div>
       </nav>
     </div>
-    <div class="col-lg-9 col-md-8 col-sm-12 p-3 book-list-container">
+    <div class="col-sm-6 col-md-5 offset-md-2 col-lg-10 offset-lg-0 p-3 book-list-container">
       <div>
         <div class="mb-4 d-flex align-items-center justify-content-between">
           <h4>Book Management</h4>
