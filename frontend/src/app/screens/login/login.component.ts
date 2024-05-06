@@ -10,7 +10,7 @@ import { ServerService } from '../../service/server.service';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  name: string = '';
+  firstname: string = '';
   email: string = '';
   forgotEmail: string = '';
   password: string = '';
@@ -49,13 +49,13 @@ export class LoginComponent {
       password: this.password, 
     };
     this.loading = true;
-    this.http.post<any>('http://127.0.0.1:8000/api/login', bodyData).subscribe(
+    this.serverService.login( bodyData).subscribe(
       (response) => {
         if (response && response.data && response.data.token) {
           this.loading = false;
           sessionStorage.setItem('jwt_token', response.data.token);
+          sessionStorage.setItem('user_info', JSON.stringify(response.data.firstname));
           // Save user info to session storage or state
-          sessionStorage.setItem('user_info', JSON.stringify(response.data.firstname)); // Assuming user info is returned as 'user'
           sessionStorage.setItem('user_id', response.data.id); // Store user ID in session storage
           switch (response.data.role) {
             case 'Admin':

@@ -21,6 +21,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { BookManagementComponent } from './screens/book-management/book-management.component';
 import { BookdetailsComponent } from './screens/borrower/bookdetails/bookdetails.component';
 import { ServerService } from './service/server.service';
+import { HistoryComponent } from './screens/history/history.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,6 +34,7 @@ import { ServerService } from './service/server.service';
     ResetPasswordComponent,
     BookManagementComponent,
     BookdetailsComponent,
+    HistoryComponent,
   ],
   imports: [
     BrowserModule,

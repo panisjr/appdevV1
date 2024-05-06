@@ -1,0 +1,171 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", sans-serif;
+}
+.modal-dialog-centered{
+  margin-left: 400px;
+}
+.searchInput {
+  border-radius: 5px;
+  padding: 4px;
+  width: 400px;
+}
+.searchIcon {
+  position: absolute;
+  top: 50px;
+  left: 320px;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.navBar {
+  background-color: #183e85;
+}
+.loading {
+  position: absolute;
+  float: left;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  top: 50%;
+}
+.registerBtn {
+  background-color: #008dda;
+  border-radius: 5px;
+  border: none;
+  padding: 7px;
+}
+.registerBtn:hover {
+  background-color: #41c9e2;
+  transition: 0.3s;
+}
+.book-list-container {
+  overflow-y: auto;
+}
+
+.book-list-container .table-div {
+  border-radius: 10px;
+  height: 510px;
+  overflow-y: auto;
+  border-radius: 10px;
+  }
+.accounts-table thead tr th {
+  background-color: #41c9e2;
+  color: #ffffff;
+}
+.full-width {
+  width: 100%;
+}
+.add-account {
+  background-color: #008dda;
+  border-radius: 5px;
+  padding: 5px;
+  color: white;
+}
+.add-account:hover {
+  background-color:  #41c9e2 ;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+}
+.deactivate-account {
+  color: red;
+}
+.deactivate-account:hover {
+  color: rgb(185, 0, 0);
+  cursor: pointer;
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  background-image: url("logo2.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  /* margin:  ; top right bottom left */
+}
+
+.selection {
+  /* border: 1px solid red; */
+  display: flex;
+  align-items: start;
+  margin-left: 25px;
+  flex-direction: column;
+}
+
+.navBtn {
+  color: white;
+  padding: 2px 15px 2px 15px;
+
+}
+.navBtn:hover {
+  background-color: white;
+  border-radius: 5px;
+  color: #008dda;
+  font-weight: bold;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.navBtn.active {
+  background-color: white;
+  border-radius: 5px;
+  color: #008dda;
+  font-weight: bold;
+}
+
+/* WebKit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Track color */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; /* Thumb color */
+  border-radius: 5px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Thumb color on hover */
+}
+
+
+@media screen and (max-width:700px) {
+  .modal-dialog-centered{
+    margin-left: auto;
+  }
+  .col-sm-12{
+    width: 60px;
+    height: 100%;
+  }
+  .book-list-container{
+    width: 430px;
+  }
+  .selection{
+    margin-left: 15px;
+  }
+  .navBtn{
+    width: 10px;
+  }
+  .navBtn p{
+    display: none;
+  }
+.logoName{
+  display: none;
+}  
+.logo{
+  width: 45px;
+  height: 45px;
+}
+.table-div{
+  font-size: 10px;
+}
+}

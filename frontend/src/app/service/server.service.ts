@@ -10,7 +10,7 @@ import { Borrowing } from '../model/borrowing.model';
 export class ServerService {
   private bookApiUrl = 'http://localhost:8000/api/books';
   private borrowingApiUrl = 'http://localhost:8000/api/borrow';
-  private accountUrl = 'http://127.0.0.1:8000/api';
+  private apiUrl = 'http://127.0.0.1:8000/api';
   constructor(private http: HttpClient) { }
 
   // Books API
@@ -47,35 +47,49 @@ export class ServerService {
 
   // Accounts API
   get(){
-    return this.http.get(`${this.accountUrl}/getUsers`);
+    return this.http.get(`${this.apiUrl}/getUsers`);
   }
   getTotalAccounts(): Observable<{ totalAccounts: number,totalBooks: number }> {
-    return this.http.get<{ totalAccounts: number,totalBooks: number }>(`${this.accountUrl}/getTotalAccounts`);
+    return this.http.get<{ totalAccounts: number,totalBooks: number }>(`${this.apiUrl}/getTotalAccounts`);
   }
   getTodayRegisteredUsersCount() {
-    return this.http.get<{ count: number }>(`${this.accountUrl}/users/todayRegisteredUsersCount`);
+    return this.http.get<{ count: number }>(`${this.apiUrl}/users/todayRegisteredUsersCount`);
   }
   getTodayRegisteredBooksCount() {
-    return this.http.get<{ count: number }>(`${this.accountUrl}/users/todayRegisteredBooksCount`);
+    return this.http.get<{ count: number }>(`${this.apiUrl}/users/todayRegisteredBooksCount`);
   }
   register(data: any) {
-    return this.http.post(`${this.accountUrl}/register`, data, {
-      responseType: 'text',
-    });
+    return this.http.post(`${this.apiUrl}/register`, data);
+  }
+  login(credentials: { email: string, password: string }): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/login`, credentials);
   }
   updateUser(userId: number, data: any) {
     return this.http.put(
-      `${this.accountUrl}/updateUser/${userId}`,
+      `${this.apiUrl}/updateUser/${userId}`,
       data
     );
   }
   deleteUser(userId: number) {
-    return this.http.delete(`${this.accountUrl}/deleteUser/${userId}`);
+    return this.http.delete(`${this.apiUrl}/deleteUser/${userId}`);
   }
   deactivate(userId: number, data:any){
-    return this.http.post(`${this.accountUrl}/deactivate/${userId}`,data);
+    return this.http.post(`${this.apiUrl}/deactivate/${userId}`,data);
   }
   sendPasswordResetLink(data: any) {
-    return this.http.post(`${this.accountUrl}/sendPasswordResetLink`, data);
+    return this.http.post(`${this.apiUrl}/sendPasswordResetLink`, data);
+  }
+
+  // History
+  history(actionType: string, userId: number, accountID: number,accountFirst: string,accountLast: string, accountRole: string): Observable<any> {
+    const payload = { action: actionType, user_id: userId, accountID: accountID , accountFirst: accountFirst, accountLast: accountLast, accountRole: accountRole};
+    console.log(payload);
+    return this.http.post<any>(`${this.apiUrl}/history`,payload);
+  }
+  getHistory(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/getHistory`);
+  }
+  deleteHistory(historyID:number){
+    return this.http.delete(`${this.apiUrl}/deleteHistory/${historyID}`);
   }
 }

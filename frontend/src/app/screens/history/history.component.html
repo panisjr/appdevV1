@@ -1,0 +1,150 @@
+<div class="container-fluid">
+  <div class="row vh-100">
+    <div class="col-sm-6 col-md-5 col-lg-2 navBar">
+      <div class="d-flex align-items-center justify-content-center p-3 mt-3">
+        <div class="logo"></div>
+        <h4 class="logoName text-center text-white pt-3">ReadEase.</h4>
+      </div>
+
+      <nav class="selection text-center mt-5">
+        <div
+          class="navBtn mb-5 d-flex align-items-center justify-content-center"
+          routerLinkActive="active"
+          routerLink="/adminDashboard"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <h3 class="bi bi-house"></h3>
+          <p class="ms-4 p-2">Dashboard</p>
+        </div>
+        <div
+          class="navBtn mb-5 d-flex align-items-center justify-content-center"
+          routerLinkActive="active"
+          routerLink="/accounts"
+        >
+          <h3 class="bi bi-person-gear"></h3>
+
+          <p class="ms-4 p-2">Accounts</p>
+        </div>
+        <div
+          class="navBtn mb-5 d-flex align-items-center justify-content-center"
+          routerLink="/books"
+        >
+          <h3 class="bi bi-bookshelf"></h3>
+          <p class="ms-4 p-2">Books</p>
+        </div>
+        <div
+          class="navBtn mb-5 d-flex align-items-center justify-content-center"
+        >
+          <h3 class="bi bi-receipt"></h3>
+          <p class="ms-4 p-2">Transactions</p>
+        </div>
+        <div
+          class="navBtn mb-5 d-flex align-items-center justify-content-center"
+          [routerLink]="['/history']"
+          routerLinkActive="active"
+        >
+          <h3 class="bi bi-clock-history"></h3>
+          <p class="ms-4 p-2">History</p>
+        </div>
+        <div
+          class="navBtn mb-5 d-flex align-items-center justify-content-center"
+          (click)="logout()"
+        >
+          <h3 class="bi bi-box-arrow-left"></h3>
+          <p class="ms-4 p-2">Logout</p>
+        </div>
+      </nav>
+    </div>
+    <div
+      class="col-sm-6 col-md-5 offset-md-2 col-lg-10 offset-lg-0 p-3 book-list-container"
+    >
+      <div
+        *ngIf="loading"
+        class="spinner-border loading text-dark"
+        role="status"
+      >
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <div>
+        <div class="mb-4 d-flex align-items-center justify-content-between">
+          <h4>History</h4>
+        </div>
+      </div>
+      <div class="table-div">
+        <table id="historyTable" class="table table-striped"></table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error Message -->
+  <div
+    class="modal fade show"
+    *ngIf="errorMessage"
+    tabindex="-1"
+    aria-labelledby="errorModalMessage"
+    aria-modal="true"
+    style="display: block; background: rgba(0, 0, 0, 0.5)"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content p-3">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 text-danger" id="errorModalMessage">
+            Error
+          </h1>
+          <button
+            type="button"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <p>{{ errorMessage }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Modal -->
+  <div
+    class="modal fade"
+    id="deleteAccountModal"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="deleteAccountModal"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content p-3">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 text-danger" id="deleteAccountModal">
+            Delete Confirmation!
+          </h1>
+        </div>
+        <div class="modal-body p-2">
+          <p class="text-black m-2">
+            Are you sure you want to delete this history? This will delete
+            permanently.
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn mt-2 p-2 me-2 btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cancel
+          </button>
+          <button
+            data-bs-dismiss="modal"
+            (click)="deleteHistory(historyID)"
+            class="btn mt-2 p-2 btn-danger"
+          >
+            Yes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

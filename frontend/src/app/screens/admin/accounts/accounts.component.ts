@@ -9,7 +9,7 @@ import { ServerService } from '../../../service/server.service';
   templateUrl: './accounts.component.html',
   styleUrls: ['./accounts.component.css'],
 })
-export class AccountsComponent implements OnInit,OnDestroy {
+export class AccountsComponent implements OnInit, OnDestroy {
   id: number = 0; // This for the user id
   accounts: any[] = []; // This is for storing the accounts
   editData: any[] = []; // This is for user data for editing
@@ -27,19 +27,24 @@ export class AccountsComponent implements OnInit,OnDestroy {
   loading: boolean = false;
   edit: boolean = false;
   dataTable: any;
+  // For History Displaying the user
+  accountID: number = 0;
+  accountFirst: string = '';
+  accountLast: string = '';
+  accountRole: string = '';
+
   constructor(
     private router: Router,
     private http: HttpClient,
-    private titleService: Title,
     private serverService: ServerService
-  ) { }
+  ) {}
   ngOnInit(): void {
-    this.titleService.setTitle('Accounts');
     this.fetchAccounts();
+    this.initializeDataTables();  
   }
   ngOnDestroy(): void {
-    if ($.fn.DataTable.isDataTable('#accountTable')) {
-      $('#accountTable').DataTable().destroy();
+    if (this.dataTable) {
+      this.dataTable.destroy();
     }
   }
   fetchAccounts() {
@@ -47,9 +52,8 @@ export class AccountsComponent implements OnInit,OnDestroy {
       (response: any) => {
         this.accounts = response;
         if (this.dataTable) {
-          this.dataTable.destroy();
+          this.dataTable.clear().rows.add(this.accounts).draw(); // Update DataTable with new data
         }
-        this.initializeDataTables();
       },
       (error) => {
         console.error('Error fetching accounts:', error);
@@ -158,12 +162,25 @@ export class AccountsComponent implements OnInit,OnDestroy {
   logout() {
     sessionStorage.removeItem('jwt_token');
     sessionStorage.removeItem('user_info');
+    sessionStorage.removeItem('user_id');
     this.router.navigate(['/login']);
   }
-
+  accountByID() {
+    const id = Number(sessionStorage.getItem('user_id'));
+    const account = this.accounts.find((a) => a.id === id);
+    console.log(account);
+    if (account) {
+      this.accountID = account.id;
+      this.accountFirst = account.firstname;
+      this.accountLast = account.lastname;
+      this.accountRole = account.role;
+    }
+  }
   register() {
     this.loading = true;
     try {
+      // Call accountByID() to retrieve account information
+      this.accountByID();
       let bodyData = {
         firstname: this.firstname,
         middlename: this.middlename,
@@ -185,7 +202,24 @@ export class AccountsComponent implements OnInit,OnDestroy {
       this.serverService.register(bodyData).subscribe(
         (resultData: any) => {
           this.loading = false;
-          this.successMessage = "Registered Successfully!";
+          this.successMessage = 'Registered Successfully!';
+          const userID = resultData.data?.id;
+          const accountID = this.accountID;
+          const accountFirst = this.accountFirst;
+          const accountLast = this.accountLast;
+          const accountRole = this.accountRole;
+          this.serverService
+            .history(
+              'Add new account.',
+              userID,
+              accountID,
+              accountFirst,
+              accountLast,
+              accountRole
+            )
+            .subscribe(() => {
+              console.log('Action logged successfully');
+            });
           setTimeout(() => {
             this.successMessage = null;
             this.fetchAccounts();
@@ -193,10 +227,11 @@ export class AccountsComponent implements OnInit,OnDestroy {
           }, 1500);
         },
         (error) => {
-          if(error.status === 422){
+          if (error.status === 422) {
             this.loading = false;
-            this.errorMessage = "Validation Failed! Make sure to fill all the fields correctly.";
-  
+            this.errorMessage =
+              'Validation Failed! Make sure to fill all the fields correctly.';
+
             setTimeout(() => {
               this.errorMessage = null;
             }, 2000);

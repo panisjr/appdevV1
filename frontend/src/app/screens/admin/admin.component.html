@@ -28,9 +28,9 @@
           <h3 class="bi bi-receipt"></h3>
           <p class="ms-4 p-2">Transactions</p>
         </div>
-        <div class="navBtn mb-5">
+        <div class="navBtn mb-5" [routerLink]="['/history']" routerLinkActive="active" >
           <h3 class="bi bi-clock-history"></h3>
-          <p class="ms-4 p-2">Logs</p>
+          <p class="ms-4 p-2">History</p>
         </div>
         <div class="navBtn mb-4" (click)="logout()">
           <h3 class="bi bi-box-arrow-left"></h3>
@@ -42,7 +42,7 @@
       class="col-sm-6 col-md-5 offset-md-2 col-lg-10 offset-lg-0 book-list-container p-3"
     >
       <div>
-        <h4>Welcome Back, {{ firstname }} !</h4>
+        <h4>Welcome Back, {{ firstname }}!</h4>
       </div>
       <div class="row d-flex align-items-center justify-content-center mt-5">
         <div class="col-5 me-3 mt-3 rounded totalBooks p-4">

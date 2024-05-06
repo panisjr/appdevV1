@@ -14,6 +14,7 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Models\PasswordReset;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
@@ -70,7 +71,7 @@ class UserController extends Controller
 
             // Create new user without validation
             $user = User::create($userData);
-
+            // Fetch the ID from the created user
             return response()->json([
                 'success' => true,
                 'message' => 'User created successfully',
@@ -105,7 +106,7 @@ class UserController extends Controller
 
         // Create new user
         $user = User::create($userData);
-
+        // Fetch the ID from the created user
         return response()->json([
             'success' => true,
             'message' => 'User created successfully',
@@ -318,5 +319,50 @@ class UserController extends Controller
         $user->save();
 
         return response()->json(['message' => 'Password reset successfully'], 200);
+    }
+    public function history(Request $request)
+    {
+        $validatedData = $request->validate([
+            'action' => 'required| string',
+            'user_id' => 'required| integer',
+            'accountID' => 'required| integer',
+            'accountFirst' => 'required| string',
+            'accountLast' => 'required| string',
+            'accountRole' => 'required| string',
+        ]);
+
+        DB::table('history')->insert([
+            'action_type' => $validatedData['action'],
+            'user_id' => $validatedData['user_id'],
+            'account_id' => $validatedData['accountID'],
+            'account_first' => $validatedData['accountFirst'],
+            'account_last' => $validatedData['accountLast'],
+            'account_role' => $validatedData['accountRole'],
+            'created_at' => now()->format('M. d, Y - h:i A'), // Optional: Use current timestamp
+        ]);
+        // Return a success response
+        return response()->json(['message' => 'Action logged successfully'], 200);
+    }
+    public function getHistory()
+    {
+        // Fetch history history from the database
+        $history = DB::table('history')->orderBy('created_at', 'desc')->get();
+
+        return response()->json($history);
+    }
+    public function deleteHistory(string $id){
+        $history = DB::table('history')->find($id);
+
+        if(!$history){
+            return response()->json([
+                'status' => false,
+                'message' => 'History not found.'
+            ], 404);
+        }
+        DB::table('history')->where('id',$id)->delete();
+        return response()->json([
+            'status' => false,
+            'message' => 'History delete successfully!'
+        ], 200);
     }
 }

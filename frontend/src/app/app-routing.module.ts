@@ -9,6 +9,7 @@ import { AccountsComponent } from './screens/admin/accounts/accounts.component';
 import { LibrarianComponent } from './screens/librarian/librarian.component';
 import { ResetPasswordComponent } from './screens/login/reset-password/reset-password.component';
 import { BookManagementComponent } from './screens/book-management/book-management.component';
+import { HistoryComponent } from './screens/history/history.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, title: 'Library | Login' },
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'borrowerDashboard', component: BorrowerComponent, title: 'Library', canActivate: [AuthGuard] },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'reset-password/:token', component: ResetPasswordComponent },
-  { path: 'books', component: BookManagementComponent, title: 'Library | Book Management' },
+  { path: 'books', component: BookManagementComponent, title: 'Library | Book Management', canActivate: [AuthGuard] },
+  { path: 'history', component: HistoryComponent, title: 'Library | History', canActivate: [AuthGuard] },
 
 ];
 
