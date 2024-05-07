@@ -49,7 +49,7 @@ export class ServerService {
   get(){
     return this.http.get(`${this.apiUrl}/getUsers`);
   }
-  getTotalAccounts(): Observable<{ totalAccounts: number,totalBooks: number }> {
+  getTotalAccounts(): Observable<any> {
     return this.http.get<{ totalAccounts: number,totalBooks: number }>(`${this.apiUrl}/getTotalAccounts`);
   }
   getTodayRegisteredUsersCount() {
@@ -91,5 +91,8 @@ export class ServerService {
   }
   deleteHistory(historyID:number){
     return this.http.delete(`${this.apiUrl}/deleteHistory/${historyID}`);
+  }
+  deleteAllHistory(): Observable<any>{
+   return this.http.delete(`${this.apiUrl}/deleteAllHistory`)
   }
 }

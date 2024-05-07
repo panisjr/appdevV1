@@ -17,7 +17,7 @@ class BookController extends Controller
         $book = Book::create($request->all());
         return response()->json([
             'status' => true,
-            'message' => 'Book added successfully!',
+            'message' => 'Book Added Successfully!',
             'data' => $book
         ], 200);
     }
@@ -31,12 +31,19 @@ class BookController extends Controller
     {
         $book = Book::find($id);
         $book->update($request->all());
-        return response()->json($book, 200);
+        return response()->json([
+            'status' => true,
+            'message' => 'Book Update Successfully!',
+            'data' => $book
+        ], 200);
     }
 
     public function destroy($id)
     {
         Book::destroy($id);
-        return response()->json(null, 204);
+        return response()->json([
+            'status' => true,
+            'message' => 'Book Deleted Successfully!'
+        ], 200);
     }
 }

@@ -321,6 +321,8 @@ class UserController extends Controller
 
         return response()->json(['message' => 'Password reset successfully'], 200);
     }
+
+    // Store History
     public function history(Request $request)
     {
         $validatedData = $request->validate([
@@ -348,22 +350,41 @@ class UserController extends Controller
     {
         // Fetch history history from the database
         $history = DB::table('history')->orderBy('created_at', 'desc')->get();
+        $totalHistory = DB::table('history')->count();
 
-        return response()->json($history);
+        return response()->json(['history'=>$history, 'totalHistory'=>$totalHistory]);
     }
-    public function deleteHistory(string $id){
+    // Delete History
+    public function deleteHistory(string $id)
+    {
         $history = DB::table('history')->find($id);
 
-        if(!$history){
+        if (!$history) {
             return response()->json([
                 'status' => false,
                 'message' => 'History not found.'
             ], 404);
         }
-        DB::table('history')->where('id',$id)->delete();
+        DB::table('history')->where('id', $id)->delete();
         return response()->json([
             'status' => false,
-            'message' => 'History delete successfully!'
+            'message' => 'History Delete Successfully!'
         ], 200);
+    }
+    // Delete All History
+    public function deleteAllHistory()
+    {
+        try {
+            DB::table('history')->delete();
+            return response()->json([
+                'status' => true,
+                'message' => "All History Deleted Successfully!"
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Failed to delete all history records.'
+            ], 500);
+        }
     }
 }

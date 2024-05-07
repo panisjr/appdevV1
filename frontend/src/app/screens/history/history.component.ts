@@ -8,13 +8,13 @@ import { Router } from '@angular/router';
   styleUrl: './history.component.css',
 })
 export class HistoryComponent implements OnInit {
-  historyID: number = 0
+  historyID: number = 0;
   loading: boolean = false;
   errorMessage: string | null = null;
   successMessage: string | null = null;
   dataTable: any;
   history: any[] = [];
-
+  historyCount: number = 0;
   constructor(private serverService: ServerService, private router: Router) {}
 
   ngOnInit(): void {
@@ -23,8 +23,9 @@ export class HistoryComponent implements OnInit {
 
   getHistoryEntries(): void {
     this.serverService.getHistory().subscribe(
-      (history: any) => {
-        this.history = history;
+      (resultData: any) => {
+        this.history = resultData.history;
+        this.historyCount = resultData.totalHistory;
         if (this.dataTable) {
           this.dataTable.destroy();
         }
@@ -64,7 +65,7 @@ export class HistoryComponent implements OnInit {
                </button>
                <ul class="dropdown-menu p-2">
                <!-- Dropdown menu links -->
-              <button class="btn btn-danger delete-btn" data-id="${row.id }" 
+              <button class="btn btn-danger delete-btn" data-id="${row.id}" 
               data-bs-toggle="modal" data-bs-target="#deleteAccountModal">Delete</button>
               </ul>
             </div>
@@ -73,31 +74,49 @@ export class HistoryComponent implements OnInit {
           },
         ],
       });
-      $('#historyTable').on('click','.delete-btn', function(){
+      $('#historyTable').on('click', '.delete-btn', function () {
         const accountID = $(this).data('id');
         self.setDelete(accountID);
       });
     });
   }
   // Delete History
-  setDelete(historyID:number){
+  setDelete(historyID: number) {
     this.historyID = historyID;
   }
-  deleteHistory(historyID: number){
+  deleteHistory(historyID: number) {
     this.serverService.deleteHistory(historyID).subscribe(
-      (response: any)=>{
-        this.successMessage = response.message;
-        this.ngOnInit();
+      (resultData: any) => {
+        this.successMessage = resultData.message;
         setTimeout(() => {
           this.successMessage = null;
-        }, 200);
-      },(error)=>{
+          this.ngOnInit();
+        }, 2000);
+      },
+      (error) => {
         this.errorMessage = error.error.message;
         setTimeout(() => {
           this.errorMessage = null;
         }, 2000);
       }
-    )
+    );
+  }
+  deleteAllHistory() {
+    this.serverService.deleteAllHistory().subscribe(
+      (resultData: any) => {
+        this.successMessage = resultData.message;
+        setTimeout(() => {
+          this.successMessage = null;
+          this.ngOnInit();
+        }, 2000);
+      },
+      (error) => {
+        this.errorMessage = error.error.message;
+        setTimeout(() => {
+          this.errorMessage = null;
+        }, 2000);
+      }
+    );
   }
   logout() {
     sessionStorage.removeItem('user_id');

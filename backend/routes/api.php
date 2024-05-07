@@ -44,4 +44,5 @@ Route::post('/borrow', [BorrowerController::class, 'borrowBook']);
 Route::post('/history', [UserController::class, 'history']);
 Route::get('/getHistory', [UserController::class, 'getHistory']);
 Route::delete('/deleteHistory/{id}', [UserController::class, 'deleteHistory']);
+Route::delete('/deleteAllHistory', [UserController::class, 'deleteAllHistory']);
 

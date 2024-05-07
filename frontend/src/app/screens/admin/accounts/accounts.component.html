@@ -34,13 +34,15 @@
         </div>
         <div
           class="navBtn mb-5 d-flex align-items-center justify-content-center"
+          [routerLink]="['/transaction']" routerLinkActive="active" 
         >
           <h3 class="bi bi-receipt"></h3>
           <p class="ms-4 p-2">Transactions</p>
         </div>
         <div
           class="navBtn mb-5 d-flex align-items-center justify-content-center"
-          [routerLink]="['/history']" routerLinkActive="router-link-active" 
+          [routerLink]="['/history']"
+          routerLinkActive="active"
         >
           <h3 class="bi bi-clock-history"></h3>
           <p class="ms-4 p-2">History</p>
@@ -54,7 +56,9 @@
         </div>
       </nav>
     </div>
-    <div class="col-sm-6 col-md-5 offset-md-2 col-lg-10 offset-lg-0 p-3 book-list-container">
+    <div
+      class="col-sm-6 col-md-5 offset-md-2 col-lg-10 offset-lg-0 p-3 book-list-container"
+    >
       <div
         *ngIf="loading"
         class="spinner-border loading text-dark"
@@ -78,391 +82,394 @@
         <table id="accountTable" class="table table-striped"></table>
       </div>
     </div>
-</div>
+  </div>
 
-<!-- Add Account Modal -->
-<div
-  class="modal fade"
-  id="addAccount"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="addAccount"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content p-3">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="addAccount">Add Account</h1>
-      </div>
-      <div class="modal-body">
-        <form #myForm="ngForm" (ngSubmit)="register()" class="m-2 login-form">
-          <div>
-            <label for="firstname" class="form-label">First Name</label>
-            <input
-              type="text"
-              class="form-control p-2"
-              name="firstname"
-              id="firstname"
-              [(ngModel)]="firstname"
-              #firstnameField="ngModel"
-              required
-            />
+  <!-- Add Account Modal -->
+  <div
+    class="modal fade"
+    id="addAccount"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="addAccount"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content p-3">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="addAccount">Add Account</h1>
+        </div>
+        <div class="modal-body">
+          <form #myForm="ngForm" (ngSubmit)="register()" class="m-2 login-form">
+            <div>
+              <label for="firstname" class="form-label">First Name</label>
+              <input
+                type="text"
+                class="form-control p-2"
+                name="firstname"
+                id="firstname"
+                [(ngModel)]="firstname"
+                #firstnameField="ngModel"
+                required
+              />
 
-            <div
-              *ngIf="firstnameField.invalid"
-              class="text-danger form-text mb-4"
-            >
-              First name is required.
+              <div
+                *ngIf="firstnameField.invalid && firstnameField.touched"
+                class="text-danger form-text mb-4"
+              >
+                First name is required.
+              </div>
             </div>
+            <div class="mt-4 mb-4">
+              <label for="middlename" class="form-label"
+                >Middle Initial (Optional): Ex.<i> A.</i></label
+              >
+              <input
+                type="text"
+                class="form-control p-2"
+                name="middlename"
+                id="middlename"
+                [(ngModel)]="middlename"
+                id="middlename"
+              />
+            </div>
+            <div>
+              <label for="lastname">Last Name</label>
+              <input
+                type="text"
+                class="form-control p-2"
+                name="lastname"
+                id="lastname"
+                [(ngModel)]="lastname"
+                #lastnameField="ngModel"
+                required
+              />
+              <p
+                *ngIf="lastnameField.invalid && lastnameField.touched"
+                class="text-danger mb-4 form-text"
+              >
+                Last name is required.
+              </p>
+            </div>
+            <div class="mt-4">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                class="form-control p-2"
+                name="email"
+                id="email"
+                [(ngModel)]="email"
+                #emailField="ngModel"
+                required
+              />
+              <p *ngIf="emailField.invalid && emailField.touched" class="text-danger mb-4 form-text">
+                Email is required
+              </p>
+            </div>
+            <div class="mt-4">
+              <label for="contact" class="form-label">Contact</label>
+              <input
+                type="text"
+                class="form-control p-2"
+                name="contact"
+                [(ngModel)]="contact"
+                id="contact"
+                pattern="[0-9]*"
+                #contactField = "ngModel"
+                required
+              />
+              <div *ngIf="contactField.invalid && contactField.touched" class="text-danger form-text">Contact is required.</div>
+            </div>
+            <div class="mt-4">
+              <p class="form-text">Your password must be 8-20 characters long, contain letters and
+                numbers,upper and lower case, special characters and must not
+                contain spaces.</p>
+              <input
+                type="password"
+                class="form-control p-2"
+                name="password"
+                [(ngModel)]="password"
+                id="password"
+                placeholder="Password"
+                aria-describedby="password"
+                #passwordField = "ngModel"
+                required
+              />
+              <div *ngIf="passwordField.invalid && passwordField.touched" class="text-danger form-text">
+                Password is required
+              </div>
+            </div>
+            <div class="mt-4">
+              <input
+                type="password"
+                class="form-control p-2 mb-2"
+                name="confirm_password"
+                [(ngModel)]="confirm_password"
+                id="confirm_password"
+                placeholder="Confirm Password"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="email">Role:</label>
+              <select
+                class="form-control p-2"
+                id="role"
+                [(ngModel)]="role"
+                name="role"
+                required
+              >
+                <option value="Borrower" selected>Borrower</option>
+                <option value="Librarian">Librarian</option>
+                <option value="Admin">Admin</option>
+              </select>
+            </div>
+            <div class="modal-footer">
+              <button
+                class="registerBtn text-white m-3"
+                [disabled]="myForm.invalid"
+                type="submit"
+              >
+                Add Account
+              </button>
+
+              <button
+                type="button"
+                class="btn p-2 btn-secondary"
+                data-bs-dismiss="modal"
+                (click)="resetForm()"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Edit Account Modal -->
+  <div
+    class="modal fade"
+    id="editAccountModal"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="editAccountModal"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content p-3">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="editAccountModal">Edit Account</h1>
+        </div>
+        <div class="modal-body">
+          <form
+            #myForm="ngForm"
+            (ngSubmit)="updateUser(id)"
+            class="p-2 login-form"
+          >
+            <div>
+              <label for="firstname" class="form-label">First Name</label>
+              <input
+                type="text"
+                class="form-control p-2"
+                name="firstname"
+                [(ngModel)]="firstname"
+                #firstnameField="ngModel"
+                required
+              />
+
+              <div *ngIf="firstnameField.invalid" class="text-danger form-text">
+                First name is required.
+              </div>
+            </div>
+            <div class="mt-4">
+              <label for="firstname" class="form-label"
+                >Middle Initial(Optional): Ex: <i>A.</i></label
+              >
+              <input
+                type="text"
+                class="form-control p-2"
+                name="middlename"
+                [(ngModel)]="middlename"
+              />
+            </div>
+            <div class="mt-4">
+              <label for="lastname" class="form-label">Last Name</label>
+              <input
+                type="text"
+                class="form-control p-2"
+                name="lastname"
+                [(ngModel)]="lastname"
+                #lastnameField="ngModel"
+                required
+              />
+              <div *ngIf="lastnameField.invalid" class="text-danger form-text">
+                Last Name is required.
+              </div>
+            </div>
+            <div class="mt-4">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                class="form-control p-2"
+                name="email"
+                [(ngModel)]="email"
+                #emailField="ngModel"
+                required
+              />
+              <div *ngIf="emailField.invalid" class="text-danger form-text">
+                Email is required.
+              </div>
+            </div>
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control p-2 mb-4"
+                name="contact"
+                [(ngModel)]="contact"
+                placeholder="Contact"
+                pattern="[0-9]*"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="role">Role:</label>
+              <select
+                class="form-control p-2"
+                [(ngModel)]="role"
+                name="role"
+                required
+              >
+                <option value="Borrower" selected>Borrower</option>
+                <option value="Librarian">Librarian</option>
+                <option value="Admin">Admin</option>
+              </select>
+            </div>
+            <div class="modal-footer">
+              <button class="p-2 btn btn-success text-white m-3" type="submit">
+                Update
+              </button>
+
+              <button
+                type="button"
+                class="btn p-2 btn-secondary"
+                data-bs-dismiss="modal"
+                (click)="resetForm()"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Message -->
+  <div
+    class="modal fade show"
+    *ngIf="successMessage"
+    tabindex="-1"
+    aria-labelledby="successModalMessage"
+    aria-modal="true"
+    style="display: block"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content p-3">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 text-success" id="successModalMessage">
+            Successfully!
+          </h1>
+        </div>
+        <div class="modal-body p-3">
+          <h5>{{ successMessage }}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Error Message -->
+  <div
+    class="modal fade show"
+    *ngIf="errorMessage"
+    tabindex="-1"
+    aria-labelledby="errorModalMessage"
+    aria-modal="true"
+    style="display: block"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content p-3">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 text-danger" id="errorModalMessage">
+            Error
+          </h1>
+        </div>
+        <div class="modal-body p-3">
+          <h5>{{ errorMessage }}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Delete Modal -->
+  <div
+    class="modal fade"
+    id="deleteAccountModal"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="deleteAccountModal"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content p-3">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="deleteAccountModal">
+            Delete Confirmation
+          </h1>
+        </div>
+        <div class="modal-body p-2">
+          <p class="text-black m-2">
+            Are you sure you want to delete this account?
+          </p>
+          <p><b> Account's Information</b></p>
+          <div class="ms-3 d-flex align-items-center">
+            <p class="me-2"><b>Name:</b></p>
+            <p class="me-2">{{ firstname }}</p>
+            <p class="me-2">{{ middlename }}</p>
+            <p class="me-2">{{ lastname }}</p>
           </div>
-          <div class="mt-4 mb-4">
-            <label for="middlename" class="form-label"
-              >Middle Initial (Optional): Ex.<i> A.</i></label
-            >
-            <input
-              type="text"
-              class="form-control p-2"
-              name="middlename"
-              id="middlename"
-              [(ngModel)]="middlename"
-              id="middlename"
-            />
-          </div>
-          <div>
-            <label for="lastname">Last Name</label>
-            <input
-              type="text"
-              class="form-control p-2"
-              name="lastname"
-              id="lastname"
-              [(ngModel)]="lastname"
-              #lastnameField="ngModel"
-              required
-            />
-            <p
-              *ngIf="lastnameField.invalid"
-              class="text-danger mb-4 form-text"
-            >
-              Last name is required.
+          <div class="ms-3">
+            <p class="me-2">
+              <b>Email: </b>
+              {{ email }}
+            </p>
+            <p class="me-2">
+              <b>Contact:</b>
+              {{ contact }}
+            </p>
+            <p class="me-2">
+              <b>Role:</b>
+              {{ role }}
             </p>
           </div>
-          <div class="mt-4">
-            <label for="email">Email</label>
-            <input
-              type="email"
-              class="form-control p-2"
-              name="email"
-              id="email"
-              [(ngModel)]="email"
-              #emailField="ngModel"
-              required
-            />
-            <p
-              *ngIf="emailField.invalid"
-              class="text-danger mb-4 form-text"
-            >
-              Email is required
-            </p>
-          </div>
-          <div class="mt-4">
-            <input
-              type="text"
-              class="form-control p-2 mb-4"
-              name="contact"
-              [(ngModel)]="contact"
-              id="contact"
-              placeholder="Contact"
-              pattern="[0-9]*"
-              required
-            />
-          </div>
-          <div class="input-group">
-            <input
-              type="password"
-              class="form-control p-2"
-              name="password"
-              [(ngModel)]="password"
-              id="password"
-              placeholder="Password"
-              required
-              aria-describedby="password"
-            />
-            <p class="form-text mb-4">
-              Your password must be 8-20 characters long, contain letters and
-              numbers,upper and lower case, special characters and must not contain spaces.
-            </p>
-          </div>
-          <div class="input-group">
-            <input
-              type="password"
-              class="form-control p-2 mb-2"
-              name="confirm_password"
-              [(ngModel)]="confirm_password"
-              id="confirm_password"
-              placeholder="Confirm Password"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="email">Role:</label>
-            <select
-              class="form-control p-2"
-              id="role"
-              [(ngModel)]="role"
-              name="role"
-              required
-            >
-              <option value="Borrower" selected>Borrower</option>
-              <option value="Librarian">Librarian</option>
-              <option value="Admin">Admin</option>
-            </select>
-          </div>
+
           <div class="modal-footer">
             <button
-              class="registerBtn text-white m-3"
-              [disabled]="myForm.invalid"
-              type="submit"
-            >
-              Add Account
-            </button>
-
-            <button
               type="button"
-              class="btn p-2 btn-secondary"
+              class="btn mt-2 p-2 me-2 btn-secondary"
               data-bs-dismiss="modal"
-              (click)="resetForm()"
             >
               Cancel
             </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Edit Account Modal -->
-<div
-  class="modal fade"
-  id="editAccountModal"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="editAccountModal"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content p-3">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="editAccountModal">Edit Account</h1>
-      </div>
-      <div class="modal-body">
-        <form #myForm="ngForm" (ngSubmit)="updateUser(id)" class="p-2 login-form">
-          <div>
-            <label for="firstname" class="form-label">Firstname</label>
-            <input
-              type="text"
-              class="form-control p-2"
-              name="firstname"
-              [(ngModel)]="firstname"
-              #firstnameField="ngModel"
-              required
-            />
-
-            <div
-              *ngIf="firstnameField.invalid"
-              class="text-danger form-text"
-            >
-              First name is required.
-            </div>
-          </div>
-          <div>
-            <label for="firstname" class="form-label">Firstname</label>
-            <input
-              type="text"
-              class="form-control p-2 mt-4"
-              name="middlename"
-              [(ngModel)]="middlename"
-              placeholder="Middle Initial (Optional)"
-            />
-          </div>
-          <div class="input-group">
-            <input
-              type="text"
-              class="form-control p-2 mb-4"
-              name="lastname"
-              [(ngModel)]="lastname"
-              placeholder="Last Name"
-              required
-            />
-          </div>
-          <div class="input-group has-validation">
-            <input
-              type="email"
-              class="form-control p-2 mb-4"
-              name="email"
-              [(ngModel)]="email"
-              placeholder="Email"
-              required
-            />
-          </div>
-          <div class="input-group">
-            <input
-              type="text"
-              class="form-control p-2 mb-4"
-              name="contact"
-              [(ngModel)]="contact"
-              placeholder="Contact"
-              pattern="[0-9]*"
-              required
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="role">Role:</label>
-            <select
-              class="form-control p-2"
-              [(ngModel)]="role"
-              name="role"
-              required
-            >
-              <option value="Borrower" selected>Borrower</option>
-              <option value="Librarian">Librarian</option>
-              <option value="Admin">Admin</option>
-            </select>
-          </div>
-          <div class="modal-footer">
-            <button class="p-2 btn btn-success text-white m-3" type="submit">
-              Update
-            </button>
-
             <button
-              type="button"
-              class="btn p-2 btn-secondary"
               data-bs-dismiss="modal"
-              (click)="resetForm()"
+              (click)="deleteUser(id)"
+              class="btn mt-2 p-2 btn-danger"
             >
-              Cancel
+              Yes
             </button>
           </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Error Message -->
-<div
-  class="modal fade show"
-  *ngIf="errorMessage"
-  tabindex="-1"
-  aria-labelledby="errorModalMessage"
-  aria-modal="true"
-  style="display: block"
->
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content p-3">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5 text-danger" id="errorModalMessage">
-          Error
-        </h1>
-        <button
-          type="button"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <p>{{ errorMessage }}</p>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Success Message -->
-<div
-  class="modal fade show"
-  *ngIf="successMessage"
-  tabindex="-1"
-  aria-labelledby="successModalMessage"
-  aria-modal="true"
-  style="display: block"
->
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content p-3">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5 text-success" id="successModalMessage">
-          Successfully
-        </h1>
-        <button
-          type="button"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <p>{{ successMessage }}</p>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Delete Modal -->
-<div
-  class="modal fade"
-  id="deleteAccountModal"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="deleteAccountModal"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content p-3">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="deleteAccountModal">
-          Delete Confirmation
-        </h1>
-      </div>
-      <div class="modal-body p-2">
-        <p class="text-black m-2">
-          Are you sure you want to delete this account?
-        </p>
-        <p><b> Account's Information</b></p>
-        <div class="ms-3 d-flex align-items-center">
-          <p class="me-2"><b>Name:</b></p>
-          <p class="me-2">{{ firstname }}</p>
-          <p class="me-2">{{ middlename }}</p>
-          <p class="me-2">{{ lastname }}</p>
-        </div>
-        <div class="ms-3">
-          <p class="me-2">
-            <b>Email: </b>
-            {{ email }}
-          </p>
-          <p class="me-2">
-            <b>Contact:</b>
-            {{ contact }}
-          </p>
-          <p class="me-2">
-            <b>Role:</b>
-            {{ role }}
-          </p>
-        </div>
-
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn mt-2 p-2 me-2 btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            Cancel
-          </button>
-          <button
-            data-bs-dismiss="modal"
-            (click)="deleteUser(id)"
-            class="btn mt-2 p-2 btn-danger"
-          >
-            Yes
-          </button>
         </div>
       </div>
     </div>

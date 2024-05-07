@@ -26,6 +26,9 @@
 .modal-dialog-centered{
     margin-left: 400px;
   }
+  .modal-content{
+    border: 1px solid black;
+  }
 .searchIcon {
     position: absolute;
     top: 50px;

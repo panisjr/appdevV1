@@ -23,6 +23,9 @@
 .modal-dialog-centered{
   margin-left: 400px;
 }
+.modal-content{
+  border: 1px solid black;
+}
 .book-list-container .div .table-div {
   border-radius: 10px;
   overflow-y: auto;

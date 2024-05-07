@@ -91,26 +91,21 @@ export class AccountsComponent implements OnInit, OnDestroy {
             render: function (data, type, row) {
               return `
               <div class="btn-group dropstart">
-  <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
-  <i class="bi bi-three-dots-vertical"></i>
-  </button>
-  <ul class="dropdown-menu p-2">
-    <!-- Dropdown menu links -->
-    <button class="btn btn-warning edit-btn me-3 mb-2" data-id="${
-      row.id
-    }" data-bs-toggle="modal" data-bs-target="#editAccountModal">Edit</button>
-    <button class="btn btn-danger delete-btn" data-id="${
-      row.id
-    }" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">Delete</button>
-    <button class="btn deactivate-btn"
-    [class.btn-success]="${row.status} === 'deactivated'" 
-    [class.btn-danger]="${row.status} === 'active'"
-    data-id="${row.id}" data-status="${row.status}">${
-                row.status === 'deactivated' ? 'active' : 'deactivated'
-              }</button>
-    </ul>
-  </div>
-              `;
+                <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <ul class="dropdown-menu p-2">
+                  <!-- Dropdown menu links -->
+                  <button class="btn btn-warning edit-btn me-3 mb-2" data-id="${row.id}" data-bs-toggle="modal" data-bs-target="#editAccountModal">Edit</button>
+                  <button class="btn btn-danger delete-btn" data-id="${row.id}" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">Delete</button>
+                  <button class="btn deactivate-btn"
+                          [ngClass]="{'btn-success': ${row.status} === 'deactivated', 'btn-danger': ${row.status} === 'active'}"
+                          data-id="${row.id}" data-status="${row.status}">
+                    ${row.status === 'deactivated' ? 'active' : 'deactivated'}
+                  </button>
+                </ul>
+              </div>
+            `;
             },
           },
         ],
@@ -147,7 +142,7 @@ export class AccountsComponent implements OnInit, OnDestroy {
         this.fetchAccounts();
         setTimeout(() => {
           this.successMessage = null;
-        }, 1500);
+        }, 2000);
       },
       (error) => {
         this.errorMessage = error.error.message;
@@ -195,7 +190,7 @@ export class AccountsComponent implements OnInit, OnDestroy {
         this.errorMessage = "Password didn't match! Please try again.";
         setTimeout(() => {
           this.errorMessage = null;
-        }, 1500);
+        }, 2000);
         return; // Return early if passwords don't match
       }
       this.serverService.register(bodyData).subscribe(
@@ -287,14 +282,14 @@ export class AccountsComponent implements OnInit, OnDestroy {
         setTimeout(() => {
           this.successMessage = null;
           this.fetchAccounts();
-        }, 1500);
+        }, 2000);
       },
       (error) => {
         this.loading = false;
         this.errorMessage = error.error.message;
         setTimeout(() => {
           this.errorMessage = null; // Set errorMessage to null after 2 seconds
-        }, 1500);
+        }, 2000);
       }
     );
   }
@@ -349,14 +344,14 @@ export class AccountsComponent implements OnInit, OnDestroy {
           this.successMessage = null;
           this.resetForm();
           this.fetchAccounts();
-        }, 1500);
+        }, 2000);
       },
       (error) => {
         this.loading = false;
         this.errorMessage = error.error.message;
         setTimeout(() => {
           this.errorMessage = null;
-        }, 1500);
+        }, 2000);
       }
     );
   }

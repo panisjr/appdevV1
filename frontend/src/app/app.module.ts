@@ -22,6 +22,7 @@ import { BookManagementComponent } from './screens/book-management/book-manageme
 import { BookdetailsComponent } from './screens/borrower/bookdetails/bookdetails.component';
 import { ServerService } from './service/server.service';
 import { HistoryComponent } from './screens/history/history.component';
+import { TransactionComponent } from './screens/transaction/transaction.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +36,7 @@ import { HistoryComponent } from './screens/history/history.component';
     BookManagementComponent,
     BookdetailsComponent,
     HistoryComponent,
+    TransactionComponent,
   ],
   imports: [
     BrowserModule,

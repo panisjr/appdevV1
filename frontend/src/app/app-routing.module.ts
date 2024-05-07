@@ -10,6 +10,7 @@ import { LibrarianComponent } from './screens/librarian/librarian.component';
 import { ResetPasswordComponent } from './screens/login/reset-password/reset-password.component';
 import { BookManagementComponent } from './screens/book-management/book-management.component';
 import { HistoryComponent } from './screens/history/history.component';
+import { TransactionComponent } from './screens/transaction/transaction.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, title: 'Library | Login' },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'reset-password/:token', component: ResetPasswordComponent },
   { path: 'books', component: BookManagementComponent, title: 'Library | Book Management', canActivate: [AuthGuard] },
   { path: 'history', component: HistoryComponent, title: 'Library | History', canActivate: [AuthGuard] },
+  { path: 'transaction', component: TransactionComponent, title: 'Library | Transaction', canActivate: [AuthGuard] },
 
 ];
 

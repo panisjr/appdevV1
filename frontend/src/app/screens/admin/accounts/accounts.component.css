@@ -8,6 +8,9 @@
 .modal-dialog-centered{
   margin-left: 400px;
 }
+.modal-content{
+  border: 1px solid black;
+}
 .searchInput {
   border-radius: 5px;
   padding: 4px;

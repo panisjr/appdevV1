@@ -36,13 +36,14 @@
         </div>
         <div
           class="navBtn mb-5 d-flex align-items-center justify-content-center"
+        [routerLink]="['/transaction']" routerLinkActive="active" 
         >
           <h3 class="bi bi-receipt"></h3>
           <p class="ms-4 p-2">Transactions</p>
         </div>
         <div
           class="navBtn mb-5 d-flex align-items-center justify-content-center"
-          [routerLink]="['/history']" routerLinkActive="router-link-active" 
+          [routerLink]="['/history']" routerLinkActive="active" 
         >
           <h3 class="bi bi-clock-history"></h3>
           <p class="ms-4 p-2">History</p>
@@ -320,7 +321,7 @@
     tabindex="-1"
     aria-labelledby="errorModalMessage"
     aria-modal="true"
-    style="display: block; background: rgba(0, 0, 0, 0.5)"
+    style="display: block"
   >
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content p-3">
@@ -347,14 +348,19 @@
     tabindex="-1"
     aria-labelledby="successModalMessage"
     aria-modal="true"
-    style="display: block; background: rgba(0, 0, 0, 0.5)"
+    style="display: block"
   >
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content p-3">
         <div class="modal-header">
           <h1 class="modal-title fs-5 text-success" id="successModalMessage">
-            Successfully!
+            Successfully
           </h1>
+          <button
+            type="button"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
         <div class="modal-body">
           <p>{{ successMessage }}</p>

@@ -34,6 +34,7 @@
         </div>
         <div
           class="navBtn mb-5 d-flex align-items-center justify-content-center"
+          [routerLink]="['/transaction']" routerLinkActive="active" 
         >
           <h3 class="bi bi-receipt"></h3>
           <p class="ms-4 p-2">Transactions</p>
@@ -68,6 +69,14 @@
       <div>
         <div class="mb-4 d-flex align-items-center justify-content-between">
           <h4>History</h4>
+          <button
+            class="btn btn-danger p-2"
+            data-bs-toggle="modal"
+            data-bs-target="#deleteAllHistoryModal"
+            [disabled]="historyCount === 0"
+          >
+            Delete All
+          </button>
         </div>
       </div>
       <div class="table-div">
@@ -75,7 +84,64 @@
       </div>
     </div>
   </div>
-
+  <!-- Delete All History Confirmation Modal -->
+  <div
+    class="modal fade"
+    id="deleteAllHistoryModal"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="deleteAllHistoryModal"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content p-3">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 text-danger" id="deleteAllHistoryModal">
+            Delete All History Confirmation!
+          </h1>
+        </div>
+        <div class="modal-body p-3">
+          <h5>Are you sure you want to delete all the history?</h5>
+          <h5>This will delete all the history permanently.</h5>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary p-2 me-2" data-bs-dismiss="modal">
+            Cancel
+          </button>
+          <button
+            class="btn btn-danger p-2"
+            (click)="deleteAllHistory()"
+            data-bs-dismiss="modal"
+          >
+            Yes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Success Message -->
+  <div
+    class="modal fade show"
+    *ngIf="successMessage"
+    tabindex="-1"
+    aria-labelledby="successModalMessage"
+    aria-modal="true"
+    style="display: block"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content p-3">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 text-success" id="successModalMessage">
+            Successfully!
+          </h1>
+        </div>
+        <div class="modal-body p-3">
+          <h5>{{ successMessage }}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- Error Message -->
   <div
     class="modal fade show"
@@ -83,7 +149,7 @@
     tabindex="-1"
     aria-labelledby="errorModalMessage"
     aria-modal="true"
-    style="display: block; background: rgba(0, 0, 0, 0.5)"
+    style="display: block"
   >
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content p-3">
@@ -91,14 +157,9 @@
           <h1 class="modal-title fs-5 text-danger" id="errorModalMessage">
             Error
           </h1>
-          <button
-            type="button"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
         </div>
-        <div class="modal-body">
-          <p>{{ errorMessage }}</p>
+        <div class="modal-body p-3">
+          <h5>{{ errorMessage }}</h5>
         </div>
       </div>
     </div>
@@ -121,11 +182,11 @@
             Delete Confirmation!
           </h1>
         </div>
-        <div class="modal-body p-2">
-          <p class="text-black m-2">
-            Are you sure you want to delete this history? This will delete
-            permanently.
-          </p>
+        <div class="modal-body p-3">
+          <h5 class="text-black m-2">
+            Are you sure you want to delete this history?
+          </h5>
+          <h5>This will delete the history permanently.</h5>
         </div>
 
         <div class="modal-footer">
