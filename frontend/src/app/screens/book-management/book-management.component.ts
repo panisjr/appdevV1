@@ -28,6 +28,14 @@ export class BookManagementComponent implements OnInit, OnDestroy {
 
   isEditMode = false;
 
+  // For History 
+  accounts: any[] = []; //to get the user for us to find the current user
+  bookID: number = 0; //To get the book that is being created,delete,or edit
+  accountID: number=0;
+  accountFirst: string = ''; // The user's firstname who did that action
+  accountLast: string = '';//The user's lastname who did that action
+  accountRole: string = '';//The user's role who did that action
+
   constructor(private router: Router, private serverService: ServerService) {
     (window as any)['deleteBook'] = this.deleteBook.bind(this);
     (window as any)['editBook'] = this.editBook.bind(this);
@@ -58,10 +66,34 @@ export class BookManagementComponent implements OnInit, OnDestroy {
 
   logout() {
     sessionStorage.removeItem('jwt_token');
+    sessionStorage.removeItem('user_id');
     sessionStorage.removeItem('user_info');
     this.router.navigate(['/login']);
   }
+ 
+  accountByID(){
+    this.serverService.get().subscribe(
+      (resultData: any)=>{
+        this.accounts = resultData;
+
+        const id = Number(sessionStorage.getItem('user_id'));
+        console.log(id);
+        const account = this.accounts.find((a)=> a.id === id);
+
+        if(account){
+          this.accountID = account.id;
+          this.accountFirst = account.firstname;
+          this.accountLast = account.lastname;
+          this.accountRole = account.role;
+        }
+      },
+      (error)=>{
+        this.errorMessage = error.error.message;
+      }
+    )
+  }
   createBook(): void {
+    this.accountByID();
     if (this.isEditMode) {
       this.serverService.updateBook(this.book.id!, this.book).subscribe(() => {
         console.log('Book updated successfully');
@@ -70,10 +102,26 @@ export class BookManagementComponent implements OnInit, OnDestroy {
         this.resetForm();
       });
     } else {
-      this.serverService.createBook(this.book).subscribe(() => {
-        console.log('Book added successfully');
+      this.serverService.createBook(this.book).subscribe(
+        (resultData: any) => {
+          this.successMessage = resultData.message;
+        console.log(resultData.data.id);
         this.fetchBooks();
+        // To store the action in history
+        const bookID = resultData.data.id;
+        const accountID = this.accountID;
+        const accountFirst = this.accountFirst;
+        const accountLast = this.accountLast;
+        const accountRole = this.accountRole;
+        this.serverService.history('Add new book.', bookID, accountID,accountFirst, accountLast, accountRole ).subscribe(()=>{
+          console.log('Action added to history successfully')
+        });
+        setTimeout(() => {
+          this.successMessage = null;
+        }, 2000);
         this.resetForm();
+      },(error)=>{
+        this.errorMessage = error.error.error;
       });
     }
   }

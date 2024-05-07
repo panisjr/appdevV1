@@ -168,7 +168,6 @@ export class AccountsComponent implements OnInit, OnDestroy {
   accountByID() {
     const id = Number(sessionStorage.getItem('user_id'));
     const account = this.accounts.find((a) => a.id === id);
-    console.log(account);
     if (account) {
       this.accountID = account.id;
       this.accountFirst = account.firstname;
@@ -202,7 +201,7 @@ export class AccountsComponent implements OnInit, OnDestroy {
       this.serverService.register(bodyData).subscribe(
         (resultData: any) => {
           this.loading = false;
-          this.successMessage = 'Registered Successfully!';
+          this.successMessage = resultData.message;
           const userID = resultData.data?.id;
           const accountID = this.accountID;
           const accountFirst = this.accountFirst;
@@ -224,18 +223,14 @@ export class AccountsComponent implements OnInit, OnDestroy {
             this.successMessage = null;
             this.fetchAccounts();
             this.resetForm();
-          }, 1500);
+          }, 2000);
         },
         (error) => {
-          if (error.status === 422) {
             this.loading = false;
-            this.errorMessage =
-              'Validation Failed! Make sure to fill all the fields correctly.';
-
+            this.errorMessage = error.error.message;
             setTimeout(() => {
               this.errorMessage = null;
             }, 2000);
-          }
         }
       );
     } catch (error) {

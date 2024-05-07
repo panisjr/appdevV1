@@ -41,7 +41,7 @@ export class HistoryComponent implements OnInit {
       this.dataTable = $('#historyTable').DataTable({
         data: this.history,
         columns: [
-          { title: 'User ID', data: 'user_id' },
+          { title: 'ID', data: 'user_id' },
           { title: 'Decription', data: 'action_type' },
           {
             title: 'By:',

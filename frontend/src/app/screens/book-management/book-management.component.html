@@ -342,23 +342,19 @@
   </div>
   <!-- Success Message -->
   <div
-    class="modal fade"
+    class="modal fade show"
     *ngIf="successMessage"
     tabindex="-1"
-    aria-labelledby="successMessage"
+    aria-labelledby="successModalMessage"
     aria-modal="true"
+    style="display: block; background: rgba(0, 0, 0, 0.5)"
   >
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content p-3">
         <div class="modal-header">
-          <h1 class="modal-title fs-5 text-success" id="successMessage">
-            Successfully
+          <h1 class="modal-title fs-5 text-success" id="successModalMessage">
+            Successfully!
           </h1>
-          <button
-            type="button"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
         </div>
         <div class="modal-body">
           <p>{{ successMessage }}</p>

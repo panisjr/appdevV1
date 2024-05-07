@@ -74,7 +74,7 @@ class UserController extends Controller
             // Fetch the ID from the created user
             return response()->json([
                 'success' => true,
-                'message' => 'User created successfully',
+                'message' => 'User created successfully.',
                 'data' => $user,
             ]);
         }
@@ -109,7 +109,7 @@ class UserController extends Controller
         // Fetch the ID from the created user
         return response()->json([
             'success' => true,
-            'message' => 'User created successfully',
+            'message' => 'User created successfully.',
             'data' => $user,
         ]);
     }

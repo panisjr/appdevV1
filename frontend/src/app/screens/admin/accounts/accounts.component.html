@@ -118,7 +118,7 @@
           </div>
           <div class="mt-4 mb-4">
             <label for="middlename" class="form-label"
-              >Middle Initial (Optional)</label
+              >Middle Initial (Optional): Ex.<i> A.</i></label
             >
             <input
               type="text"
@@ -257,21 +257,30 @@
         <h1 class="modal-title fs-5" id="editAccountModal">Edit Account</h1>
       </div>
       <div class="modal-body">
-        <form (ngSubmit)="updateUser(id)" class="p-2 login-form">
-          <div class="input-group">
+        <form #myForm="ngForm" (ngSubmit)="updateUser(id)" class="p-2 login-form">
+          <div>
+            <label for="firstname" class="form-label">Firstname</label>
             <input
               type="text"
-              class="form-control p-2 mb-4"
+              class="form-control p-2"
               name="firstname"
               [(ngModel)]="firstname"
-              placeholder="First Name"
+              #firstnameField="ngModel"
               required
             />
+
+            <div
+              *ngIf="firstnameField.invalid"
+              class="text-danger form-text"
+            >
+              First name is required.
+            </div>
           </div>
-          <div class="input-group">
+          <div>
+            <label for="firstname" class="form-label">Firstname</label>
             <input
               type="text"
-              class="form-control p-2 mb-4"
+              class="form-control p-2 mt-4"
               name="middlename"
               [(ngModel)]="middlename"
               placeholder="Middle Initial (Optional)"
@@ -349,7 +358,7 @@
   tabindex="-1"
   aria-labelledby="errorModalMessage"
   aria-modal="true"
-  style="display: block; background: rgba(0, 0, 0, 0.5)"
+  style="display: block"
 >
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content p-3">
@@ -365,6 +374,33 @@
       </div>
       <div class="modal-body">
         <p>{{ errorMessage }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Success Message -->
+<div
+  class="modal fade show"
+  *ngIf="successMessage"
+  tabindex="-1"
+  aria-labelledby="successModalMessage"
+  aria-modal="true"
+  style="display: block"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-3">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 text-success" id="successModalMessage">
+          Successfully
+        </h1>
+        <button
+          type="button"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>{{ successMessage }}</p>
       </div>
     </div>
   </div>

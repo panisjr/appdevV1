@@ -11,11 +11,15 @@ class BookController extends Controller
     {
         return Book::all();
     }
-    
+
     public function store(Request $request)
     {
         $book = Book::create($request->all());
-        return response()->json($book, 201);
+        return response()->json([
+            'status' => true,
+            'message' => 'Book added successfully!',
+            'data' => $book
+        ], 200);
     }
 
     public function show($id)
