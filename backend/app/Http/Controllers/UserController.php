@@ -188,6 +188,7 @@ class UserController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'User Deleted Successfully',
+            'data' => $user
         ]);
     }
     public function deactivate(Request $request, string $id)

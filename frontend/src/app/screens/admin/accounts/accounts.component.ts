@@ -40,7 +40,7 @@ export class AccountsComponent implements OnInit, OnDestroy {
   ) {}
   ngOnInit(): void {
     this.fetchAccounts();
-    this.initializeDataTables();  
+    this.initializeDataTables();
   }
   ngOnDestroy(): void {
     if (this.dataTable) {
@@ -218,7 +218,7 @@ export class AccountsComponent implements OnInit, OnDestroy {
               accountRole
             )
             .subscribe(() => {
-              console.log('Action logged successfully');
+              console.log('Action added to history successfully');
             });
           setTimeout(() => {
             this.successMessage = null;
@@ -258,6 +258,7 @@ export class AccountsComponent implements OnInit, OnDestroy {
   // To update user Credentials
   updateUser(accountId: number) {
     this.loading = true;
+    this.accountByID();
     let bodyData = {
       firstname: this.firstname,
       middlename: this.middlename,
@@ -271,6 +272,23 @@ export class AccountsComponent implements OnInit, OnDestroy {
       (resultData: any) => {
         this.loading = false;
         this.successMessage = resultData.message;
+        const userID = resultData.data.id;
+        const accountID = this.accountID;
+        const accountFirst = this.accountFirst;
+        const accountLast = this.accountLast;
+        const accountRole = this.accountRole;
+        this.serverService
+          .history(
+            'Update user account.',
+            userID,
+            accountID,
+            accountFirst,
+            accountLast,
+            accountRole
+          )
+          .subscribe(() => {
+            console.log('Action added to history successfully');
+          });
         setTimeout(() => {
           this.successMessage = null;
           this.fetchAccounts();
@@ -300,10 +318,38 @@ export class AccountsComponent implements OnInit, OnDestroy {
   }
   deleteUser(accountId: number) {
     this.loading = true;
-    this.serverService.deleteUser(accountId).subscribe(
+    this.accountByID();
+    let bodyData = {
+      id: this.id,
+      firstname: this.firstname,
+      middlename:this.middlename,
+      lastname: this.lastname,
+      email: this.email,
+      contact: this.contact,
+      role: this.role
+    }
+    this.serverService.deleteUser(accountId,bodyData).subscribe(
       (resultData: any) => {
         this.loading = false;
         this.successMessage = resultData.message;
+        // To store in history
+        const userID = resultData.data.id;
+        const accountID = this.accountID;
+        const accountFirst = this.accountFirst;
+        const accountLast = this.accountLast;
+        const accountRole = this.accountRole;
+        this.serverService
+          .history(
+            'Delete user account.',
+            userID,
+            accountID,
+            accountFirst,
+            accountLast,
+            accountRole
+          )
+          .subscribe(() => {
+            console.log('Action added to history successfully');
+          });
         setTimeout(() => {
           this.successMessage = null;
           this.resetForm();

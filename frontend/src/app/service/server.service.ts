@@ -70,8 +70,8 @@ export class ServerService {
       data
     );
   }
-  deleteUser(userId: number) {
-    return this.http.delete(`${this.apiUrl}/deleteUser/${userId}`);
+  deleteUser(userId: number,data:any) {
+    return this.http.delete(`${this.apiUrl}/deleteUser/${userId}`,data);
   }
   deactivate(userId: number, data:any){
     return this.http.post(`${this.apiUrl}/deactivate/${userId}`,data);
