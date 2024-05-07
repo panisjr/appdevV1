@@ -5,7 +5,12 @@
   padding: 0;
   font-family: "Montserrat", sans-serif;
 }
-
+.modal-dialog-centered{
+  margin-left: 400px;
+}
+.modal-content{
+  border: 1px solid black;
+}
 .bg {
   background-color: #183e85;
 }

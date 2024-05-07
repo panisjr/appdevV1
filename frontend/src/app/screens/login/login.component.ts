@@ -88,28 +88,4 @@ export class LoginComponent {
       }
     );
   }    
-
-
-  forgotPassword() {
-    this.loading = true;
-    const data = {
-      email: this.forgotEmail,
-    };
-    this.serverService.sendPasswordResetLink(data).subscribe(
-      () => {
-        this.loading = false;
-        this.successMessage = 'Password reset link sent successfully';
-        setTimeout(() => {
-          this.successMessage = null;
-        }, 1500);
-      },
-      (error) => {
-        this.loading = false;
-        this.errorMessage = error.error.message;
-        setTimeout(() => {
-          this.errorMessage = null;
-        }, 1500);
-      }
-    );
-  }
 }
