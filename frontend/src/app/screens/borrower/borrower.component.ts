@@ -32,7 +32,6 @@ export class BorrowerComponent implements OnInit {
     this.serverService.getTodayRegisteredBooksCount().subscribe((response) => {
       this.todayRegisteredBooksCount = response.count;
     });
-    this.titleService.setTitle('Library | Dashboard');
     const userInfo = sessionStorage.getItem('user_info');
     if (userInfo) {
       const user = JSON.parse(userInfo);

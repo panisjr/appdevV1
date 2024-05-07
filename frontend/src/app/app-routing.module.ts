@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'adminDashboard', component: AdminComponent, title: 'Library | Admin', canActivate: [AuthGuard] },
   { path: 'accounts', component: AccountsComponent, title: 'Library | Accounts', canActivate: [AuthGuard] },
   { path: 'librarianDashboard', component: LibrarianComponent, title: 'Library | Librarian', canActivate: [AuthGuard] },
-  { path: 'borrowerDashboard', component: BorrowerComponent, title: 'Library', canActivate: [AuthGuard] },
+  { path: 'borrowerDashboard', component: BorrowerComponent, title: 'Library | Dashboard', canActivate: [AuthGuard] },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'reset-password/:token', component: ResetPasswordComponent },
   { path: 'books', component: BookManagementComponent, title: 'Library | Book Management', canActivate: [AuthGuard] },
