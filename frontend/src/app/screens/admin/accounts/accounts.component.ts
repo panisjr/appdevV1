@@ -66,6 +66,7 @@ export class AccountsComponent implements OnInit, OnDestroy {
     $(document).ready(() => {
       this.dataTable = $('#accountTable').DataTable({
         data: this.accounts,
+        columnDefs: [{ width: '5%', targets: 0 }],
         columns: [
           { title: 'Id', data: 'id' },
           {

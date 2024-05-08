@@ -34,7 +34,8 @@
         </div>
         <div
           class="navBtn mb-5 d-flex align-items-center justify-content-center"
-          [routerLink]="['/transaction']" routerLinkActive="active" 
+          [routerLink]="['/transaction']"
+          routerLinkActive="active"
         >
           <h3 class="bi bi-receipt"></h3>
           <p class="ms-4 p-2">Transactions</p>
@@ -162,7 +163,10 @@
                 #emailField="ngModel"
                 required
               />
-              <p *ngIf="emailField.invalid && emailField.touched" class="text-danger mb-4 form-text">
+              <p
+                *ngIf="emailField.invalid && emailField.touched"
+                class="text-danger mb-4 form-text"
+              >
                 Email is required
               </p>
             </div>
@@ -175,15 +179,22 @@
                 [(ngModel)]="contact"
                 id="contact"
                 pattern="[0-9]*"
-                #contactField = "ngModel"
+                #contactField="ngModel"
                 required
               />
-              <div *ngIf="contactField.invalid && contactField.touched" class="text-danger form-text">Contact is required.</div>
+              <div
+                *ngIf="contactField.invalid && contactField.touched"
+                class="text-danger form-text"
+              >
+                Contact is required.
+              </div>
             </div>
             <div class="mt-4">
-              <p class="form-text">Your password must be 8-20 characters long, contain letters and
+              <p class="form-text">
+                Your password must be 8-20 characters long, contain letters and
                 numbers,upper and lower case, special characters and must not
-                contain spaces.</p>
+                contain spaces.
+              </p>
               <input
                 type="password"
                 class="form-control p-2"
@@ -192,10 +203,13 @@
                 id="password"
                 placeholder="Password"
                 aria-describedby="password"
-                #passwordField = "ngModel"
+                #passwordField="ngModel"
                 required
               />
-              <div *ngIf="passwordField.invalid && passwordField.touched" class="text-danger form-text">
+              <div
+                *ngIf="passwordField.invalid && passwordField.touched"
+                class="text-danger form-text"
+              >
                 Password is required
               </div>
             </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ServerService } from '../../service/server.service';
 import { Book } from '../../model/book.model';
@@ -10,7 +10,7 @@ declare var $: any;
   templateUrl: './book-management.component.html',
   styleUrls: ['./book-management.component.css'],
 })
-export class BookManagementComponent implements OnInit {
+export class BookManagementComponent implements OnInit, OnDestroy {
   books: Book[] = [];
   loading: boolean = false;
   errorMessage: string | null = null;
@@ -44,18 +44,24 @@ export class BookManagementComponent implements OnInit {
   ngOnInit(): void {
     this.fetchBooks();
   }
-
-
+  ngOnDestroy(): void {
+    if (this.dataTable) {
+      this.dataTable.destroy();
+    }
+  }
   fetchBooks(): void {
-    this.serverService.getBooks().subscribe((data: Book[]) => {
-      this.books = data;
-      if (this.dataTable) {
-        this.dataTable.destroy();
+    this.serverService.getBooks().subscribe(
+      (data: Book[]) => {
+        this.books = data;
+        if (this.dataTable) {
+          this.dataTable.destroy();
+        }
+        this.initializeDataTable();
+      },
+      (error) => {
+        console.error('Error fetching book data', error);
       }
-      this.initializeDataTable();
-    },(error)=>{
-      console.error('Error fetching book data',error);
-    });
+    );
   }
 
   logout() {
@@ -88,86 +94,79 @@ export class BookManagementComponent implements OnInit {
   }
   createBook(): void {
     this.accountByID();
-    if (this.isEditMode) {
-      this.serverService.updateBook(this.book.id!, this.book).subscribe(
-        (resultData: any) => {
-          this.isEditMode = false;
-          this.successMessage = resultData.message;
-          setTimeout(() => {
-            this.successMessage = null;
-            this.fetchBooks();
-            this.resetForm();
-          }, 2000);
-        },
-        (error) => {
-          this.errorMessage = error.error.message;
-          setTimeout(() => {
-            this.errorMessage = null;
-          }, 2000);
-        }
-      );
-    } else {
-      this.serverService.createBook(this.book).subscribe(
-        (resultData: any) => {
-          this.successMessage = resultData.message;
-          // To store the action in history
-          const bookID = resultData.data.id;
-          const accountID = this.accountID;
-          const accountFirst = this.accountFirst;
-          const accountLast = this.accountLast;
-          const accountRole = this.accountRole;
-          this.serverService
-            .history(
-              'Add new book.',
-              bookID,
-              accountID,
-              accountFirst,
-              accountLast,
-              accountRole
-            )
-            .subscribe(() => {
-              console.log('Action added to history successfully');
-            });
-          setTimeout(() => {
-            this.successMessage = null;
-            this.fetchBooks();
-            this.resetForm();
-          }, 2000);
-        },
-        (error) => {
-          this.errorMessage = error.error.message;
-          setTimeout(() => {
-            this.errorMessage = null;
-          }, 2000);
-        }
-      );
-    }
-  }
-
-  editBook(id: number): void {
-    this.isEditMode = true;
-    const selectedBook = this.books.find((book) => book.id === id);
-    if (selectedBook) {
-      this.book = { ...selectedBook };
-    }
-  }
-
-  deleteBook(id: number): void {
-    if (confirm('Are you sure you want to delete this book?')) {
-      this.serverService.deleteBook(id).subscribe((resultData: any) => {
-        this.books = this.books.filter((book) => book.id !== id);
+    this.serverService.createBook(this.book).subscribe(
+      (resultData: any) => {
         this.successMessage = resultData.message;
+        // To store the action in history
+        const bookID = resultData.data.id;
+        const accountID = this.accountID;
+        const accountFirst = this.accountFirst;
+        const accountLast = this.accountLast;
+        const accountRole = this.accountRole;
+        this.serverService
+          .history(
+            'Add new book.',
+            bookID,
+            accountID,
+            accountFirst,
+            accountLast,
+            accountRole
+          )
+          .subscribe(() => {
+            console.log('Action added to history successfully');
+          });
         setTimeout(() => {
-          this.successMessage = null
-          this.fetchBooks();
+          this.successMessage = null;
+          this.ngOnInit();
+          this.resetForm();
         }, 2000);
-      },(error)=>{
+      },
+      (error) => {
         this.errorMessage = error.error.message;
         setTimeout(() => {
           this.errorMessage = null;
         }, 2000);
-      });
-    }
+      }
+    );
+  }
+
+  editBook(id: number): void {
+    this.serverService.updateBook(this.book.id!, this.book).subscribe(
+      (resultData: any) => {
+        this.isEditMode = false;
+        this.successMessage = resultData.message;
+        setTimeout(() => {
+          this.successMessage = null;
+          this.ngOnInit();
+          this.resetForm();
+        }, 2000);
+      },
+      (error) => {
+        this.errorMessage = error.error.message;
+        setTimeout(() => {
+          this.errorMessage = null;
+        }, 2000);
+      }
+    );
+  }
+
+  deleteBook(id: number): void {
+    this.serverService.deleteBook(id).subscribe(
+      (resultData: any) => {
+        this.books = this.books.filter((book) => book.id !== id);
+        this.successMessage = resultData.message;
+        setTimeout(() => {
+          this.successMessage = null;
+          this.ngOnInit();
+        }, 2000);
+      },
+      (error) => {
+        this.errorMessage = error.error.message;
+        setTimeout(() => {
+          this.errorMessage = null;
+        }, 2000);
+      }
+    );
   }
 
   isFormEmpty(): boolean {
@@ -175,41 +174,81 @@ export class BookManagementComponent implements OnInit {
   }
 
   initializeDataTable(): void {
-    $(document).ready(()=>{
-   this.dataTable = $('#bookTable').DataTable({
-      data: this.books,
-      columns: [
-        { title: 'Title', data: 'title' },
-        { title: 'Category', data: 'category' },
-        { title: 'Genre', data: 'genre' },
-        { title: 'Author', data: 'author' },
-        { title: 'Publisher', data: 'publisher' },
-        { title: 'Date', data: 'date' },
-        { title: 'Quantity', data: 'quantity' },
-        {
-          title: '',
-          defaultContent: '',
-          orderable: false,
-          searchable: false,
-          data: null,
-          render: function (data: any, type: any, row: any, meta: any) {
-            return `
-            <div class="btn-group dropstart">
-              <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
-               <i class="bi bi-three-dots-vertical"></i>
-              </button>
-            <ul class="dropdown-menu">
-              <!-- Dropdown menu links -->
-              <button class="btn btn-warning edit-btn" data-id="${row.id}" data-bs-toggle="modal" data-bs-target="#editBookModal">Edit</button>
-              <button class="btn btn-danger delete-btn" data-id="${row.id}" data-bs-toggle="modal" data-bs-target="#deleteBookModal">Delete</button>
-              </ul>
-            </div>
-            `;
+    $(document).ready(() => {
+      this.dataTable = $('#bookTable').DataTable({
+        data: this.books,
+        columns: [
+          { title: 'Title', data: 'title' },
+          { title: 'Category', data: 'category' },
+          { title: 'Genre', data: 'genre' },
+          { title: 'Author', data: 'author' },
+          { title: 'Publisher', data: 'publisher' },
+          { title: 'Date', data: 'date' },
+          { title: 'Quantity', data: 'quantity' },
+          {
+            title: '',
+            defaultContent: '',
+            orderable: false,
+            searchable: false,
+            render: function (data: any, type: any, row: any, meta: any) {
+              return `
+                <div class="btn-group dropstart">
+                  <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-three-dots-vertical"></i>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <!-- Dropdown menu links -->
+                    <button class="btn btn-warning edit-btn" data-id="${row.id}" data-bs-toggle="modal" data-bs-target="#editBookModal">Edit</button>
+                    <button class="btn btn-danger delete-btn" data-id="${row.id}" data-bs-toggle="modal" data-bs-target="#deleteBookModal">Delete</button>
+                  </ul>
+                </div>
+              `;
+            },
           },
-        },
-      ],
+        ],
+      });
+      $('#bookTable').on('click', '.edit-btn', (event: any) => {
+        const bookID = $(event.currentTarget).data('id'); // Use event.currentTarget to refer to the clicked button
+        console.log(bookID);
+        this.setEdit(bookID); // Call setEdit from the component
+      });
+      $('#bookTable').on('click', '.delete-btn', (event: any) => {
+        const bookID = $(event.currentTarget).data('id'); // Use event.currentTarget to refer to the clicked button
+        console.log(bookID);
+        this.setDelete(bookID); // Call setEdit from the component
+      });
     });
-  });
+  }
+
+  setEdit(bookID: number) {
+    const bookf = this.books.find((a) => a.id === bookID);
+    if (bookf) {
+      this.book = {
+        id: bookf.id,
+        title: bookf.title,
+        category: bookf.category,
+        genre: bookf.genre,
+        author: bookf.author,
+        publisher: bookf.publisher,
+        date: bookf.date,
+        quantity: bookf.quantity,
+      };
+    }
+  }
+  setDelete(bookID: number) {
+    const bookf = this.books.find((a) => a.id === bookID);
+    if (bookf) {
+      this.book = {
+        id: bookf.id,
+        title: bookf.title,
+        category: bookf.category,
+        genre: bookf.genre,
+        author: bookf.author,
+        publisher: bookf.publisher,
+        date: bookf.date,
+        quantity: bookf.quantity,
+      };
+    }
   }
 
   resetForm() {

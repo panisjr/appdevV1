@@ -36,14 +36,16 @@
         </div>
         <div
           class="navBtn mb-5 d-flex align-items-center justify-content-center"
-        [routerLink]="['/transaction']" routerLinkActive="active" 
+          [routerLink]="['/transaction']"
+          routerLinkActive="active"
         >
           <h3 class="bi bi-receipt"></h3>
           <p class="ms-4 p-2">Transactions</p>
         </div>
         <div
           class="navBtn mb-5 d-flex align-items-center justify-content-center"
-          [routerLink]="['/history']" routerLinkActive="active" 
+          [routerLink]="['/history']"
+          routerLinkActive="active"
         >
           <h3 class="bi bi-clock-history"></h3>
           <p class="ms-4 p-2">History</p>
@@ -57,7 +59,9 @@
         </div>
       </nav>
     </div>
-    <div class="col-sm-6 col-md-5 offset-md-2 col-lg-10 offset-lg-0 p-3 book-list-container">
+    <div
+      class="col-sm-6 col-md-5 offset-md-2 col-lg-10 offset-lg-0 p-3 book-list-container"
+    >
       <div>
         <div class="mb-4 d-flex align-items-center justify-content-between">
           <h4>Book Management</h4>
@@ -71,8 +75,7 @@
         </div>
       </div>
       <div class="table-div">
-        <table id="bookTable" class="table table-striped">
-        </table>
+        <table id="bookTable" class="table table-striped"></table>
       </div>
       <!-- Add Account Modal -->
       <div
@@ -169,11 +172,11 @@
                 </div>
                 <div class="modal-footer p-2">
                   <button
-                    class="btn me-3"
+                    class="btn btn-primary p-2 me-3"
                     type="submit"
                     [disabled]="!bookForm.form.valid || isFormEmpty()"
                   >
-                    {{ isEditMode ? "Update Book" : "Add Book" }}
+                    Add Book
                   </button>
                   <button
                     type="button"
@@ -188,7 +191,7 @@
           </div>
         </div>
       </div>
-      <!-- Edit Account Modal -->
+      <!-- Edit Book Modal -->
       <div
         class="modal fade"
         id="editBookModal"
@@ -291,8 +294,10 @@
                 </div>
                 <div class="modal-footer">
                   <button
-                    class="p-2 btn btn-success text-white m-3"
+                    class="p-2 btn btn-success text-white me-3"
                     type="submit"
+                    (click)="editBook(book.id)"
+                    data-bs-dismiss="modal"
                   >
                     Update
                   </button>
@@ -341,6 +346,79 @@
       </div>
     </div>
   </div>
+   <!-- Delete Modal -->
+   <div
+   class="modal fade"
+   id="deleteBookModal"
+   data-bs-backdrop="static"
+   data-bs-keyboard="false"
+   tabindex="-1"
+   aria-labelledby="deleteBookModal"
+   aria-hidden="true"
+ >
+   <div class="modal-dialog modal-dialog-centered">
+     <div class="modal-content p-3">
+       <div class="modal-header">
+         <h1 class="modal-title fs-5" id="deleteBookModal">
+           Delete Confirmation
+         </h1>
+       </div>
+       <div class="modal-body p-2">
+         <p class="text-black m-2">
+           Are you sure you want to delete this account?
+         </p>
+         <p><b> Account's Information</b></p>
+         <div class="ms-3 d-flex align-items-center">
+           <p class="me-2"><b>Title:</b></p>
+           <p class="me-2">{{ book.title }}</p>
+         </div>
+         <div class="ms-3">
+           <p class="me-2">
+             <b>Category: </b>
+             {{ book.category }}
+           </p>
+           <p class="me-2">
+             <b>Genre:</b>
+             {{ book.genre }}
+           </p>
+           <p class="me-2">
+             <b>Author:</b>
+             {{ book.author }}
+           </p>
+           <p class="me-2">
+             <b>Publisher:</b>
+             {{ book.publisher }}
+           </p>
+           <p class="me-2">
+             <b>Date:</b>
+             {{ book.date }}
+           </p>
+           <p class="me-2">
+             <b>Quantity:</b>
+             {{ book.quantity }}
+           </p>
+         </div>
+
+         <div class="modal-footer">
+           <button
+             type="button"
+             class="btn mt-2 p-2 me-2 btn-secondary"
+             data-bs-dismiss="modal"
+           >
+             Cancel
+           </button>
+           <button
+             data-bs-dismiss="modal"
+             (click)="deleteBook(book.id)"
+             class="btn mt-2 p-2 btn-danger"
+           >
+             Yes
+           </button>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
   <!-- Success Message -->
   <div
     class="modal fade show"

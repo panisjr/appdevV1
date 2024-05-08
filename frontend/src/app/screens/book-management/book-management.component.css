@@ -71,10 +71,8 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .book-list-container .table-div {
-    border-radius: 10px;
-    height: 510px;
+    height: 514px;
     overflow-y: auto;
-    border-radius: 10px;
 }
 
 .full-width {
@@ -119,32 +117,6 @@ input[type="number"]::-webkit-outer-spin-button {
     font-weight: bold;
 }
 
-/* Table Styles */
-.container {
-    margin: 20px auto;
-    width: 80%;
-}
-
-.table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.table th,
-.table td {
-    padding: 8px;
-    border: 1px solid #ddd;
-    text-align: left;
-}
-
-.table th {
-    background-color: #f2f2f2;
-}
-
-.table tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
 /* Form Styles */
 form {
     margin: 20px auto;
@@ -167,23 +139,6 @@ form input[type="number"] {
     width: calc(100% - 120px);
     padding: 5px;
 }
-
-form button[type="submit"] {
-    padding: 8px 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-form button[type="submit"]:hover {
-    background-color: #0056b3;
-}
-
-form button[type="submit"]:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
 /* WebKit browsers (Chrome, Safari) */
 ::-webkit-scrollbar {
     width: 5px; /* Width of the scrollbar */
@@ -201,4 +156,9 @@ form button[type="submit"]:disabled {
   ::-webkit-scrollbar-thumb:hover {
     background: #555; /* Thumb color on hover */
   }
-  
+
+  @media screen and(max-width: 700px) {
+    .modal-dialog-centered{
+        margin-left: auto;
+    }
+  }
