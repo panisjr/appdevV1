@@ -1,81 +1,52 @@
 <div class="container-fluid">
-  <div class="row vh-100 p-3">
-    <div class="col-lg-2 col-md-4 col-sm-12 me-2 navBar">
-      <div class="logoContainer p-3">
+  <div class="row vh-100">
+    <div class="col-sm-6 col-md-5 col-lg-2 navBar">
+      <div class="logoContainer p-3 mt-3">
         <div class="logo"></div>
         <h4 class="logoName text-center text-white pt-3">ReadEase.</h4>
       </div>
 
       <nav class="selection text-center mt-5">
         <div
-          class="navBtn mb-4"
-          routerLinkActive="active" 
+          class="navBtn mb-5"
+          routerLinkActive="active"
           routerLink="/adminDashboard"
           [routerLinkActiveOptions]="{ exact: true }"
         >
           <h3 class="bi bi-house"></h3>
           <p class="ms-4 p-2">Dashboard</p>
         </div>
-        <div class="navBtn mb-4" routerLink="/accounts">
+        <div class="navBtn mb-5" routerLink="/accounts">
           <h3 class="bi bi-person-gear"></h3>
           <p class="ms-4 p-2">Accounts</p>
         </div>
-        <div class="navBtn mb-4" routerLink="/books">
+        <div class="navBtn mb-5" routerLink="/books">
           <h3 class="bi bi-bookshelf"></h3>
-          <p class="ms-4 p-2">Inventory</p>
+          <p class="ms-4 p-2">Books</p>
         </div>
-        <div class="navBtn mb-4" routerLink="/transaction">
+        <div class="navBtn mb-5"
+        [routerLink]="['/transaction']" routerLinkActive="active" >
           <h3 class="bi bi-receipt"></h3>
           <p class="ms-4 p-2">Transactions</p>
         </div>
-        <div class="navBtn mb-4">
+        <div class="navBtn mb-5" [routerLink]="['/history']" routerLinkActive="active" >
           <h3 class="bi bi-clock-history"></h3>
-          <p class="ms-4 p-2">Logs</p>
+          <p class="ms-4 p-2">History</p>
         </div>
-        <div
-          class="navBtn mb-4"
-          data-bs-toggle="modal"
-          data-bs-target="#logoutModal"
-        >
+        <div class="navBtn mb-4" (click)="logout()">
           <h3 class="bi bi-box-arrow-left"></h3>
           <p class="ms-4 p-2">Logout</p>
         </div>
       </nav>
     </div>
-    <div class="col-lg-6 col-md-8 book-list-container me-2 p-3">
-      <div class="mb-2">
-        <h5>Welcome Back, {{ firstname }} !</h5>
+    <div
+      class="col-sm-6 col-md-5 offset-md-2 col-lg-10 offset-lg-0 book-list-container p-3"
+    >
+      <div>
+        <h4>Welcome Back, {{ firstname }}!</h4>
       </div>
-      <div class="row">
-        <div class="col-12 rounded box-shadow me-3 p-3">
-          <h5>Today's Update!</h5>
-          <div class="d-flex align-items-center justify-content-center m-2">
-            <div class="newBooks me-4 p-3">
-              <h5 class="bi bi-book"></h5>
-              <h3 class="text-primary">+{{ todayRegisteredBooksCount }}</h3>
-              <p>New Books</p>
-            </div>
-            <div class="totalBooksBorrowed me-4 p-3">
-              <h5 class="bi bi-journal-arrow-up"></h5>
-              <h3 class="text-primary">+15</h3>
-              <p>Books Borrowed</p>
-            </div>
-            <div class="totalBooksReturned me-4 p-3">
-              <h5 class="bi bi-journal-arrow-down"></h5>
-              <h3 class="text-primary">+15</h3>
-              <p>Books Returned</p>
-            </div>
-
-            <div class="newAccounts me-4 p-3">
-              <h5 class="bi bi-person-plus"></h5>
-              <h3 class="text-primary">+{{ todayRegisteredUsersCount }}</h3>
-              <p>New Users!</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-5 me-3 ms-5 mt-3 rounded totalBooks p-4">
+      <div class="row d-flex align-items-center justify-content-center mt-5">
+        <div class="col-5 me-3 mt-3 rounded totalBooks p-4">
           <h5 class="text-white">Books</h5>
           <div class="d-flex align-items-center justify-content-center">
             <div class="ms-5 bookIcon"></div>
@@ -90,96 +61,32 @@
           </div>
         </div>
       </div>
-      <div class="row ">
-        <div class="col-12 mt-2 p-3 rounded box-shadow mostBorrowed">
-          <div>
-            <h5>Most Borrowed!</h5>
-            <div class="p-3">
-              <table class="table rounded">
-                <thead>
-                  <th>No.</th>
-                  <th>Title</th>
-                  <th>Category</th>
-                  <th>Genre</th>
-                  <th>Date</th>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>The Martian Chronicles</td>
-                    <td>Science Fiction</td>
-                    <td>Speculative Fiction</td>
-                    <td>2003</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>The Martian Chronicles</td>
-                    <td>Science Fiction</td>
-                    <td>Speculative Fiction</td>
-                    <td>2003</td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>The Martian Chronicles</td>
-                    <td>Science Fiction</td>
-                    <td>Speculative Fiction</td>
-                    <td>2003</td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td>The Martian Chronicles</td>
-                    <td>Science Fiction</td>
-                    <td>Speculative Fiction</td>
-                    <td>2003</td>
-                  </tr>
-                </tbody>
-              </table>
-             
+      <div class="row mt-5">
+        <div class="col-12 ">
+          <h5 class="ms-5">Today's Update!</h5>
+          <div class="d-flex align-items-center justify-content-center m-5 ">
+            <div class="newBooks me-4 p-4">
+              <h5 class="bi bi-book"></h5>
+              <h3 class="text-primary mt-3">+{{ todayRegisteredBooksCount }}</h3>
+              <p>New Books</p>
+            </div>
+            <div class="totalBooksBorrowed me-4 p-4">
+              <h5 class="bi bi-journal-arrow-up"></h5>
+              <h3 class="text-primary mt-3">+15</h3>
+              <p>Books Borrowed</p>
+            </div>
+            <div class="totalBooksReturned me-4 p-4">
+              <h5 class="bi bi-journal-arrow-down"></h5>
+              <h3 class="text-primary mt-3">+15</h3>
+              <p>Books Returned</p>
+            </div>
+
+            <div class="newAccounts me-4 p-4">
+              <h5 class="bi bi-person-plus"></h5>
+              <h3 class="text-primary mt-3">+{{ todayRegisteredUsersCount }}</h3>
+              <p>New Users!</p>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-2 lastContainer p-3">
-      <h3>Trend!</h3>
-    </div>
-  </div>
-</div>
-
-<!-- Logout Modal -->
-<div
-  class="modal fade"
-  id="logoutModal"
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="staticBackdropLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content p-3">
-      <div class="modal-header">
-        <h1 class="modal-title p-3 fs-5" id="staticBackdropLabel">
-          Logout Confirmation
-        </h1>
-      </div>
-      <div class="modal-body p-2">
-        <p class="text-black m-3">Are you sure you want to logout?</p>
-        <div class="modal-footer pt-3">
-          <button
-            type="button"
-            class="btn p-2 me-3 btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            No
-          </button>
-          <button
-            data-bs-dismiss="modal"
-            (click)="logout()"
-            class="btn p-2 btn-danger"
-          >
-            Yes
-          </button>
         </div>
       </div>
     </div>

@@ -5,32 +5,85 @@
   padding: 0;
   font-family: "Montserrat", sans-serif;
 }
-.navBar {
-  background-color: #183e85;
-}
-.book-list-container {
-  overflow-y: auto;
-  height: 585px ;
-}
 .modal-dialog-centered{
   margin-left: 400px;
 }
-.book-list-container .div .table-div {
-  border-radius: 10px;
+.modal-content{
+  border: 1px solid black;
+}
+.searchInput {
+  border-radius: 5px;
+  padding: 4px;
+  width: 400px;
+}
+.searchIcon {
+  position: absolute;
+  top: 50px;
+  left: 320px;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.navBar {
+  background-color: #183e85;
+}
+.loading {
+  position: absolute;
+  float: left;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  top: 50%;
+}
+.registerBtn {
+  background-color: #008dda;
+  border-radius: 5px;
+  border: none;
+  padding: 7px;
+}
+.registerBtn:hover {
+  background-color: #41c9e2;
+  transition: 0.3s;
+}
+.book-list-container {
   overflow-y: auto;
 }
+
+.book-list-container .table-div {
+  border-radius: 10px;
+  height: 510px;
+  overflow-y: auto;
+  border-radius: 10px;
+  }
 .accounts-table thead tr th {
-  background-color: #001f41;
+  background-color: #41c9e2;
   color: #ffffff;
-  text-align: center;
-  vertical-align: middle;
-  font-weight: lighter;
 }
-.logoContainer{
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.full-width {
+  width: 100%;
 }
+.add-account {
+  background-color: #008dda;
+  border-radius: 5px;
+  padding: 5px;
+  color: white;
+}
+.add-account:hover {
+  background-color:  #41c9e2 ;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+}
+.deactivate-account {
+  color: red;
+}
+.deactivate-account:hover {
+  color: rgb(185, 0, 0);
+  cursor: pointer;
+}
+
 .logo {
   width: 80px;
   height: 80px;
@@ -44,21 +97,15 @@
 .selection {
   /* border: 1px solid red; */
   display: flex;
-  margin-left: 25px;
   align-items: start;
+  margin-left: 25px;
   flex-direction: column;
 }
-.bookList{
-    display: flex;
-    overflow-x: auto;
-    width: 980px;
-}
+
 .navBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: white;
   padding: 2px 15px 2px 15px;
+
 }
 .navBtn:hover {
   background-color: white;
@@ -74,31 +121,10 @@
   color: #008dda;
   font-weight: bold;
 }
-.box-shadow{
-  box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
-}
-.trend{
-    display: flex;
-    overflow-x: auto;
-  height: 160px;
-}
-
-.bookIcon{
-  background-image: url('book.png');
-  height: 90px;
-  margin-right: 50px;
-  width: 90px;
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-
 
 /* WebKit browsers (Chrome, Safari) */
 ::-webkit-scrollbar {
   width: 5px;
-  height: 5px; /* Width of the scrollbar */
 }
 
 ::-webkit-scrollbar-track {
@@ -116,6 +142,9 @@
 
 
 @media screen and (max-width:700px) {
+  .modal-dialog-centered{
+    margin-left: auto;
+  }
   .col-sm-12{
     width: 60px;
     height: 100%;
@@ -139,7 +168,7 @@
   width: 45px;
   height: 45px;
 }
-.modal-dialog-centered{
-  margin-left: 20px;
+.table-div{
+  font-size: 10px;
 }
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { BackendService } from '../../service/backend.service';
+import { ServerService } from '../../service/server.service';
 
 @Component({
   selector: 'app-register',
@@ -26,7 +26,7 @@ export class RegisterComponent {
 
   currentAccountID = '';
 
-  constructor(private http: HttpClient, private backend:BackendService) {
+  constructor(private http: HttpClient, private serverService:ServerService) {
     this.getAllAccounts();
   }
 
@@ -55,7 +55,7 @@ export class RegisterComponent {
     if (this.password !== this.confirm_password) {
       this.errorMessage = "Password didn't match! Please try again.";
     }
-    this.backend
+    this.serverService
       .register(bodyData)
       .subscribe(
         (resultData: any) => {

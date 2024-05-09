@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { BackendService } from '../../service/backend.service';
+import { ServerService } from '../../service/server.service';
 
 @Component({
   selector: 'app-admin',
@@ -14,25 +14,26 @@ export class AdminComponent {
   totalBooks: number = 0;
   todayRegisteredUsersCount: number = 0;
   todayRegisteredBooksCount: number = 0;
-  constructor(private router: Router, private titleService: Title, private backend: BackendService) {}
+  constructor(
+    private router: Router,
+    private titleService: Title,
+    private serverService: ServerService
+  ) {}
   ngOnInit(): void {
     this.fetchAccounts();
-    this.backend.getTodayRegisteredUsersCount().subscribe(response => {
+    this.serverService.getTodayRegisteredUsersCount().subscribe((response) => {
       this.todayRegisteredUsersCount = response.count;
-    });
-    this.backend.getTodayRegisteredBooksCount().subscribe(response => {
-      this.todayRegisteredBooksCount = response.count;
     });
     this.titleService.setTitle('Library | Dashboard');
     const userInfo = sessionStorage.getItem('user_info');
-    if(userInfo){
- const user = JSON.parse(userInfo);
-this.firstname = user;
+    if (userInfo) {
+      const user = JSON.parse(userInfo);
+      this.firstname = user;
     }
   }
 
   fetchAccounts() {
-    this.backend.getTotalAccounts().subscribe(
+    this.serverService.getTotalAccounts().subscribe(
       (response: any) => {
         this.totalAccounts = response.totalAccounts;
         this.totalBooks = response.totalBooks;
@@ -46,6 +47,7 @@ this.firstname = user;
     // Remove JWT token from local storage
     // Redirect to login page
     sessionStorage.removeItem('jwt_token');
+    sessionStorage.removeItem('user_id');
     sessionStorage.removeItem('user_info');
     this.router.navigate(['/login']);
   }

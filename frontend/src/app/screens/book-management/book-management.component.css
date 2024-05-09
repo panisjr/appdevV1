@@ -23,23 +23,11 @@
     padding: 5px;
     cursor: pointer;
   }
-.book-list-container {
-    border-radius: 10px;
-    width: 1020px;
-  }
-  
-  .book-list-container .table-div {
-    border-radius: 10px;
-    height: 490px;
-    overflow-y: auto;
-    border-radius: 10px;
-    }
-  .accounts-table thead tr th {
-    background-color: #41c9e2;
-    color: #ffffff;
-  }
 .modal-dialog-centered{
     margin-left: 400px;
+  }
+  .modal-content{
+    border: 1px solid black;
   }
 .searchIcon {
     position: absolute;
@@ -55,7 +43,6 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .navBar {
     background-color: #183e85;
-    border-radius: 10px;
 }
 
 .loading {
@@ -80,15 +67,12 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .book-list-container {
-    border-radius: 10px;
-    width: 1020px;
+    overflow-y: auto;
 }
 
 .book-list-container .table-div {
-    border-radius: 10px;
-    height: 490px;
+    height: 514px;
     overflow-y: auto;
-    border-radius: 10px;
 }
 
 .full-width {
@@ -96,7 +80,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .logo {
-    width: 60px;
+    width: 80px;
     height: 80px;
     background-image: url("logo2.png");
     background-position: center;
@@ -133,32 +117,6 @@ input[type="number"]::-webkit-outer-spin-button {
     font-weight: bold;
 }
 
-/* Table Styles */
-.container {
-    margin: 20px auto;
-    width: 80%;
-}
-
-.table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.table th,
-.table td {
-    padding: 8px;
-    border: 1px solid #ddd;
-    text-align: left;
-}
-
-.table th {
-    background-color: #f2f2f2;
-}
-
-.table tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
 /* Form Styles */
 form {
     margin: 20px auto;
@@ -181,20 +139,26 @@ form input[type="number"] {
     width: calc(100% - 120px);
     padding: 5px;
 }
+/* WebKit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+    width: 5px; /* Width of the scrollbar */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Track color */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #888; /* Thumb color */
+    border-radius: 5px; /* Rounded corners */
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Thumb color on hover */
+  }
 
-form button[type="submit"] {
-    padding: 8px 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-form button[type="submit"]:hover {
-    background-color: #0056b3;
-}
-
-form button[type="submit"]:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
+  @media screen and(max-width: 700px) {
+    .modal-dialog-centered{
+        margin-left: auto;
+    }
+  }

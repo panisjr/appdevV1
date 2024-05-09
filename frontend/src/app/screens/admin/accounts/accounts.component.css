@@ -8,15 +8,8 @@
 .modal-dialog-centered{
   margin-left: 400px;
 }
-.searchInput {
-  border-radius: 5px;
-  padding: 4px;
-  width: 400px;
-}
-.searchIcon {
-  position: absolute;
-  top: 50px;
-  left: 320px;
+.modal-content{
+  border: 1px solid black;
 }
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
@@ -25,7 +18,6 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 .navBar {
   background-color: #183e85;
-  border-radius: 10px;
 }
 .loading {
   position: absolute;
@@ -46,23 +38,13 @@ input[type="number"]::-webkit-outer-spin-button {
   transition: 0.3s;
 }
 .book-list-container {
-  border-radius: 10px;
-  width: 1020px;
+  overflow-y: auto;
 }
 
 .book-list-container .table-div {
-  border-radius: 10px;
-  height: 490px;
+  height: 514px;
   overflow-y: auto;
-  border-radius: 10px;
   }
-.accounts-table thead tr th {
-  background-color: #41c9e2;
-  color: #ffffff;
-}
-.full-width {
-  width: 100%;
-}
 .add-account {
   background-color: #008dda;
   border-radius: 5px;
@@ -120,6 +102,25 @@ input[type="number"]::-webkit-outer-spin-button {
   color: #008dda;
   font-weight: bold;
 }
+
+/* WebKit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Track color */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; /* Thumb color */
+  border-radius: 5px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Thumb color on hover */
+}
+
 
 @media screen and (max-width:700px) {
   .modal-dialog-centered{

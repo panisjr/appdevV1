@@ -11,11 +11,15 @@ class BookController extends Controller
     {
         return Book::all();
     }
-    
+
     public function store(Request $request)
     {
         $book = Book::create($request->all());
-        return response()->json($book, 201);
+        return response()->json([
+            'status' => true,
+            'message' => 'Book Added Successfully!',
+            'data' => $book
+        ], 200);
     }
 
     public function show($id)
@@ -27,12 +31,19 @@ class BookController extends Controller
     {
         $book = Book::find($id);
         $book->update($request->all());
-        return response()->json($book, 200);
+        return response()->json([
+            'status' => true,
+            'message' => 'Book Update Successfully!',
+            'data' => $book
+        ], 200);
     }
 
     public function destroy($id)
     {
         Book::destroy($id);
-        return response()->json(null, 204);
+        return response()->json([
+            'status' => true,
+            'message' => 'Book Deleted Successfully!'
+        ], 200);
     }
 }

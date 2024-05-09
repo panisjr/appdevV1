@@ -1,14 +1,14 @@
 <div class="container-fluid">
-  <div class="row vh-100 p-3">
-    <div class="col-lg-2 col-md-4 col-sm-12 me-4 navBar">
-      <div class="d-flex align-items-center justify-content-center p-3">
+  <div class="row vh-100">
+    <div class="col-sm-6 col-md-5 col-lg-2 navBar">
+      <div class="d-flex align-items-center justify-content-center p-3 mt-3">
         <div class="logo"></div>
-        <h4 class="text-center text-white pt-3">ReadEase.</h4>
+        <h4 class="logoName text-center text-white pt-3">ReadEase.</h4>
       </div>
 
       <nav class="selection text-center mt-5">
         <div
-          class="navBtn mb-4 d-flex align-items-center justify-content-center"
+          class="navBtn mb-5 d-flex align-items-center justify-content-center"
           routerLinkActive="active"
           routerLink="/adminDashboard"
           [routerLinkActiveOptions]="{ exact: true }"
@@ -17,49 +17,55 @@
           <p class="ms-4 p-2">Dashboard</p>
         </div>
         <div
-          class="navBtn mb-4 d-flex align-items-center justify-content-center"
+          class="navBtn mb-5 d-flex align-items-center justify-content-center"
+          routerLinkActive="active"
           routerLink="/accounts"
         >
           <h3 class="bi bi-person-gear"></h3>
           <p class="ms-4 p-2">Accounts</p>
         </div>
         <div
-          class="navBtn mb-4 d-flex align-items-center justify-content-center"
+          class="navBtn mb-5 d-flex align-items-center justify-content-center"
           routerLinkActive="active"
           routerLink="/books"
         >
           <h3 class="bi bi-bookshelf"></h3>
-          <p class="ms-4 p-2">Inventory</p>
-        </div>
 
+          <p class="ms-4 p-2">Books</p>
+        </div>
         <div
+<<<<<<< HEAD
           class="navBtn mb-4 d-flex align-items-center justify-content-center"
           routerLink="/transaction"
+=======
+          class="navBtn mb-5 d-flex align-items-center justify-content-center"
+          [routerLink]="['/transaction']"
+          routerLinkActive="active"
+>>>>>>> 58c9812dff3493899f6fd7cb40a5fa830da18c84
         >
           <h3 class="bi bi-receipt"></h3>
           <p class="ms-4 p-2">Transactions</p>
         </div>
         <div
-          class="navBtn mb-4 d-flex align-items-center justify-content-center"
+          class="navBtn mb-5 d-flex align-items-center justify-content-center"
+          [routerLink]="['/history']"
+          routerLinkActive="active"
         >
           <h3 class="bi bi-clock-history"></h3>
-          <p class="ms-4 p-2">Logs</p>
+          <p class="ms-4 p-2">History</p>
         </div>
         <div
-          class="navBtn mb-4 d-flex align-items-center justify-content-center"
+          class="navBtn mb-5 d-flex align-items-center justify-content-center"
+          (click)="logout()"
         >
           <h3 class="bi bi-box-arrow-left"></h3>
-          <p
-            class="ms-4 p-2"
-            data-bs-toggle="modal"
-            data-bs-target="#logoutModal"
-          >
-            Logout
-          </p>
+          <p class="ms-4 p-2">Logout</p>
         </div>
       </nav>
     </div>
-    <div class="col-lg-9 col-md-8 col-sm-12 p-3 book-list-container">
+    <div
+      class="col-sm-6 col-md-5 offset-md-2 col-lg-10 offset-lg-0 p-3 book-list-container"
+    >
       <div>
         <div class="mb-4 d-flex align-items-center justify-content-between">
           <h4>Book Management</h4>
@@ -73,33 +79,7 @@
         </div>
       </div>
       <div class="table-div">
-        <table id="bookTable" class="table table-striped">
-          <!-- <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Category</th>
-                    <th>Author</th>
-                    <th>Publisher</th>
-                    <th>Date</th>
-                    <th>Quantity</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let book of books">
-                    <td>{{ book.title }}</td>
-                    <td>{{ book.category }}</td>
-                    <td>{{ book.author }}</td>
-                    <td>{{ book.publisher }}</td>
-                    <td>{{ book.date }}</td>
-                    <td>{{ book.quantity }}</td>
-                    <td>
-                        <button (click)="editBook(book.id!)" class="btn btn-warning btn-sm">Edit</button>
-                        <button (click)="deleteBook(book.id!)" class="btn btn-danger btn-sm">Delete</button>
-                    </td>
-                </tr>
-            </tbody> -->
-        </table>
+        <table id="bookTable" class="table table-striped"></table>
       </div>
       <!-- Add Account Modal -->
       <div
@@ -121,6 +101,7 @@
                 <div>
                   <label>Title:</label>
                   <input
+                    class="form-control"
                     type="text"
                     name="title"
                     [(ngModel)]="book.title"
@@ -130,16 +111,29 @@
                 </div>
                 <div>
                   <label>Category:</label>
-                  <input
-                    type="text"
+                  <select
+                    class="form-control p-2"
                     name="category"
                     [(ngModel)]="book.category"
-                    pattern="[a-zA-Z0-9\s]+"
-                  />
+                  >
+                    <option value="Action">Action</option>
+                    <option value="Anime">Anime</option>
+                    <option value="Comedies">Comedies</option>
+                    <option value="Documentaries">Documentaries</option>
+                    <option value="Dramas">Dramas</option>
+                    <option value="Fantasy">Fantasy</option>
+                    <option value="Horror">Horror</option>
+                    <option value="Music & Musicals">Music & Musicals</option>
+                    <option value="Reality">Reality</option>
+                    <option value="Romance">Romance</option>
+                    <option value="Sci-Fi">Sci-Fi</option>
+                    <option value="Thrillers">Thrillers</option>
+                  </select>
                 </div>
                 <div>
                   <label>Genre:</label>
                   <input
+                    class="form-control"
                     type="text"
                     name="genre"
                     [(ngModel)]="book.genre"
@@ -149,6 +143,7 @@
                 <div>
                   <label>Author:</label>
                   <input
+                    class="form-control"
                     type="text"
                     name="author"
                     [(ngModel)]="book.author"
@@ -160,6 +155,7 @@
                   <label>Publisher:</label>
                   <input
                     type="text"
+                    class="form-control"
                     name="publisher"
                     [(ngModel)]="book.publisher"
                     pattern="[a-zA-Z0-9\s]+"
@@ -172,6 +168,7 @@
                 <div>
                   <label>Quantity:</label>
                   <input
+                    class="form-control"
                     type="number"
                     name="quantity"
                     [(ngModel)]="book.quantity"
@@ -179,11 +176,11 @@
                 </div>
                 <div class="modal-footer p-2">
                   <button
-                    class="btn me-3"
+                    class="btn btn-primary p-2 me-3"
                     type="submit"
                     [disabled]="!bookForm.form.valid || isFormEmpty()"
                   >
-                    {{ isEditMode ? "Update Book" : "Add Book" }}
+                    Add Book
                   </button>
                   <button
                     type="button"
@@ -198,7 +195,7 @@
           </div>
         </div>
       </div>
-      <!-- Edit Account Modal -->
+      <!-- Edit Book Modal -->
       <div
         class="modal fade"
         id="editBookModal"
@@ -301,8 +298,10 @@
                 </div>
                 <div class="modal-footer">
                   <button
-                    class="p-2 btn btn-success text-white m-3"
+                    class="p-2 btn btn-success text-white me-3"
                     type="submit"
+                    (click)="editBook(book.id)"
+                    data-bs-dismiss="modal"
                   >
                     Update
                   </button>
@@ -321,45 +320,6 @@
           </div>
         </div>
       </div>
-      <!-- Logout Modal -->
-      <div
-        class="modal fade"
-        id="logoutModal"
-        data-bs-backdrop="static"
-        data-bs-keyboard="false"
-        tabindex="-1"
-        aria-labelledby="logout"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content p-3">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5 p-3" id="logout">
-                Logout Confirmation
-              </h1>
-            </div>
-            <div class="modal-body">
-              <p class="text-black m-3">Are you sure you want to logout?</p>
-              <div class="modal-footer pt-3">
-                <button
-                  type="button"
-                  class="btn p-2 me-3 btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  No
-                </button>
-                <button
-                  data-bs-dismiss="modal"
-                  (click)="logout()"
-                  class="btn p-2 btn-danger"
-                >
-                  Yes
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -370,7 +330,7 @@
     tabindex="-1"
     aria-labelledby="errorModalMessage"
     aria-modal="true"
-    style="display: block; background: rgba(0, 0, 0, 0.5)"
+    style="display: block"
   >
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content p-3">
@@ -390,18 +350,92 @@
       </div>
     </div>
   </div>
+   <!-- Delete Modal -->
+   <div
+   class="modal fade"
+   id="deleteBookModal"
+   data-bs-backdrop="static"
+   data-bs-keyboard="false"
+   tabindex="-1"
+   aria-labelledby="deleteBookModal"
+   aria-hidden="true"
+ >
+   <div class="modal-dialog modal-dialog-centered">
+     <div class="modal-content p-3">
+       <div class="modal-header">
+         <h1 class="modal-title fs-5" id="deleteBookModal">
+           Delete Confirmation
+         </h1>
+       </div>
+       <div class="modal-body p-2">
+         <p class="text-black m-2">
+           Are you sure you want to delete this account?
+         </p>
+         <p><b> Account's Information</b></p>
+         <div class="ms-3 d-flex align-items-center">
+           <p class="me-2"><b>Title:</b></p>
+           <p class="me-2">{{ book.title }}</p>
+         </div>
+         <div class="ms-3">
+           <p class="me-2">
+             <b>Category: </b>
+             {{ book.category }}
+           </p>
+           <p class="me-2">
+             <b>Genre:</b>
+             {{ book.genre }}
+           </p>
+           <p class="me-2">
+             <b>Author:</b>
+             {{ book.author }}
+           </p>
+           <p class="me-2">
+             <b>Publisher:</b>
+             {{ book.publisher }}
+           </p>
+           <p class="me-2">
+             <b>Date:</b>
+             {{ book.date }}
+           </p>
+           <p class="me-2">
+             <b>Quantity:</b>
+             {{ book.quantity }}
+           </p>
+         </div>
+
+         <div class="modal-footer">
+           <button
+             type="button"
+             class="btn mt-2 p-2 me-2 btn-secondary"
+             data-bs-dismiss="modal"
+           >
+             Cancel
+           </button>
+           <button
+             data-bs-dismiss="modal"
+             (click)="deleteBook(book.id)"
+             class="btn mt-2 p-2 btn-danger"
+           >
+             Yes
+           </button>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
   <!-- Success Message -->
   <div
-    class="modal fade"
+    class="modal fade show"
     *ngIf="successMessage"
     tabindex="-1"
-    aria-labelledby="successMessage"
+    aria-labelledby="successModalMessage"
     aria-modal="true"
+    style="display: block"
   >
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content p-3">
         <div class="modal-header">
-          <h1 class="modal-title fs-5 text-success" id="successMessage">
+          <h1 class="modal-title fs-5 text-success" id="successModalMessage">
             Successfully
           </h1>
           <button

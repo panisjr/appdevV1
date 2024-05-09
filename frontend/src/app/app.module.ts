@@ -17,13 +17,16 @@ import {
 } from '@auth0/angular-jwt';
 import { RegisterComponent } from './screens/register/register.component';
 import { AccountsComponent } from './screens/admin/accounts/accounts.component';
-import { BackendService } from './service/backend.service';
 import { ResetPasswordComponent } from './screens/login/reset-password/reset-password.component';
 import { DataTablesModule } from 'angular-datatables';
 import { BookManagementComponent } from './screens/book-management/book-management.component';
 import { BookdetailsComponent } from './screens/borrower/bookdetails/bookdetails.component';
 import { TransactionComponent } from './screens/transaction/transaction.component';
 import { ReturnedComponent } from './screens/transaction/returned/returned.component';
+import { BorrowedBooksComponent } from './screens/borrowed-books/borrowed-books.component';
+import { ReturnedBooksComponent } from './screens/returned-books/returned-books.component';
+import { ServerService } from './service/server.service';
+import { HistoryComponent } from './screens/history/history.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,8 +39,11 @@ import { ReturnedComponent } from './screens/transaction/returned/returned.compo
     ResetPasswordComponent,
     BookManagementComponent,
     BookdetailsComponent,
-    TransactionComponent,
     ReturnedComponent,
+    BorrowedBooksComponent,
+    ReturnedBooksComponent,
+    HistoryComponent,
+    TransactionComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,7 +62,7 @@ import { ReturnedComponent } from './screens/transaction/returned/returned.compo
     }),
   ],
   providers: [
-    BackendService,
+    ServerService,
     JwtHelperService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],

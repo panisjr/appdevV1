@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { BackendService } from '../../service/backend.service';
+import { ServerService } from '../../service/server.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +10,7 @@ import { BackendService } from '../../service/backend.service';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  name: string = '';
+  firstname: string = '';
   email: string = '';
   forgotEmail: string = '';
   password: string = '';
@@ -26,7 +26,7 @@ export class LoginComponent {
     private http: HttpClient,
     private router: Router,
     private jwtHelper: JwtHelperService,
-private backend: BackendService
+    private serverService: ServerService
   ) {} // Inject Router
 
   closeModal() {
@@ -49,13 +49,13 @@ private backend: BackendService
       password: this.password, 
     };
     this.loading = true;
-    this.http.post<any>('http://127.0.0.1:8000/api/login', bodyData).subscribe(
+    this.serverService.login( bodyData).subscribe(
       (response) => {
         if (response && response.data && response.data.token) {
           this.loading = false;
           sessionStorage.setItem('jwt_token', response.data.token);
+          sessionStorage.setItem('user_info', JSON.stringify(response.data.firstname));
           // Save user info to session storage or state
-          sessionStorage.setItem('user_info', JSON.stringify(response.data.firstname)); // Assuming user info is returned as 'user'
           sessionStorage.setItem('user_id', response.data.id); // Store user ID in session storage
           switch (response.data.role) {
             case 'Admin':
@@ -74,43 +74,18 @@ private backend: BackendService
         } else {
           this.loading = false;
           this.errorMessage = 'Please make sure you already have an account.';
+          setTimeout(() => {
+            this.errorMessage = null;
+          }, 2000);
         }
       },
       (error) => {
         this.loading = false;
-        if (error.status === 404) {
-          this.errorMessage = 'Email not found';
-        } else if (error.status === 401) {
-          this.errorMessage = 'Email or Password is Incorrect';
-        } else {
-          this.errorMessage = 'An error occurred';
-        }
-        this.errorMessage = 'Failed to login';
+       this.errorMessage = error.error.message;
+       setTimeout(() => {
+        this.errorMessage = null;
+       }, 2000);
       }
     );
   }    
-
-
-  forgotPassword() {
-    this.loading = true;
-    const data = {
-      email: this.forgotEmail
-    }
-    this.backend.sendPasswordResetLink(data).subscribe(
-      () => {
-        this.loading = false;
-        this.successMessage = 'Password reset link sent successfully';
-        setTimeout(() => {
-          this.successMessage = null;
-        }, 1500);
-      },
-      (error) => {
-        this.loading = false;
-        this.errorMessage = error.error.message;
-        setTimeout(() => {
-          this.errorMessage = null;
-        }, 1500);
-      }
-    );
-  }
 }
