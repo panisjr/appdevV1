@@ -7,6 +7,12 @@ use App\Models\Borrower;
 
 class BorrowerController extends Controller
 {
+    public function index()
+    {
+        $borrowings = Borrower::all();
+        return response()->json($borrowings, 200);
+    }
+    
     public function borrowBook(Request $request)
     {
         $request->validate([
@@ -23,4 +29,5 @@ class BorrowerController extends Controller
 
         return response()->json(['message' => 'Book borrowed successfully'], 200);
     }
+
 }

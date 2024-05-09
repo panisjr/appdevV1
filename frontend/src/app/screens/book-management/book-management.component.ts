@@ -23,7 +23,7 @@ export class BookManagementComponent implements OnInit, OnDestroy {
     author: '',
     publisher: '',
     date: '',
-    quantity: null
+    quantity: 0
   };
 
   isEditMode = false;
@@ -103,6 +103,7 @@ export class BookManagementComponent implements OnInit, OnDestroy {
     $('#bookTable').DataTable({
       data: this.books,
       columns: [
+        { title:'Id',data: 'id' },
         { title:'Title',data: 'title' },
         { title:'Category',data: 'category' },
         { title:'Genre',data: 'genre' },
@@ -144,7 +145,7 @@ export class BookManagementComponent implements OnInit, OnDestroy {
       author: '',
       publisher: '',
       date: '',
-      quantity: null
+      quantity: 0
     };
   }
 }

@@ -1,5 +1,4 @@
-<?php
-
+<!-- backup migration in borrower
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,7 +12,6 @@ class CreateBorrowerTable extends Migration
             $table->unsignedBigInteger('user_id'); // Assuming user_id references the id column in the users table
             $table->unsignedInteger('book_id'); // Assuming book_id references the id column in the books table
             $table->timestamp('borrow_date')->default(now());
-            $table->timestamp('return_date')->nullable();
             $table->string('status')->default('borrowed');
             $table->timestamps();
 
@@ -27,4 +25,4 @@ class CreateBorrowerTable extends Migration
     {
         Schema::dropIfExists('borrower');
     }
-}
+} -->

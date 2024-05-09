@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, from } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Book } from '../model/book.model';
 import { Borrowing } from '../model/borrowing.model';
 
@@ -38,6 +38,15 @@ export class ServerService {
   borrowBook(bookId: number, userId: number): Observable<any> {
     const borrowData = { book_id: bookId, user_id: userId };
     return this.http.post<any>(this.borrowingApiUrl, borrowData);
+  }
+
+  getBorrowings(): Observable<Borrowing[]> {
+    return this.http.get<Borrowing[]>(this.borrowingApiUrl);
+  }
+
+  returnBook(borrowingId: number): Observable<any> {
+    const returnData = { borrowing_id: borrowingId };
+    return this.http.post<any>(`${this.borrowingApiUrl}/return-book`, returnData);
   }
 
 }

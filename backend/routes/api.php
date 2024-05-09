@@ -7,6 +7,7 @@ use App\Http\Controllers\BookController;
 use App\Mail\Email;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\BorrowerController;
+use App\Http\Controllers\ReturnController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,4 +39,6 @@ Route::delete('/deleteUser/{id}', [UserController::class, 'deleteUser']);
 Route::put('/updateUser/{id}', [UserController::class, 'updateUser']);
 Route::resource('books', BookController::class);
 Route::post('/borrow', [BorrowerController::class, 'borrowBook']);
-
+Route::get('/borrow', [BorrowerController::class, 'index']);
+Route::post('/return', [ReturnController::class, 'returnBook']);
+Route::post('/borrow/return-book', [ReturnController::class, 'returnBook']);

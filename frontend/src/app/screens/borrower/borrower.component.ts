@@ -4,8 +4,10 @@ import { Router } from '@angular/router';
 import { BackendService } from '../../service/backend.service';
 import { ServerService } from '../../service/server.service';
 import { Book } from '../../model/book.model';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { BookdetailsComponent } from './bookdetails/bookdetails.component';
+import { AbsoluteSourceSpan } from '@angular/compiler';
+import { AUTO_STYLE } from '@angular/animations';
 
 @Component({
   selector: 'app-borrower',
@@ -18,9 +20,9 @@ export class BorrowerComponent implements OnInit {
   totalBooks: number = 0;
   todayRegisteredUsersCount: number = 0;
   todayRegisteredBooksCount: number = 0;
-  books: Book[] = []; 
+  books: Book[] = [];
 
-  constructor(private router: Router, private titleService: Title, private backend: BackendService, private serverService: ServerService, public dialog: MatDialog) {}
+  constructor(private router: Router, private titleService: Title, private backend: BackendService, private serverService: ServerService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.fetchAccounts();
@@ -37,9 +39,8 @@ export class BorrowerComponent implements OnInit {
       this.firstname = user;
     }
 
-    // Fetch books when component initializes
     this.serverService.getBooks().subscribe(
-      (books: Book[]) => { 
+      (books: Book[]) => {
         this.books = books;
       },
       (error) => {
@@ -63,6 +64,7 @@ export class BorrowerComponent implements OnInit {
   logout() {
     sessionStorage.removeItem('jwt_token');
     sessionStorage.removeItem('user_info');
+    sessionStorage.removeItem('user_id');
     this.router.navigate(['/login']);
   }
 
@@ -79,10 +81,13 @@ export class BorrowerComponent implements OnInit {
   }
 
   showBookDetails(book: Book): void {
-    const dialogRef = this.dialog.open(BookdetailsComponent, {
-      width: '400px',
-      data: book // Pass book data to the dialog
-    });
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '400px';
+    dialogConfig.data = book;
+    dialogConfig.panelClass = 'custom-dialog-container';
+    dialogConfig.position = { top: '-40%', left: '35%' }; // Center the dialog
+
+    const dialogRef = this.dialog.open(BookdetailsComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');

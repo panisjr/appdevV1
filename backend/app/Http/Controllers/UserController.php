@@ -79,7 +79,7 @@ class UserController extends Controller
             'data' => $user,
         ]);
     }
-  
+
     public function show(string $id)
     {
         $user = $this->user->find($id);

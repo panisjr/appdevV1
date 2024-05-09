@@ -116,6 +116,7 @@
   background: #555; /* Thumb color on hover */
 }
 
+
 @media screen and (max-width:700px) {
   .col-sm-12{
     width: 60px;

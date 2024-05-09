@@ -6,5 +6,5 @@ export interface Book {
     author: string;
     publisher: string;
     date: Date | string; // Use Date type for date
-    quantity: number | null; // Use number type for quantity
+    quantity: number; // Use number type for quantity
 }
