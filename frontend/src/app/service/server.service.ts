@@ -93,6 +93,6 @@ export class ServerService {
     return this.http.delete(`${this.apiUrl}/deleteHistory/${historyID}`);
   }
   deleteAllHistory(): Observable<any>{
-   return this.http.delete(`${this.apiUrl}/deleteAllHistory`)
+  return this.http.delete(`${this.apiUrl}/deleteAllHistory`)
   }
 }
