@@ -9,9 +9,10 @@ import { AccountsComponent } from './screens/admin/accounts/accounts.component';
 import { LibrarianComponent } from './screens/librarian/librarian.component';
 import { ResetPasswordComponent } from './screens/login/reset-password/reset-password.component';
 import { BookManagementComponent } from './screens/book-management/book-management.component';
-import { ReturnedComponent } from './screens/transaction/returned/returned.component';
 import { HistoryComponent } from './screens/history/history.component';
 import { TransactionComponent } from './screens/transaction/transaction.component';
+import { ReturnedBooksComponent } from './screens/returned-books/returned-books.component';
+import { BorrowedBooksComponent } from './screens/borrowed-books/borrowed-books.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, title: 'Library | Login' },
@@ -22,7 +23,8 @@ const routes: Routes = [
   { path: 'borrowerDashboard', component: BorrowerComponent, title: 'Library | Dashboard', canActivate: [AuthGuard] },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'reset-password/:token', component: ResetPasswordComponent },
-  { path: 'returnedbook', component: ReturnedComponent, title: 'Library | Transaction | Returned Books' },
+  { path: 'returnedbook', component: ReturnedBooksComponent, title: 'Library | Returned Books' },
+  { path: 'borrowedBook', component: BorrowedBooksComponent, title: 'Library | Borrowed Books' },
   { path: 'books', component: BookManagementComponent, title: 'Library | Book Management', canActivate: [AuthGuard] },
   { path: 'history', component: HistoryComponent, title: 'Library | History', canActivate: [AuthGuard] },
   { path: 'transaction', component: TransactionComponent, title: 'Library | Transaction', canActivate: [AuthGuard] },

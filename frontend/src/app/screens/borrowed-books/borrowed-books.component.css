@@ -1,3 +1,135 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 p{
     cursor: pointer;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", sans-serif;
+}
+.navBar {
+  background-color: #183e85;
+}
+.book-list-container {
+  overflow-y: auto;
+  
+}
+.lastContainer{
+  width: 390px;
+  border-radius: 10px;
+  overflow-y: auto;
+  box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
+
+  height: 560px;
+}
+.modal-dialog-centered{
+  margin-left: 400px;
+}
+.modal-content{
+  border: 1px solid black;
+}
+.book-list-container .div .table-div {
+  border-radius: 10px;
+  overflow-y: auto;
+}
+.accounts-table thead tr th {
+  background-color: #001f41;
+  color: #ffffff;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: lighter;
+}
+.logoContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.logo {
+  width: 80px;
+  height: 80px;
+  background-image: url("logo2.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  /* margin:  ; top right bottom left */
+}
+
+.selection {
+  /* border: 1px solid red; */
+  display: flex;
+  margin-left: 25px;
+  align-items: start;
+  flex-direction: column;
+}
+
+.navBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  padding: 2px 15px 2px 15px;
+}
+.navBtn:hover {
+  background-color: white;
+  border-radius: 5px;
+  color: #008dda;
+  font-weight: bold;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.navBtn.active {
+  background-color: white;
+  border-radius: 5px;
+  color: #008dda;
+  font-weight: bold;
+}
+.box-shadow{
+  box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
+}
+/* WebKit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 5px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Track color */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; /* Thumb color */
+  border-radius: 5px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Thumb color on hover */
+}
+
+@media screen and (max-width:700px) {
+  .col-sm-12{
+    width: 60px;
+    height: 100%;
+  }
+  .book-list-container{
+    width: 430px;
+  }
+  .selection{
+    margin-left: 15px;
+  }
+  .navBtn{
+    width: 10px;
+  }
+  .navBtn p{
+    display: none;
+  }
+.logoName{
+  display: none;
+}  
+.logo{
+  width: 45px;
+  height: 45px;
+}
+.modal-dialog-centered{
+  margin-left: 20px;
+}
 }

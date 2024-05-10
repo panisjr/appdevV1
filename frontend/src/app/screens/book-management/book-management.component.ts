@@ -23,11 +23,7 @@ export class BookManagementComponent implements OnInit, OnDestroy {
     author: '',
     publisher: '',
     date: '',
-<<<<<<< HEAD
     quantity: 0
-=======
-    quantity: null,
->>>>>>> 58c9812dff3493899f6fd7cb40a5fa830da18c84
   };
 
   isEditMode = false;
@@ -177,22 +173,6 @@ export class BookManagementComponent implements OnInit, OnDestroy {
     return !this.book.title.trim() && !this.book.author.trim();
   }
 
-<<<<<<< HEAD
-  private initializeDataTable(): void {
-    $('#bookTable').DataTable({
-      data: this.books,
-      columns: [
-        { title:'Id',data: 'id' },
-        { title:'Title',data: 'title' },
-        { title:'Category',data: 'category' },
-        { title:'Genre',data: 'genre' },
-        { title:'Author',data: 'author' },
-        { title:'Publisher',data: 'publisher' },
-        { title:'Date',data: 'date' },
-        { title:'Quantity',data: 'quantity' },
-        {
-          title: '',
-=======
   initializeDataTable(): void {
     $(document).ready(() => {
       this.dataTable = $('#bookTable').DataTable({
@@ -207,7 +187,6 @@ export class BookManagementComponent implements OnInit, OnDestroy {
           { title: 'Quantity', data: 'quantity' },
           {
             title: '',
->>>>>>> 58c9812dff3493899f6fd7cb40a5fa830da18c84
             defaultContent: '',
             orderable: false,
             searchable: false,
@@ -281,11 +260,7 @@ export class BookManagementComponent implements OnInit, OnDestroy {
       author: '',
       publisher: '',
       date: '',
-<<<<<<< HEAD
       quantity: 0
-=======
-      quantity: null,
->>>>>>> 58c9812dff3493899f6fd7cb40a5fa830da18c84
     };
   }
 }

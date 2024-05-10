@@ -22,7 +22,6 @@ import { DataTablesModule } from 'angular-datatables';
 import { BookManagementComponent } from './screens/book-management/book-management.component';
 import { BookdetailsComponent } from './screens/borrower/bookdetails/bookdetails.component';
 import { TransactionComponent } from './screens/transaction/transaction.component';
-import { ReturnedComponent } from './screens/transaction/returned/returned.component';
 import { BorrowedBooksComponent } from './screens/borrowed-books/borrowed-books.component';
 import { ReturnedBooksComponent } from './screens/returned-books/returned-books.component';
 import { ServerService } from './service/server.service';
@@ -39,7 +38,6 @@ import { HistoryComponent } from './screens/history/history.component';
     ResetPasswordComponent,
     BookManagementComponent,
     BookdetailsComponent,
-    ReturnedComponent,
     BorrowedBooksComponent,
     ReturnedBooksComponent,
     HistoryComponent,

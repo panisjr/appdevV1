@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ServerService } from '../../service/server.service';
 import { Borrowing } from '../../model/borrowing.model';
 import { Book } from '../../model/book.model'; // Import Book model
+import { Router } from '@angular/router';
 declare var $: any;
 
 @Component({
@@ -12,7 +13,7 @@ declare var $: any;
 export class BorrowedBooksComponent implements OnInit, OnDestroy {
   borrowings: Borrowing[] = [];
 
-  constructor(private serverService: ServerService) { }
+  constructor(private serverService: ServerService, private router: Router) { }
 
   ngOnInit(): void {
     this.fetchBorrowings();
@@ -87,5 +88,12 @@ export class BorrowedBooksComponent implements OnInit, OnDestroy {
       this.returnBook(borrowingId);
     });
   }
-  
+  logout() {
+    // Remove JWT token from local storage
+    // Redirect to login page
+    sessionStorage.removeItem('jwt_token');
+    sessionStorage.removeItem('user_id');
+    sessionStorage.removeItem('user_info');
+    this.router.navigate(['/login']);
+  }
 }

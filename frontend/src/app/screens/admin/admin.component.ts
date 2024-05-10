@@ -14,6 +14,7 @@ export class AdminComponent {
   totalBooks: number = 0;
   todayRegisteredUsersCount: number = 0;
   todayRegisteredBooksCount: number = 0;
+  todayBorrowedBooksCount: number = 0;
   constructor(
     private router: Router,
     private titleService: Title,
@@ -23,6 +24,12 @@ export class AdminComponent {
     this.fetchAccounts();
     this.serverService.getTodayRegisteredUsersCount().subscribe((response) => {
       this.todayRegisteredUsersCount = response.count;
+    });
+    this.serverService.getTodayRegisteredBooksCount().subscribe((response) => {
+      this.todayRegisteredBooksCount = response.count;
+    });
+    this.serverService.getTodayBorrowedBooksCount().subscribe((response) => {
+      this.todayBorrowedBooksCount = response.count;
     });
     this.titleService.setTitle('Library | Dashboard');
     const userInfo = sessionStorage.getItem('user_info');

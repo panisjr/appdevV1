@@ -1,17 +1,56 @@
-<div class="navBtn mb-4" routerLink="/returnedbook">
-    <p class="ms-4 p-2">Returned Books</p>
+<div class="container-fluid">
+    <div class="row vh-100">
+        <div class="col-sm-6 col-md-5 col-lg-2 navBar">
+            <div class="logoContainer p-3">
+              <div class="logo"></div>
+              <h4 class="logoName text-center text-white pt-3">ReadEase.</h4>
+            </div>
+      
+            <nav class="selection text-center mt-5">
+              <div class="navBtn mb-4" routerLinkActive="active" routerLink="/borrowerDashboard"
+                [routerLinkActiveOptions]="{ exact: true }">
+                <h3 class="bi bi-house"></h3>
+                <p class="ms-4 p-2">Dashboard</p>
+              </div>
+              <div class="navBtn mb-4"
+              routerLink="/borrowedBook" routerLinkActive="active">
+                <h3 class="bi bi-book"></h3>
+                <p class="ms-4 p-2">Borrowed</p>
+              </div>
+              <div class="navBtn mb-4">
+                <h3 class="bi bi-receipt"></h3>
+                <p class="ms-4 p-2">Transactions</p>
+              </div>
+              <div class="navBtn mb-4">
+                <h3 class="bi bi-clock-history"></h3>
+                <p class="ms-4 p-2">Logs</p>
+              </div>
+              <div class="navBtn mb-4" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                <h3 class="bi bi-box-arrow-left"></h3>
+                <p class="ms-4 p-2">Logout</p>
+              </div>
+            </nav>
+          </div>
+        <div class="col-sm-6 col-md-5 offset-md-2 col-lg-10 offset-lg-0 book-list-container p-3">
+            <div>
+                <div class="mb-4 d-flex align-items-center justify-content-between">
+                    <h4>Borrowed Books</h4>
+                </div>
+            </div>
+            <table id="borrowingTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Book ID</th>
+                        <th>Borrowed Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Table body content will be populated dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
-<table id="borrowingTable" class="table table-striped table-bordered">
-    <thead>
-        <tr>
-            <th>User ID</th>
-            <th>Book ID</th>
-            <th>Borrowed Date</th>
-            <th>Status</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Table body content will be populated dynamically -->
-    </tbody>
-</table>

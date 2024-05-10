@@ -37,8 +37,9 @@ export class ServerService {
 
   // Borrowings API
 
-  borrowBook(borrowing: Borrowing, userId: number): Observable<Borrowing> {
-    return this.http.post<Borrowing>(this.borrowingApiUrl, borrowing);
+  borrowBook(bookId: number, userId: number): Observable<any> {
+    const borrowData = { book_id: bookId, user_id: userId };
+    return this.http.post<any>(this.borrowingApiUrl, borrowData);
   }
 
   getBorrowings(): Observable<Borrowing[]> {
@@ -49,7 +50,6 @@ export class ServerService {
     const returnData = { borrowing_id: borrowingId };
     return this.http.post<any>(`${this.borrowingApiUrl}/return-book`, returnData);
   }
-
   // Accounts API
   get(){
     return this.http.get(`${this.apiUrl}/getUsers`);
@@ -63,6 +63,11 @@ export class ServerService {
   getTodayRegisteredBooksCount() {
     return this.http.get<{ count: number }>(`${this.apiUrl}/users/todayRegisteredBooksCount`);
   }
+  //To get the today borrowed books count
+  getTodayBorrowedBooksCount() {
+    return this.http.get<{ count: number }>(`${this.apiUrl}/books/todayBorrowedBooksCount`);
+  }
+
   register(data: any) {
     return this.http.post(`${this.apiUrl}/register`, data);
   }

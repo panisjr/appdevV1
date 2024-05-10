@@ -10,7 +10,7 @@ class Borrower extends Model
     use HasFactory;
 
     protected $table = 'borrower'; // Assuming 'borrower' is the name of your table
-
+    protected $primaryKey = 'id';
     protected $fillable = [
         'user_id',
         'book_id',
