@@ -57,6 +57,13 @@
           <p class="ms-4 p-2">Logout</p>
         </div>
       </nav>
+      <div
+        *ngIf="loading"
+        class="spinner-border loading text-dark"
+        role="status"
+      >
+        <span class="visually-hidden">Loading...</span>
+      </div>
     </div>
     <div
       class="col-sm-6 col-md-5 offset-md-2 col-lg-10 offset-lg-0 p-3 book-list-container"
