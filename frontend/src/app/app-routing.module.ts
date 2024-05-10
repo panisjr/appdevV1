@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'reset-password/:token', component: ResetPasswordComponent },
   { path: 'returnedbook', component: ReturnedBooksComponent, title: 'Library | Returned Books' },
-  { path: 'borrowedBook', component: BorrowedBooksComponent, title: 'Library | Borrowed Books' },
+  { path: 'borrowedBook', component: BorrowedBooksComponent, title: 'Library | Borrowed Books', canActivate: [AuthGuard] },
   { path: 'books', component: BookManagementComponent, title: 'Library | Book Management', canActivate: [AuthGuard] },
   { path: 'history', component: HistoryComponent, title: 'Library | History', canActivate: [AuthGuard] },
   { path: 'transaction', component: TransactionComponent, title: 'Library | Transaction', canActivate: [AuthGuard] },

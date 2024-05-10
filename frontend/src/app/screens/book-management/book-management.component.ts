@@ -23,7 +23,7 @@ export class BookManagementComponent implements OnInit, OnDestroy {
     author: '',
     publisher: '',
     date: '',
-    quantity: 0
+    quantity: 0,
   };
 
   isEditMode = false;
@@ -36,10 +36,7 @@ export class BookManagementComponent implements OnInit, OnDestroy {
   accountLast: string = ''; //The user's lastname who did that action
   accountRole: string = ''; //The user's role who did that action
 
-  constructor(private router: Router, private serverService: ServerService) {
-    (window as any)['deleteBook'] = this.deleteBook.bind(this);
-    (window as any)['editBook'] = this.editBook.bind(this);
-  }
+  constructor(private router: Router, private serverService: ServerService) {}
 
   ngOnInit(): void {
     this.fetchBooks();
@@ -57,6 +54,9 @@ export class BookManagementComponent implements OnInit, OnDestroy {
           this.dataTable.destroy();
         }
         this.initializeDataTable();
+        this.serverService.get().subscribe((resultData: any) => {
+          this.accounts = resultData;
+        });
       },
       (error) => {
         console.error('Error fetching book data', error);
@@ -72,25 +72,14 @@ export class BookManagementComponent implements OnInit, OnDestroy {
   }
 
   accountByID() {
-    this.serverService.get().subscribe(
-      (resultData: any) => {
-        this.accounts = resultData;
-
-        const id = Number(sessionStorage.getItem('user_id'));
-        console.log(id);
-        const account = this.accounts.find((a) => a.id === id);
-
-        if (account) {
-          this.accountID = account.id;
-          this.accountFirst = account.firstname;
-          this.accountLast = account.lastname;
-          this.accountRole = account.role;
-        }
-      },
-      (error) => {
-        this.errorMessage = error.error.message;
-      }
-    );
+    const id = Number(sessionStorage.getItem('user_id'));
+    const account = this.accounts.find((a) => a.id === id);
+    if (account) {
+      this.accountID = account.id;
+      this.accountFirst = account.firstname;
+      this.accountLast = account.lastname;
+      this.accountRole = account.role;
+    }
   }
   createBook(): void {
     this.accountByID();
@@ -116,9 +105,9 @@ export class BookManagementComponent implements OnInit, OnDestroy {
             console.log('Action added to history successfully');
           });
         setTimeout(() => {
-          this.successMessage = null;
           this.ngOnInit();
           this.resetForm();
+          this.successMessage = null;
         }, 2000);
       },
       (error) => {
@@ -130,15 +119,32 @@ export class BookManagementComponent implements OnInit, OnDestroy {
     );
   }
 
-  editBook(id: number): void {
-    this.serverService.updateBook(this.book.id!, this.book).subscribe(
+  editBook(bookID: number): void {
+    this.accountByID();
+    this.serverService.updateBook(bookID, this.book).subscribe(
       (resultData: any) => {
-        this.isEditMode = false;
         this.successMessage = resultData.message;
+        const bookID = resultData.data.id;
+        const accountID = this.accountID;
+        const accountFirst = this.accountFirst;
+        const accountLast = this.accountLast;
+        const accountRole = this.accountRole;
+        this.serverService
+          .history(
+            'Update book.',
+            bookID,
+            accountID,
+            accountFirst,
+            accountLast,
+            accountRole
+          )
+          .subscribe(() => {
+            console.log('Action added to history successfully');
+          });
         setTimeout(() => {
-          this.successMessage = null;
           this.ngOnInit();
           this.resetForm();
+          this.successMessage = null;
         }, 2000);
       },
       (error) => {
@@ -150,11 +156,19 @@ export class BookManagementComponent implements OnInit, OnDestroy {
     );
   }
 
-  deleteBook(id: number): void {
-    this.serverService.deleteBook(id).subscribe(
+  deleteBook(bookID: number): void {
+    this.accountByID();
+    this.serverService.deleteBook(bookID,this.book).subscribe(
       (resultData: any) => {
-        this.books = this.books.filter((book) => book.id !== id);
         this.successMessage = resultData.message;
+        const bookID = resultData.data.id;
+        const accountID = this.accountID;
+        const accountFirst = this.accountFirst;
+        const accountLast = this.accountLast;
+        const accountRole = this.accountRole;
+        this.serverService.history('Delete book.', bookID, accountID, accountFirst,accountLast,accountRole).subscribe(()=>{
+          console.log("Action added to the history successfully.")
+        })
         setTimeout(() => {
           this.successMessage = null;
           this.ngOnInit();
@@ -172,12 +186,12 @@ export class BookManagementComponent implements OnInit, OnDestroy {
   isFormEmpty(): boolean {
     return !this.book.title.trim() && !this.book.author.trim();
   }
-
   initializeDataTable(): void {
     $(document).ready(() => {
       this.dataTable = $('#bookTable').DataTable({
         data: this.books,
         columns: [
+          { title: 'ID', data: 'id' },
           { title: 'Title', data: 'title' },
           { title: 'Category', data: 'category' },
           { title: 'Genre', data: 'genre' },
@@ -209,12 +223,10 @@ export class BookManagementComponent implements OnInit, OnDestroy {
       });
       $('#bookTable').on('click', '.edit-btn', (event: any) => {
         const bookID = $(event.currentTarget).data('id'); // Use event.currentTarget to refer to the clicked button
-        console.log(bookID);
         this.setEdit(bookID); // Call setEdit from the component
       });
       $('#bookTable').on('click', '.delete-btn', (event: any) => {
         const bookID = $(event.currentTarget).data('id'); // Use event.currentTarget to refer to the clicked button
-        console.log(bookID);
         this.setDelete(bookID); // Call setEdit from the component
       });
     });
@@ -260,7 +272,7 @@ export class BookManagementComponent implements OnInit, OnDestroy {
       author: '',
       publisher: '',
       date: '',
-      quantity: 0
+      quantity: 0,
     };
   }
 }

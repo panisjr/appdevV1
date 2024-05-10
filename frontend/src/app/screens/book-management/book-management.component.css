@@ -26,6 +26,15 @@
 .modal-dialog-centered{
     margin-left: 400px;
   }
+  .custom-modal-bottom-right{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    margin: 0;
+    transform: translateX(0);
+    width: 30%; 
+    max-height: 100%; 
+  }
   .modal-content{
     border: 1px solid black;
   }
@@ -46,13 +55,13 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .loading {
-    position: absolute;
-    float: left;
-    left: 50%;
     width: 50px;
     height: 50px;
+    position: fixed;
     top: 50%;
-}
+    left: 50%;
+    z-index: 9999;  
+  }
 
 .registerBtn {
     background-color: #41c9e2;

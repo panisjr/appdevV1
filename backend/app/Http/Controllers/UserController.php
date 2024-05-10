@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\Email;
 use App\Models\Book;
+use App\Models\Borrower;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule; // Import Rule class for validation
 use Illuminate\Support\Facades\Validator; // Import Validator class for validation
@@ -13,6 +14,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Models\PasswordReset;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -132,6 +134,15 @@ class UserController extends Controller
     public function updateUser(Request $request, string $id)
     {
         $user = $this->user->findOrFail($id);
+        // Check if the user being updated is the currently authenticated user
+        if (Auth::id() == $user->id) {
+            // Logout the user
+            Auth::logout();
+            return response()->json([
+                'success' => false,
+                'message' => 'You cannot update your own account. You have been logged out.',
+            ], 401);
+        }
 
         $validator = Validator::make($request->all(), [
             'firstname' => 'required|regex:/^[a-zA-Z\s\-\.]+$/|not_regex:/[^\x00-\x7F]+/|max:255',
@@ -183,6 +194,17 @@ class UserController extends Controller
             ], 404);
         }
 
+        // Retrieve the ID of the currently logged-in user using your preferred method
+        // For example, if you store the user ID in the session:
+        $currentUserId = session()->get('user_id');
+
+        if ($user->id === $currentUserId) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User cannot delete their own account',
+            ], 403);
+        }
+
         $user->delete();
 
         return response()->json([
@@ -191,6 +213,7 @@ class UserController extends Controller
             'data' => $user
         ]);
     }
+
     public function deactivate(Request $request, string $id)
     {
         // Find the user by ID
@@ -352,7 +375,7 @@ class UserController extends Controller
         $history = DB::table('history')->orderBy('created_at', 'desc')->get();
         $totalHistory = DB::table('history')->count();
 
-        return response()->json(['history'=>$history, 'totalHistory'=>$totalHistory]);
+        return response()->json(['history' => $history, 'totalHistory' => $totalHistory]);
     }
     // Delete History
     public function deleteHistory(string $id)

@@ -14,12 +14,11 @@ class BorrowerController extends Controller
         $borrowings = Borrower::all();
         return response()->json($borrowings, 200);
     }
-    public function todayBorrowedBooksCount()
+    public function todayRegisteredBooksCount() 
     {
         $today = Carbon::now()->toDateString();
-        $count = Borrower::whereDate('created_at', $today)->count();
+        $count = Borrower::whereDate('borrow_date', $today)->count();
         return response()->json(['count' => $count]);
-
     }
     public function borrowBook(Request $request)
     {
@@ -35,7 +34,7 @@ class BorrowerController extends Controller
             'status' => 'borrowed',
         ]);
 
-        return response()->json(['message' => 'Book borrowed successfully'], 200);
+        return response()->json(['message' => 'Book borrowed successfully', 'borrow' => $borrowing], 200);
     }
 
 }
