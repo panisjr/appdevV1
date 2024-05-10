@@ -10,7 +10,7 @@
 }
 .book-list-container {
   overflow-y: auto;
-  height: 585px ;
+  height: 720px ;
 }
 .modal-dialog-centered{
   margin-left: 400px;
@@ -93,7 +93,14 @@
   background-repeat: no-repeat;
 }
 
+.category-box{
+  width: 100%;
+}
 
+.bookList{
+cursor: pointer;
+width: auto;
+}
 
 /* WebKit browsers (Chrome, Safari) */
 ::-webkit-scrollbar {
