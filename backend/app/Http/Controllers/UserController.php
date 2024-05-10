@@ -364,7 +364,7 @@ class UserController extends Controller
             'account_first' => $validatedData['accountFirst'],
             'account_last' => $validatedData['accountLast'],
             'account_role' => $validatedData['accountRole'],
-            'created_at' => now()->format('M. d, Y - h:i A'), // Optional: Use current timestamp
+            'created_at' => now()->format('M d, Y - h:i A'), // Optional: Use current timestamp
         ]);
         // Return a success response
         return response()->json(['message' => 'Action logged successfully'], 200);

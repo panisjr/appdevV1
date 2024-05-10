@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  angular:
+    build:
+      context: ./angular-app
+    ports:
+      - "4200:4200"
+
+  laravel:
+    build:
+      context: ./laravel-app
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_HOST=mysql
+      # Add other environment variables as needed
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=my_database
+      # Add other MySQL environment variables as needed

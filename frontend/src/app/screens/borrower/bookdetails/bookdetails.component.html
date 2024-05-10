@@ -1,14 +1,65 @@
-<h1 mat-dialog-title>{{ data.title }}</h1>
-<div mat-dialog-content>
-    <p>Author: {{ data.author }}</p>
-    <p>Category: {{ data.category }}</p>
-    <p>Genre: {{ data.genre }}</p>
-    <p>Publisher: {{data.publisher}} </p>
-    <p>Date: {{data.date}} </p>
-    <p>Quantity: {{data.quantity}}</p>
-    
+<form (ngSubmit)="borrowBook()">
+    <h1 mat-dialog-title>{{ data.title }}</h1>
+    <div mat-dialog-content>
+        <p>Author: {{ data.author }}</p>
+        <p>Category: {{ data.category }}</p>
+        <p>Genre: {{ data.genre }}</p>
+        <p>Publisher: {{ data.publisher }}</p>
+        <p>Date: {{ data.date }}</p>
+        <p>Quantity: {{ data.quantity }}</p>
+        <div>
+            <label for="return_date">Return Date:</label>
+            <input [(ngModel)]="return_date" name="return_date" type="text" id="return_date" class="form-control">
+            <small>Ex: Jan. 6, 2024</small>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button [mat-dialog-close]="true">Close</button>
+        <button mat-button color="primary" type="submit">Borrow</button>
+    </div>
+</form>
+
+<!-- Success Message -->
+<div
+class="modal fade show"
+*ngIf="successMessage"
+tabindex="-1"
+aria-labelledby="successModalMessage"
+aria-modal="true"
+style="display: block"
+>
+<div class="modal-dialog custom-modal-bottom-right">
+  <div class="modal-content p-3">
+    <div class="modal-header">
+      <h1 class="modal-title fs-5 text-success" id="successModalMessage">
+        Successfully!
+      </h1>
+    </div>
+    <div class="modal-body p-3">
+      <h5>{{ successMessage }}</h5>
+    </div>
+  </div>
 </div>
-<div mat-dialog-actions>
-    <button mat-button [mat-dialog-close]="true">Close</button>
-    <button mat-button color="primary" (click)="borrowBook()">Borrow</button>
+</div>
+<!-- Error Message -->
+<div
+class="modal fade show"
+*ngIf="errorMessage"
+tabindex="-1"
+aria-labelledby="errorModalMessage"
+aria-modal="true"
+style="display: block"
+>
+<div class="modal-dialog custom-modal-bottom-right">
+  <div class="modal-content p-3">
+    <div class="modal-header">
+      <h1 class="modal-title fs-5 text-danger" id="errorModalMessage">
+        ERROR
+      </h1>
+    </div>
+    <div class="modal-body p-3">
+      <h5>{{ errorMessage }}</h5>
+    </div>
+  </div>
+</div>
 </div>

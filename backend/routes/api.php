@@ -43,7 +43,7 @@ Route::resource('books', BookController::class);
 Route::post('/borrow-book', [BorrowerController::class, 'borrowBook']);
 Route::get('/borrow', [BorrowerController::class, 'index']);
 Route::post('/return', [ReturnController::class, 'returnBook']);
-Route::post('/borrow/return-book', [ReturnController::class, 'returnBook']);
+Route::post('/return-book', [ReturnController::class, 'returnBook']);
 Route::get('/books/todayBorrowedBooksCount', [BorrowerController::class, 'todayBorrowedBooksCount']);
 
 // History

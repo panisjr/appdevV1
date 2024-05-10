@@ -12,13 +12,15 @@ import { BookdetailsComponent } from './bookdetails/bookdetails.component';
   styleUrls: ['./borrower.component.css']
 })
 export class BorrowerComponent implements OnInit {
+  //Book Data
   firstname: string = '';
   totalAccounts: number = 0;
   totalBooks: number = 0;
   todayRegisteredUsersCount: number = 0;
   todayRegisteredBooksCount: number = 0;
   books: Book[] = [];
-
+  
+  
   constructor(private router: Router, private titleService: Title, private serverService: ServerService, public dialog: MatDialog) { }
 
   ngOnInit(): void {

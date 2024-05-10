@@ -3,6 +3,7 @@ export interface Borrowing {
     user_id: number;
     book_id: number;
     borrow_date: Date;
-    return_date?: Date | null; // Optional if the book is returned, nullable Date type
+    return_date: string; // Optional if the book is returned, nullable Date type
     status: string;
 }
+    
