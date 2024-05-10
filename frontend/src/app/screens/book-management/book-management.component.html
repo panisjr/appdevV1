@@ -195,7 +195,6 @@
         class="modal fade"
         id="editBookModal"
         data-bs-backdrop="static"
-        data-bs-keyboard="false"
         tabindex="-1"
         aria-labelledby="editBookModal"
         aria-hidden="true"
@@ -295,7 +294,6 @@
                   <button
                     class="p-2 btn btn-success text-white me-3"
                     type="submit"
-                    (click)="editBook(book.id)"
                     data-bs-dismiss="modal"
                   >
                     Update
@@ -323,11 +321,12 @@
     class="modal fade show"
     *ngIf="errorMessage"
     tabindex="-1"
+    data-bs-backdrop="static"
     aria-labelledby="errorModalMessage"
     aria-modal="true"
     style="display: block"
   >
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog custom-modal-dialog-bottom-right">
       <div class="modal-content p-3">
         <div class="modal-header">
           <h1 class="modal-title fs-5 text-danger" id="errorModalMessage">
@@ -423,21 +422,17 @@
     class="modal fade show"
     *ngIf="successMessage"
     tabindex="-1"
+    data-bs-backdrop="static"
     aria-labelledby="successModalMessage"
-    aria-modal="true"
+    aria-hidden="true"
     style="display: block"
   >
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog custom-modal-bottom-right">
       <div class="modal-content p-3">
         <div class="modal-header">
           <h1 class="modal-title fs-5 text-success" id="successModalMessage">
             Successfully
           </h1>
-          <button
-            type="button"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
         </div>
         <div class="modal-body">
           <p>{{ successMessage }}</p>

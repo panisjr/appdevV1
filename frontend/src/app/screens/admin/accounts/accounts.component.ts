@@ -97,10 +97,18 @@ export class AccountsComponent implements OnInit, OnDestroy {
                 </button>
                 <ul class="dropdown-menu p-2">
                   <!-- Dropdown menu links -->
-                  <button class="btn btn-warning edit-btn me-3 mb-2" data-id="${row.id}" data-bs-toggle="modal" data-bs-target="#editAccountModal">Edit</button>
-                  <button class="btn btn-danger delete-btn" data-id="${row.id}" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">Delete</button>
+                  <button class="btn btn-warning edit-btn me-3 mb-2" data-id="${
+                    row.id
+                  }" data-bs-toggle="modal" data-bs-target="#editAccountModal">Edit</button>
+                  <button class="btn btn-danger delete-btn" data-id="${
+                    row.id
+                  }" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">Delete</button>
                   <button class="btn deactivate-btn"
-                          [ngClass]="{'btn-success': ${row.status} === 'deactivated', 'btn-danger': ${row.status} === 'active'}"
+                          [ngClass]="{'btn-success': ${
+                            row.status
+                          } === 'deactivated', 'btn-danger': ${
+                row.status
+              } === 'active'}"
                           data-id="${row.id}" data-status="${row.status}">
                     ${row.status === 'deactivated' ? 'active' : 'deactivated'}
                   </button>
@@ -143,7 +151,7 @@ export class AccountsComponent implements OnInit, OnDestroy {
         this.fetchAccounts();
         setTimeout(() => {
           this.successMessage = null;
-        }, 2000);
+        }, 2500);
       },
       (error) => {
         this.errorMessage = error.error.message;
@@ -191,7 +199,7 @@ export class AccountsComponent implements OnInit, OnDestroy {
         this.errorMessage = "Password didn't match! Please try again.";
         setTimeout(() => {
           this.errorMessage = null;
-        }, 2000);
+        }, 2500);
         return; // Return early if passwords don't match
       }
       this.serverService.register(bodyData).subscribe(
@@ -219,14 +227,14 @@ export class AccountsComponent implements OnInit, OnDestroy {
             this.successMessage = null;
             this.fetchAccounts();
             this.resetForm();
-          }, 2000);
+          }, 2500);
         },
         (error) => {
-            this.loading = false;
-            this.errorMessage = error.error.message;
-            setTimeout(() => {
-              this.errorMessage = null;
-            }, 2000);
+          this.loading = false;
+          this.errorMessage = error.error.message;
+          setTimeout(() => {
+            this.errorMessage = null;
+          }, 2500);
         }
       );
     } catch (error) {
@@ -258,6 +266,67 @@ export class AccountsComponent implements OnInit, OnDestroy {
       contact: this.contact,
       role: this.role,
     };
+    const currentUserID = Number(sessionStorage.getItem('user_id'));
+    const account = this.accounts.find((a) => a.id === accountId);
+
+    console.log(bodyData.role);
+    console.log(account.id  );
+    console.log(currentUserID);
+    if (currentUserID === account.id) {
+      let bodyData = {
+        firstname: this.firstname,
+        middlename: this.middlename,
+        lastname: this.lastname,
+        email: this.email,
+        contact: this.contact,
+        role: this.role,
+      };
+      if (bodyData.role !== 'Admin') {
+        this.loading = false;
+        this.errorMessage =
+          'You cannot edit your role or else you cannot be able to login again.';
+        setTimeout(() => {
+          this.errorMessage = null;
+        }, 4500);
+        return; // Stop further execution
+      }
+      this.loading = true;
+      this.accountByID();
+      this.serverService.updateUser(accountId, bodyData).subscribe(
+        (resultData: any) => {
+          this.loading = false;
+          this.successMessage = resultData.message;
+          const userID = resultData.data.id;
+          const accountID = this.accountID;
+          const accountFirst = this.accountFirst;
+          const accountLast = this.accountLast;
+          const accountRole = this.accountRole;
+          this.serverService
+            .history(
+              'Update user account.',
+              userID,
+              accountID,
+              accountFirst,
+              accountLast,
+              accountRole
+            )
+            .subscribe(() => {
+              console.log('Action added to history successfully');
+            });
+          setTimeout(() => {
+            this.successMessage = null;
+            this.fetchAccounts();
+          }, 2500);
+        },
+        (error) => {
+          this.loading = false;
+          this.errorMessage = error.error.message;
+          setTimeout(() => {
+            this.errorMessage = null; // Set errorMessage to null after 2 seconds
+          }, 2500);
+        }
+      );
+    }else{
 
     this.serverService.updateUser(accountId, bodyData).subscribe(
       (resultData: any) => {
@@ -283,16 +352,17 @@ export class AccountsComponent implements OnInit, OnDestroy {
         setTimeout(() => {
           this.successMessage = null;
           this.fetchAccounts();
-        }, 2000);
+        }, 2500);
       },
       (error) => {
         this.loading = false;
         this.errorMessage = error.error.message;
         setTimeout(() => {
           this.errorMessage = null; // Set errorMessage to null after 2 seconds
-        }, 2000);
+        }, 2500);
       }
     );
+  }
   }
   // To delete the user account
   setDelete(accountId: number) {
@@ -309,17 +379,32 @@ export class AccountsComponent implements OnInit, OnDestroy {
   }
   deleteUser(accountId: number) {
     this.loading = true;
+
+    // Retrieve the ID of the currently logged-in user from your authentication mechanism
+    const currentUserId = Number(sessionStorage.getItem('user_id'));
+
+    if (accountId === currentUserId) {
+      this.loading = false;
+      this.errorMessage =
+        'Your are currently logged in! You cannot delete your own account.';
+      setTimeout(() => {
+        this.errorMessage = null;
+      }, 3500);
+      return; // Stop further execution
+    }
+
     this.accountByID();
     let bodyData = {
       id: this.id,
       firstname: this.firstname,
-      middlename:this.middlename,
+      middlename: this.middlename,
       lastname: this.lastname,
       email: this.email,
       contact: this.contact,
-      role: this.role
-    }
-    this.serverService.deleteUser(accountId,bodyData).subscribe(
+      role: this.role,
+    };
+
+    this.serverService.deleteUser(accountId, bodyData).subscribe(
       (resultData: any) => {
         this.loading = false;
         this.successMessage = resultData.message;
@@ -345,17 +430,18 @@ export class AccountsComponent implements OnInit, OnDestroy {
           this.successMessage = null;
           this.resetForm();
           this.fetchAccounts();
-        }, 2000);
+        }, 2500);
       },
       (error) => {
         this.loading = false;
         this.errorMessage = error.error.message;
         setTimeout(() => {
           this.errorMessage = null;
-        }, 2000);
+        }, 2500);
       }
     );
   }
+
   resetForm() {
     this.firstname = '';
     this.middlename = '';

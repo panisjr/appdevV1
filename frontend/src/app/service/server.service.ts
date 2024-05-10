@@ -8,8 +8,8 @@ import { Borrowing } from '../model/borrowing.model';
   providedIn: 'root',
 })
 export class ServerService {
-  private bookApiUrl = 'http://localhost:8000/api/books';
-  private borrowingApiUrl = 'http://localhost:8000/api/borrow';
+  private bookApiUrl = 'http://127.0.0.1:8000/api/books';
+  private borrowingApiUrl = 'http://127.0.0.1:8000/api/borrow';
   private apiUrl = 'http://127.0.0.1:8000/api';
   constructor(private http: HttpClient) { }
 
@@ -31,15 +31,15 @@ export class ServerService {
     return this.http.put<Book>(`${this.bookApiUrl}/${id}`, book);
   }
 
-  deleteBook(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.bookApiUrl}/${id}`);
+  deleteBook(id: number,book: any): Observable<any> {
+    return this.http.delete<any>(`${this.bookApiUrl}/${id}`, book);
   }
 
   // Borrowings API
 
   borrowBook(bookId: number, userId: number): Observable<any> {
     const borrowData = { book_id: bookId, user_id: userId };
-    return this.http.post<any>(this.borrowingApiUrl, borrowData);
+    return this.http.post<any>(`${this.apiUrl}/borrow-book`, borrowData);
   }
 
   getBorrowings(): Observable<Borrowing[]> {
@@ -63,10 +63,11 @@ export class ServerService {
   getTodayRegisteredBooksCount() {
     return this.http.get<{ count: number }>(`${this.apiUrl}/users/todayRegisteredBooksCount`);
   }
-  //To get the today borrowed books count
   getTodayBorrowedBooksCount() {
     return this.http.get<{ count: number }>(`${this.apiUrl}/books/todayBorrowedBooksCount`);
   }
+  //To get the today borrowed books count
+  
 
   register(data: any) {
     return this.http.post(`${this.apiUrl}/register`, data);

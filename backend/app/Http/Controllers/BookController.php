@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Borrower;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -11,7 +13,12 @@ class BookController extends Controller
     {
         return Book::all();
     }
-
+    public function todayBorrowedBooksCount() 
+    {
+        $today = Carbon::now()->toDateString();
+        $count = Borrower::whereDate('created_at', $today)->count();
+        return response()->json(['count' => $count]);
+    }
     public function store(Request $request)
     {
         $book = Book::create($request->all());
@@ -39,11 +46,12 @@ class BookController extends Controller
     }
 
     public function destroy($id)
-    {
-        Book::destroy($id);
+    {   $bookf = Book::find($id);
+       $book = Book::destroy($id);
         return response()->json([
             'status' => true,
-            'message' => 'Book Deleted Successfully!'
+            'message' => 'Book Deleted Successfully!',
+            'data'=> $bookf
         ], 200);
     }
 }

@@ -8,6 +8,15 @@
 .modal-dialog-centered{
   margin-left: 400px;
 }
+.custom-modal-bottom-right{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  margin: 0;
+  transform: translateX(0);
+  width: 30%; 
+  max-height: 100%; 
+}
 .modal-content{
   border: 1px solid black;
 }
