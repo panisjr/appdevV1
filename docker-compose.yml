@@ -1,17 +1,19 @@
 version: '3.8'
 
 services:
-  angular:
+  frontend:
     build:
-      context: ./angular-app
+      context: ./frontend
     ports:
       - "4200:4200"
 
-  laravel:
+  backend:
     build:
-      context: ./laravel-app
+      context: ./backend
     ports:
       - "3000:3000"
+    depends_on:
+      - mysql
     environment:
       - DB_HOST=mysql
       # Add other environment variables as needed
@@ -20,5 +22,5 @@ services:
     image: mysql:5.7
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=my_database
+      - MYSQL_DATABASE=librarysystem
       # Add other MySQL environment variables as needed
