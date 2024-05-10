@@ -1,6 +1,11 @@
+<div class="body">
 <form (ngSubmit)="borrowBook()">
-    <h1 mat-dialog-title>{{ data.title }}</h1>
+    <div class="modal-header">
+        <h5 class="modal-title" style="font-size: 24px;"><b>{{ data.title }}</b></h5>
+    </div>
     <div mat-dialog-content>
+    <br>
+    <div class="modal-body">
         <p>Author: {{ data.author }}</p>
         <p>Category: {{ data.category }}</p>
         <p>Genre: {{ data.genre }}</p>
@@ -13,11 +18,14 @@
             <small>Ex: Jan. 6, 2024</small>
         </div>
     </div>
-    <div mat-dialog-actions>
-        <button mat-button [mat-dialog-close]="true">Close</button>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" [mat-dialog-close]="true" style="margin-right: 10px;">Close</button>
         <button mat-button color="primary" type="submit">Borrow</button>
     </div>
+</div>
 </form>
+</div>
+
 
 <!-- Success Message -->
 <div

@@ -19,8 +19,8 @@ export class BorrowerComponent implements OnInit {
   todayRegisteredUsersCount: number = 0;
   todayRegisteredBooksCount: number = 0;
   books: Book[] = [];
-  
-  
+  isBookDetailsDialogOpen: boolean = false;
+
   constructor(private router: Router, private titleService: Title, private serverService: ServerService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -67,29 +67,32 @@ export class BorrowerComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  // Method to get unique categories
   getCategoryList(): string[] {
-    // Extract unique categories from the books array
     return Array.from(new Set(this.books.map(book => book.category)));
   }
 
-  // Method to get books by category
   getBooksByCategory(category: string): Book[] {
-    // Filter books based on the selected category
     return this.books.filter(book => book.category === category);
   }
 
   showBookDetails(book: Book): void {
+    // Check if dialog is already open
+    if (this.isBookDetailsDialogOpen) {
+      return;
+    }
+
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = '400px';
     dialogConfig.data = book;
     dialogConfig.panelClass = 'custom-dialog-container';
-    dialogConfig.position = { top: '-40%', left: '35%' }; // Center the dialog
-
+    dialogConfig.position = { top: '-35%', left: '40%' }; // Center the dialog
     const dialogRef = this.dialog.open(BookdetailsComponent, dialogConfig);
+
+    this.isBookDetailsDialogOpen = true;
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.isBookDetailsDialogOpen = false;
     });
   }
 }

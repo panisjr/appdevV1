@@ -39,6 +39,7 @@ Route::delete('/deleteUser/{id}', [UserController::class, 'deleteUser']);
 Route::put('/updateUser/{id}', [UserController::class, 'updateUser']);
 Route::post('/deactivate/{id}', [UserController::class, 'deactivate']);
 // Books    
+
 Route::resource('books', BookController::class);
 Route::post('/borrow-book', [BorrowerController::class, 'borrowBook']);
 Route::get('/borrow', [BorrowerController::class, 'index']);
