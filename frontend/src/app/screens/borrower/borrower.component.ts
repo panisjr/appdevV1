@@ -12,6 +12,7 @@ import { BookdetailsComponent } from './bookdetails/bookdetails.component';
   styleUrls: ['./borrower.component.css']
 })
 export class BorrowerComponent implements OnInit {
+  //Book Data
   firstname: string = '';
   totalAccounts: number = 0;
   totalBooks: number = 0;

@@ -14,7 +14,7 @@ class BorrowerController extends Controller
         $borrowings = Borrower::all();
         return response()->json($borrowings, 200);
     }
-    public function todayRegisteredBooksCount() 
+    public function todayRegisteredBooksCount()
     {
         $today = Carbon::now()->toDateString();
         $count = Borrower::whereDate('borrow_date', $today)->count();
@@ -22,20 +22,33 @@ class BorrowerController extends Controller
     }
     public function borrowBook(Request $request)
     {
+        // Validate request data
         $request->validate([
             'user_id' => 'required|integer',
             'book_id' => 'required|integer',
+            'return_date' => 'required|string',
+
         ]);
 
+
+        // Fetch user information based on the provided user ID
+        $user = User::find($request->user_id);
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        // Create a new borrowing record
         $borrowing = Borrower::create([
             'user_id' => $request->user_id,
             'book_id' => $request->book_id,
-            'borrow_date' => now(),
+            'firstname' => $user->firstname,
+            'lastname' => $user->lastname,
+            'borrow_date' => now()->format('M d, Y - h:i A'),
+            'return_date' => $request->return_date,
             'status' => 'borrowed',
         ]);
 
+        // Return a response indicating success
         return response()->json(['message' => 'Book borrowed successfully', 'borrow' => $borrowing], 200);
     }
-
 }
-

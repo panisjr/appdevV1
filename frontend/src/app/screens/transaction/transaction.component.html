@@ -1,114 +1,93 @@
 <div class="container-fluid">
-    <div class="row vh-100">
-      <div class="col-sm-6 col-md-5 col-lg-2 navBar">
-        <div class="d-flex align-items-center justify-content-center p-3 mt-3">
-          <div class="logo"></div>
-          <h4 class="logoName text-center text-white pt-3">ReadEase.</h4>
-        </div>
-  
-        <nav class="selection text-center mt-5">
-          <div
-            class="navBtn mb-5 d-flex align-items-center justify-content-center"
-            routerLinkActive="active"
-            routerLink="/adminDashboard"
-            [routerLinkActiveOptions]="{ exact: true }"
-          >
-            <h3 class="bi bi-house"></h3>
-            <p class="ms-4 p-2">Dashboard</p>
-          </div>
-          <div
-            class="navBtn mb-5 d-flex align-items-center justify-content-center"
-            routerLink="/accounts"
-          >
-            <h3 class="bi bi-person-gear"></h3>
-  
-            <p class="ms-4 p-2">Accounts</p>
-          </div>
-          <div
-            class="navBtn mb-5 d-flex align-items-center justify-content-center"
-            routerLink="/books"
-          >
-            <h3 class="bi bi-bookshelf"></h3>
-            <p class="ms-4 p-2">Books</p>
-          </div>
-          <div
-            class="navBtn mb-5 d-flex align-items-center justify-content-center"
-            [routerLink]="['/transaction']" routerLinkActive="active" 
-          >
-            <h3 class="bi bi-receipt"></h3>
-            <p class="ms-4 p-2">Transactions</p>
-          </div>
-          <div
-            class="navBtn mb-5 d-flex align-items-center justify-content-center"
-            [routerLink]="['/history']"
-            routerLinkActive="router-link-active"
-          >
-            <h3 class="bi bi-clock-history"></h3>
-            <p class="ms-4 p-2">History</p>
-          </div>
-          <div
-            class="navBtn mb-5 d-flex align-items-center justify-content-center"
-            (click)="logout()"
-          >
-            <h3 class="bi bi-box-arrow-left"></h3>
-            <p class="ms-4 p-2">Logout</p>
-          </div>
-        </nav>
+  <div class="row vh-100">
+    <div class="col-sm-6 col-md-5 col-lg-2 navBar">
+      <div class="d-flex align-items-center justify-content-center p-3 mt-3">
+        <div class="logo"></div>
+        <h4 class="logoName text-center text-white pt-3">ReadEase.</h4>
       </div>
+
+      <nav class="selection text-center mt-5">
+        <div
+          class="navBtn mb-5 d-flex align-items-center justify-content-center"
+          routerLinkActive="active"
+          routerLink="/adminDashboard"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <h3 class="bi bi-house"></h3>
+          <p class="ms-4 p-2">Dashboard</p>
+        </div>
+        <div
+          class="navBtn mb-5 d-flex align-items-center justify-content-center"
+          routerLinkActive="active"
+          routerLink="/accounts"
+        >
+          <h3 class="bi bi-person-gear"></h3>
+          <p class="ms-4 p-2">Accounts</p>
+        </div>
+        <div
+          class="navBtn mb-5 d-flex align-items-center justify-content-center"
+          routerLinkActive="active"
+          routerLink="/books"
+        >
+          <h3 class="bi bi-bookshelf"></h3>
+
+          <p class="ms-4 p-2">Books</p>
+        </div>
+        <div
+          class="navBtn mb-5 d-flex align-items-center justify-content-center"
+          [routerLink]="['/transaction']"
+          routerLinkActive="active"
+        >
+          <h3 class="bi bi-receipt"></h3>
+          <p class="ms-4 p-2">Transactions</p>
+        </div>
+        <div
+          class="navBtn mb-5 d-flex align-items-center justify-content-center"
+          [routerLink]="['/history']"
+          routerLinkActive="active"
+        >
+          <h3 class="bi bi-clock-history"></h3>
+          <p class="ms-4 p-2">History</p>
+        </div>
+        <div
+          class="navBtn mb-5 d-flex align-items-center justify-content-center"
+          (click)="logout()"
+        >
+          <h3 class="bi bi-box-arrow-left"></h3>
+          <p class="ms-4 p-2">Logout</p>
+        </div>
+      </nav>
       <div
-        class="col-sm-6 col-md-5 offset-md-2 col-lg-10 offset-lg-0 p-3 book-list-container"
+        *ngIf="loading"
+        class="spinner-border loading text-dark"
+        role="status"
       >
-      <div class="mb-4 d-flex align-items-center justify-content-between">
-        <h4>Transaction</h4>
-        
-      </div>
+        <span class="visually-hidden">Loading...</span>
       </div>
     </div>
-  
-    <!-- Success Message -->
     <div
-      class="modal fade show"
-      *ngIf="successMessage"
-      tabindex="-1"
-      aria-labelledby="successModalMessage"
-      aria-modal="true"
-      style="display: block"
+      class="col-sm-6 col-md-5 offset-md-2 col-lg-10 offset-lg-0 book-list-container p-3"
     >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content p-3">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5 text-success" id="successModalMessage">
-              Successfully!
-            </h1>
-          </div>
-          <div class="modal-body p-3">
-            <h5>{{ successMessage }}</h5>
-          </div>
+      <div>
+        <div class="mb-4 d-flex align-items-center justify-content-between">
+          <h4>Borrowed Books</h4>
         </div>
       </div>
+      <table id="borrowingTable" class="table table-striped">
+        <thead>
+          <tr>
+            <th>Book ID</th>
+            <th>Date Borrowed</th>
+            <th>User Name</th>
+            <th>Date to Return</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Table body content will be populated dynamically -->
+        </tbody>
+      </table>
     </div>
-    <!-- Error Message -->
-    <div
-      class="modal fade show"
-      *ngIf="errorMessage"
-      tabindex="-1"
-      aria-labelledby="errorModalMessage"
-      aria-modal="true"
-      style="display: block"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content p-3">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5 text-danger" id="errorModalMessage">
-              Error
-            </h1>
-          </div>
-          <div class="modal-body p-3">
-            <h5>{{ errorMessage }}</h5>
-          </div>
-        </div>
-      </div>
-    </div>
-   
   </div>
-  
+</div>

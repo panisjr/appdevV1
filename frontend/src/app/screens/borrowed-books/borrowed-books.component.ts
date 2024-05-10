@@ -74,12 +74,7 @@ export class BorrowedBooksComponent implements OnInit, OnDestroy {
         { title: 'Book ID', data: 'book_id' },
         { title: 'Borrow Date', data: 'borrow_date' },
         { title: 'Status', data: 'status' },
-        {
-          title: 'Action',
-          render: (data: any, type: any, row: any) => {
-            return `<button class="btn btn-primary return-button" data-borrowing-id="${row.id}">Return</button>`;
-          }
-        }
+       
       ]
     });
   

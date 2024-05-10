@@ -13,6 +13,8 @@ class Borrower extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'user_id',
+        'firstname',
+        'lastname',
         'book_id',
         'borrow_date',
         'return_date',
