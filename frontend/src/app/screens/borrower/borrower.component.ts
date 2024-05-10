@@ -5,8 +5,6 @@ import { ServerService } from '../../service/server.service';
 import { Book } from '../../model/book.model';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { BookdetailsComponent } from './bookdetails/bookdetails.component';
-import { AbsoluteSourceSpan } from '@angular/compiler';
-import { AUTO_STYLE } from '@angular/animations';
 
 @Component({
   selector: 'app-borrower',

@@ -8,8 +8,8 @@ import { Borrowing } from '../model/borrowing.model';
   providedIn: 'root',
 })
 export class ServerService {
-  private bookApiUrl = 'http://127.0.0.1:8000/api/books';
-  private borrowingApiUrl = 'http://127.0.0.1:8000/api/borrow';
+  private bookApiUrl = 'http://localhost:8000/api/books';
+  private borrowingApiUrl = 'http://localhost:8000/api/borrow';
   private apiUrl = 'http://127.0.0.1:8000/api';
   constructor(private http: HttpClient) { }
 
@@ -31,14 +31,14 @@ export class ServerService {
     return this.http.put<Book>(`${this.bookApiUrl}/${id}`, book);
   }
 
-  deleteBook(id: number,book: any): Observable<any> {
-    return this.http.delete<any>(`${this.bookApiUrl}/${id}`, book);
+  deleteBook(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.bookApiUrl}/${id}`);
   }
 
   // Borrowings API
 
   borrowBook(bookId: number, userId: number): Observable<any> {
-    const borrowData = { book_id: bookId, user_id: userId};
+    const borrowData = { book_id: bookId, user_id: userId };
     return this.http.post<any>(this.borrowingApiUrl, borrowData);
   }
 
@@ -51,11 +51,11 @@ export class ServerService {
     return this.http.post<any>(`${this.borrowingApiUrl}/return-book`, returnData);
   }
   // Accounts API
-  get(){
+  get() {
     return this.http.get(`${this.apiUrl}/getUsers`);
   }
   getTotalAccounts(): Observable<any> {
-    return this.http.get<{ totalAccounts: number,totalBooks: number }>(`${this.apiUrl}/getTotalAccounts`);
+    return this.http.get<{ totalAccounts: number, totalBooks: number }>(`${this.apiUrl}/getTotalAccounts`);
   }
   getTodayRegisteredUsersCount() {
     return this.http.get<{ count: number }>(`${this.apiUrl}/users/todayRegisteredUsersCount`);
@@ -63,11 +63,10 @@ export class ServerService {
   getTodayRegisteredBooksCount() {
     return this.http.get<{ count: number }>(`${this.apiUrl}/users/todayRegisteredBooksCount`);
   }
+  //To get the today borrowed books count
   getTodayBorrowedBooksCount() {
     return this.http.get<{ count: number }>(`${this.apiUrl}/books/todayBorrowedBooksCount`);
   }
-  //To get the today borrowed books count
-  
 
   register(data: any) {
     return this.http.post(`${this.apiUrl}/register`, data);
@@ -81,29 +80,29 @@ export class ServerService {
       data
     );
   }
-  deleteUser(userId: number,data:any) {
-    return this.http.delete(`${this.apiUrl}/deleteUser/${userId}`,data);
+  deleteUser(userId: number, data: any) {
+    return this.http.delete(`${this.apiUrl}/deleteUser/${userId}`, data);
   }
-  deactivate(userId: number, data:any){
-    return this.http.post(`${this.apiUrl}/deactivate/${userId}`,data);
+  deactivate(userId: number, data: any) {
+    return this.http.post(`${this.apiUrl}/deactivate/${userId}`, data);
   }
   sendPasswordResetLink(data: any) {
     return this.http.post(`${this.apiUrl}/sendPasswordResetLink`, data);
   }
 
   // History
-  history(actionType: string, userId: number, accountID: number,accountFirst: string,accountLast: string, accountRole: string): Observable<any> {
-    const payload = { action: actionType, user_id: userId, accountID: accountID , accountFirst: accountFirst, accountLast: accountLast, accountRole: accountRole};
+  history(actionType: string, userId: number, accountID: number, accountFirst: string, accountLast: string, accountRole: string): Observable<any> {
+    const payload = { action: actionType, user_id: userId, accountID: accountID, accountFirst: accountFirst, accountLast: accountLast, accountRole: accountRole };
     console.log(payload);
-    return this.http.post<any>(`${this.apiUrl}/history`,payload);
+    return this.http.post<any>(`${this.apiUrl}/history`, payload);
   }
   getHistory(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/getHistory`);
   }
-  deleteHistory(historyID:number){
+  deleteHistory(historyID: number) {
     return this.http.delete(`${this.apiUrl}/deleteHistory/${historyID}`);
   }
-  deleteAllHistory(): Observable<any>{
-  return this.http.delete(`${this.apiUrl}/deleteAllHistory`)
+  deleteAllHistory(): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/deleteAllHistory`)
   }
 }
