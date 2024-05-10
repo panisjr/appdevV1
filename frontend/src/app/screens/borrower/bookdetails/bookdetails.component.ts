@@ -18,7 +18,7 @@ export class BookdetailsComponent implements OnDestroy {
     public dialogRef: MatDialogRef<BookdetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private borrowService: ServerService,
-    private router: Router,
+    private router: Router, 
     private snackBar: MatSnackBar
 
   ) {
