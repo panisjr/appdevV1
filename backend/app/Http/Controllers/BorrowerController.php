@@ -43,7 +43,7 @@ class BorrowerController extends Controller
             'book_id' => $request->book_id,
             'firstname' => $user->firstname,
             'lastname' => $user->lastname,
-            'borrow_date' => now(),
+            'borrow_date' => now()->format('M d, Y - h:i A'),
             'return_date' => $request->return_date,
             'status' => 'borrowed',
         ]);
