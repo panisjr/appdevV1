@@ -9,7 +9,7 @@ import { Borrowing } from '../model/borrowing.model';
 })
 export class ServerService {
   private bookApiUrl = 'http://localhost:8000/api/books';
-  private borrowingApiUrl = 'http://localhost:8000/api/borrow';
+  private borrowingApiUrl = 'http://localhost:8000/api';
   private apiUrl = 'http://127.0.0.1:8000/api';
   constructor(private http: HttpClient) { }
 
@@ -31,15 +31,15 @@ export class ServerService {
     return this.http.put<Book>(`${this.bookApiUrl}/${id}`, book);
   }
 
-  deleteBook(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.bookApiUrl}/${id}`);
+  deleteBook(id: number, book: any): Observable<any> {
+    return this.http.delete<any>(`${this.bookApiUrl}/${id}`, book);
   }
 
   // Borrowings API
 
   borrowBook(bookId: number, userId: number): Observable<any> {
     const borrowData = { book_id: bookId, user_id: userId };
-    return this.http.post<any>(this.borrowingApiUrl, borrowData);
+    return this.http.post<any>(`${this.borrowingApiUrl}/borrow-book`, borrowData);
   }
 
   getBorrowings(): Observable<Borrowing[]> {
