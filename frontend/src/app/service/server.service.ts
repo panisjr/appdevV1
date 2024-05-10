@@ -43,7 +43,7 @@ export class ServerService {
   }
 
   getBorrowings(): Observable<Borrowing[]> {
-    return this.http.get<Borrowing[]>(this.borrowingApiUrl);
+    return this.http.get<Borrowing[]>(`${this.borrowingApiUrl}/borrow`);
   }
 
   returnBook(borrowingId: number): Observable<any> {

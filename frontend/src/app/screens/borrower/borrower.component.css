@@ -102,6 +102,10 @@ cursor: pointer;
 width: auto;
 }
 
+.dialog-backdrop {
+  background-color: rgba(0, 0, 0, 0.6); /* Adjust the transparency as needed */
+}
+
 /* WebKit browsers (Chrome, Safari) */
 ::-webkit-scrollbar {
   width: 5px;
@@ -120,7 +124,6 @@ width: auto;
 ::-webkit-scrollbar-thumb:hover {
   background: #555; /* Thumb color on hover */
 }
-
 
 @media screen and (max-width:700px) {
   .col-sm-12{
