@@ -9,6 +9,8 @@ import { LibrarianComponent } from './screens/librarian/librarian.component';
 import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   JwtHelperService,
@@ -50,6 +52,8 @@ import { HistoryComponent } from './screens/history/history.component';
     HttpClientModule,
     DataTablesModule,
     MatDialogModule,
+    ReactiveFormsModule,//new import fo rcalendar
+    MatFormFieldModule,
     BrowserAnimationsModule,
     JwtModule.forRoot({
       config: {

@@ -38,7 +38,7 @@ export class ServerService {
   // Borrowings API
 
   borrowBook(bookId: number, userId: number): Observable<any> {
-    const borrowData = { book_id: bookId, user_id: userId };
+    const borrowData = { book_id: bookId, user_id: userId};
     return this.http.post<any>(this.borrowingApiUrl, borrowData);
   }
 

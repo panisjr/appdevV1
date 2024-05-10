@@ -1,1 +1,7 @@
-<p>returned-books works!</p>
+<form [formGroup]="calendarForm" (ngSubmit)="onSubmit()">
+    <label for="returnDate">Return Date:</label>
+    <select formControlName="returnDate">
+        <option *ngFor="let day of daysInMonth" [value]="day">{{ day }}</option>
+    </select>
+    <button type="submit">Submit</button>
+</form>
