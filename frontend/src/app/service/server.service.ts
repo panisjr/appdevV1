@@ -9,7 +9,7 @@ import { Borrowing } from '../model/borrowing.model';
 export class ServerService {
   private bookApiUrl = 'http://localhost:8000/api/books';
   private borrowingApiUrl = 'http://localhost:8000/api';
-  private apiUrl = 'http://127.0.0.1:8000/api';
+  private apiUrl = 'http://localhost:8000/api';
   constructor(private http: HttpClient) { }
   // Books API
   getBooks(): Observable<Book[]> {
