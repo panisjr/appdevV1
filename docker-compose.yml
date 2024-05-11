@@ -5,13 +5,13 @@ services:
     build:
       context: ./frontend
     ports:
-      - "80:80"
+      - "4200:4200"
 
   backend:
     build:
       context: ./backend
     ports:
-      - "3000:3000"
+      - "8000:8000"
     depends_on:
       - mysql
     environment:
