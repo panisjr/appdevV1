@@ -28,20 +28,6 @@ export class AdminComponent {
     this.serverService.getTodayRegisteredBooksCount().subscribe((response) => {
       this.todayRegisteredBooksCount = response.count;
     });
-    this.serverService.getTodayBorrowedBooksCount().subscribe(
-      (response) => {
-        if (response && response.count !== undefined) {
-          this.todayBorrowedBooksCount = response.count;
-          alert(`Today's registered books count: ${this.todayBorrowedBooksCount}`);
-        } else {
-          console.error('Invalid response from server:', response);
-        }
-      },
-      (error) => {
-        console.error('Error fetching today\'s borrowed books count:', error);
-      }
-    );
-    
     this.titleService.setTitle('Library | Dashboard');
     const userInfo = sessionStorage.getItem('user_info');
     if (userInfo) {

@@ -19,8 +19,5 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Install Laravel dependencies
 RUN composer install
 
-# Expose port 8000 for serving the Laravel app
-EXPOSE 8000
-
 # Start Laravel app
 CMD ["php", "artisan", "serve", "--host", "0.0.0.0"]
