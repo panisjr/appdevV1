@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './screens/login/login.component';
 import { AdminComponent } from './screens/admin/admin.component';
 import { BorrowerComponent } from './screens/borrower/borrower.component';
-import { LibrarianComponent } from './screens/librarian/librarian.component';
 import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -34,7 +33,6 @@ import { HistoryComponent } from './screens/history/history.component';
     LoginComponent,
     AdminComponent,
     BorrowerComponent,
-    LibrarianComponent,
     RegisterComponent,
     AccountsComponent,
     ResetPasswordComponent,
