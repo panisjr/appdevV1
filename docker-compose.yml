@@ -1,4 +1,4 @@
-version: '3.8'
+version: '25.0.3'
 
 services:
   frontend:
@@ -11,7 +11,7 @@ services:
     build:
       context: ./backend
     ports:
-      - "3000:3000"
+      - "8000:8000"
     depends_on:
       - mysql
     environment:
