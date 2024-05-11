@@ -22,6 +22,7 @@ FROM nginx:alpine
 # Copy built frontend assets from previous stage
 COPY --from=frontend-builder /app/frontend/dist /usr/share/nginx/html
 
-
+# Expose the port the app runs on
+EXPOSE 80
 # Start the Angular development server
 CMD ["ng", "serve", "--host", "0.0.0.0"]
