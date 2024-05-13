@@ -1,5 +1,4 @@
-# Use an official PHP image as base
-FROM php:8.2.12-fpm
+FROM php:8.3.0-fpm
 
 # Set working directory for backend
 WORKDIR /app/backend
