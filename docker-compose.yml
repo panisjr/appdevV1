@@ -16,6 +16,9 @@ services:
       - mysql
     environment:
       - DB_HOST=mysql
+      - DB_DATABASE=librarysystem
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
       # Add other environment variables as needed
 
   mysql:
@@ -24,3 +27,15 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=librarysystem
       # Add other MySQL environment variables as needed
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=root
+    depends_on:
+      - mysql

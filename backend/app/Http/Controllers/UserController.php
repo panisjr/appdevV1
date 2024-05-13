@@ -35,7 +35,7 @@ class UserController extends Controller
     }
     public function getTotalAccounts()
     {
-        $totalAccounts =  User::count();
+        $totalAccounts = User::count();
         $totalBooks = Book::count();
         return response()->json(['totalAccounts' => $totalAccounts, 'totalBooks' => $totalBooks]);
     }
